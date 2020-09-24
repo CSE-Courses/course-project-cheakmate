@@ -6,18 +6,35 @@
 	<title> Game | Checkmates for Cheakmates </title>
 	<style></style>
 	<script>
-		var board = [ [,,,,,,,,,], [,,,,,,,,,], [,,,,,,,,,], [,,,,,,,,,], [,,,,,,,,,], [,,,,,,,,,], [,,,,,,,,,], [,,,,,,,,,], [,,,,,,,,,], [,,,,,,,,,],];
-		function start(){
-			//alert("the col length is " + board.length);
-			//alert("the row length is " + board[3].length);
-			
+		var board = [ [null,null,null,null,null,null,null,null,null,null], 
+					[null,null,null,null,null,null,null,null,null,null],
+					[null,null,null,null,null,null,null,null,null,null],
+					[null,null,null,null,null,null,null,null,null,null],
+					[null,null,null,null,null,null,null,null,null,null],
+					[null,null,null,null,null,null,null,null,null,null],
+					[null,null,null,null,null,null,null,null,null,null],
+					[null,null,null,null,null,null,null,null,null,null],
+					[null,null,null,null,null,null,null,null,null,null],
+					[null,null,null,null,null,null,null,null,null,null]
+					];
+		function start(){	
+			alternate = true;
 			for (i = 0; i < board.length; i++){
+			//alert(board[i].length);
 				for(j = 0; j < board[i].length; j++){
 					id = "" + i + j;
-					//alert(id);
 					square = document.getElementById(id);
-					square.innerHTML  = "black " + id;
+					if ( (i*10+j)%2 == 0 && alternate) {
+						square.innerHTML  = "black " + id;
+					}else if ((i*10+j)%2 == 0 && !alternate){
+						square.innerHTML  = "white " + id;
+					}else if (alternate){
+						square.innerHTML  = "white " + id;
+					}else{
+						square.innerHTML  = "black " + id;
+					}
 				}
+			alternate = !alternate;
 			}
 		}
 	</script>
