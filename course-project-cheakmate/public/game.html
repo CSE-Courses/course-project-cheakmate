@@ -22,6 +22,12 @@
 			populate();
 		}
 		
+		function exit(){
+			if (confirm("Are you sure you want to leave the game?")) {
+ 				window.location.href = "index.html";
+ 			}
+		}
+		
 		function populate(){
 			alternate = true;
 			for (i = 0; i < board.length; i++){
@@ -56,7 +62,11 @@
 </head>
 
 <body onload = "start()">
-	<div id = board>
+  	<div class="topbar">
+  		<a onclick = "exit()">Exit Game</a>
+  	</div>
+	<div id = "turn"> <h1>Current turn: {player}</h1></div>
+	<div id = "board">
 		<table>
 			<tr>
 				<td id = "00">00</td>
