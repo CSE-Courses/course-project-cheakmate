@@ -20,21 +20,29 @@
 		function start(){	
 			alternate = true;
 			for (i = 0; i < board.length; i++){
-			//alert(board[i].length);
+				//alternate is true for even false for odd rows
+				if(i % 2 == 0){
+					alternate = true;
+				}else{
+					alternate = false;
+				}
 				for(j = 0; j < board[i].length; j++){
 					id = "" + i + j;
 					square = document.getElementById(id);
-					if ( (i*10+j)%2 == 0 && alternate) {
-						square.innerHTML  = "black " + id;
-					}else if ((i*10+j)%2 == 0 && !alternate){
-						square.innerHTML  = "white " + id;
-					}else if (alternate){
-						square.innerHTML  = "white " + id;
-					}else{
-						square.innerHTML  = "black " + id;
+					
+					if(board[i][j] == null){
+						if ( (i*10+j)%2 == 0 && alternate) {
+							square.innerHTML  = "black " + id;
+						}else if ((i*10+j)%2 == 0 && !alternate){
+							square.innerHTML  = "white " + id;
+						}else if (alternate){
+							square.innerHTML  = "white " + id;
+						}else{
+							square.innerHTML  = "black " + id;
+						}
 					}
+					
 				}
-			alternate = !alternate;
 			}
 		}
 	</script>
