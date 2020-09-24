@@ -6,7 +6,9 @@
 	<title> Game | Checkmates for Cheakmates </title>
 	<style></style>
 	<script>
-		var board = [ [null,null,null,null,null,null,null,null,null,null], 
+		var board;
+		function start(){	
+			board = [ [null,null,null,null,null,null,null,null,null,null], 
 					[null,null,null,null,null,null,null,null,null,null],
 					[null,null,null,null,null,null,null,null,null,null],
 					[null,null,null,null,null,null,null,null,null,null],
@@ -17,7 +19,10 @@
 					[null,null,null,null,null,null,null,null,null,null],
 					[null,null,null,null,null,null,null,null,null,null]
 					];
-		function start(){	
+			populate();
+		}
+		
+		function populate(){
 			alternate = true;
 			for (i = 0; i < board.length; i++){
 				//alternate is true for even false for odd rows
@@ -30,6 +35,7 @@
 					id = "" + i + j;
 					square = document.getElementById(id);
 					
+					//Image decider
 					if(board[i][j] == null){
 						if ( (i*10+j)%2 == 0 && alternate) {
 							square.innerHTML  = "black " + id;
@@ -41,6 +47,7 @@
 							square.innerHTML  = "black " + id;
 						}
 					}
+					//Insert if condition if the square isn't null
 					
 				}
 			}
