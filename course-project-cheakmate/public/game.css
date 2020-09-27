@@ -1,0 +1,60 @@
+#board {
+	width: 1000px;
+	height: 900px;
+	background-color: burlywood;
+	display: inline-block;
+
+}
+
+table, tr, td {
+	width: 700px;
+	height: 85px;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+#turn {
+	text-align: center;
+	font-family: Impact, Charcoal, sans-serif;
+	color: orangered;
+}
+
+#topbar {
+	font-family: 'Times New Roman', Times, serif;
+	font: bold;
+	color: darkred;
+}
+
+/*Temporary solution to changing settings*/
+body{
+	background-image: url('images/Default.jpg');
+	object-fit: cover;
+	background-attachment: fixed;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+hd1, p, div.pref{
+	text-align: center;
+}
+a:link, a:visited{
+	color: black;
+	text-decoration: none;
+}
+div.pref{
+	border-style: solid;
+	border-color: black;
+	padding: 10px 10px 10px 10px;
+	background: rgba(105, 105, 105, 0.5);
+	width: 50%;
+	position: relative;
+	margin: auto;
+}
+.choice{
+	border: none;
+	text-decoration: none;
+	padding: 10px 10px 10px 10px;
+	background: rgba(0, 0, 26, 0.5);
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+p, button:hover{
+	background: rgba(0, 0, 26, 0.75);
+}
