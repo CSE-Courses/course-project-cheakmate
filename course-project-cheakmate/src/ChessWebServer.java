@@ -306,6 +306,8 @@ public class ChessWebServer {
 		imageList.add("/images/Lake.jpg");
 		imageList.add("/images/Galaxy.jpg");
 		imageList.add("/images/img404.png");
+		imageList.add("/images/tile_brown.png");
+		imageList.add("/images/tile_grey.png");
 	}
 
 }
