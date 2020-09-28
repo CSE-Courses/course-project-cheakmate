@@ -46,13 +46,13 @@
 					//Image decider
 					if(board[i][j] == null){
 						if ( (i*10+j)%2 == 0 && alternate) {
-							square.innerHTML  = "black " + id;
+							square.innerHTML  = '<img src = "images/tile_grey.png">';
 						}else if ((i*10+j)%2 == 0 && !alternate){
-							square.innerHTML  = "white " + id;
+							square.innerHTML  = '<img src = "images/tile_brown.png">';
 						}else if (alternate){
-							square.innerHTML  = "white " + id;
+							square.innerHTML  = '<img src = "images/tile_brown.png">';
 						}else{
-							square.innerHTML  = "black " + id;
+							square.innerHTML  = '<img src = "images/tile_grey.png">';
 						}
 					}
 					//Insert if condition if the square isn't null
@@ -89,6 +89,7 @@
 		<a href="index.html"><button type="button" name="button" class="choice"> Main Menu </button></a>
 		</div>
 	<div id = "turn"> <h1>Current turn: {player}</h1></div>
+	
 	<div id = "board">
 		<table>
 			<tr>
