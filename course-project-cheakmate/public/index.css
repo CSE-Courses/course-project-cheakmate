@@ -4,38 +4,31 @@ body {
   font-family: 'tetris';
 }
 .start {
-	text-align: center;
-	display: inline-block;
-	margin: 5px;
-	font-weight: bold;
-	padding: 10px 0 10px 10px ;
 	background-color: orange;
-	color: brown;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	-o-border-radius: 10px;
-	border-radius: 10px;
-	box-shadow: 0 0.2 orange;
-	cursor: pointer;
+	border: black;
+	border-radius: 30%;
+  	color: black;
+  	padding: 10px 30px;
+  	text-align: center;
+  	display: inline-block;
+	font-size: 18px;
+  	transition-duration: 0.5s;
+}
+.start:hover {
+	color: white;
 }
 
 .setting {
-	text-align: center;
-	display: inline-block;
-	margin: 5px;
-	font-weight: bold;
-	padding: 10px 0 10px 10px ;
-	background-color: #800020;
-	color: brown;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	-o-border-radius: 10px;
-	border-radius: 10px;
-	box-shadow: 0 0.2 #800020;
-	cursor: pointer;
+	background-color: #FF6347; /* Tomato */
+	border: black;
+	border-radius: 30%;
+  	color: black;
+  	padding: 10px 30px;
+  	text-align: center;
+  	display: inline-block;
+	font-size: 18px;
+  	transition-duration: 0.5s;
 }
-
-.setting:active, .start:active {
-	box-shadow: none;
-	position: center;
+.setting:hover {
+	color: white;
 }

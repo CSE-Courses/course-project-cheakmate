@@ -1,9 +1,10 @@
 #board {
-	width: 1000px;
-	height: 900px;
+	width: 1033px;
+	height: 1100px;
 	background-color: burlywood;
-	display: inline-block;
-
+	display: center;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 table, tr, td {
@@ -11,6 +12,9 @@ table, tr, td {
 	height: 85px;
 	border: 1px solid black;
 	border-collapse: collapse;
+	display: center;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #turn {
@@ -19,10 +23,21 @@ table, tr, td {
 	color: orangered;
 }
 
-#topbar {
-	font-family: 'Times New Roman', Times, serif;
-	font: bold;
-	color: darkred;
+.topbar {
+	background-color: lightskyblue;
+	border: black;
+	border-radius: 12px;
+  	color: black;
+  	padding: 10px 30px;
+  	text-align: center;
+  	display: inline-block;
+	font-size: 18px;
+  	transition-duration: 0.5s;
+}
+
+.topbar:hover {
+	background-color: darkblue;
+	color: white;
 }
 
 /*Temporary solution to changing settings*/
@@ -48,13 +63,14 @@ div.pref{
 	position: relative;
 	margin: auto;
 }
-.choice{
+.choice {
 	border: none;
 	text-decoration: none;
 	padding: 10px 10px 10px 10px;
 	background: rgba(0, 0, 26, 0.5);
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
+
 p, button:hover{
 	background: rgba(0, 0, 26, 0.75);
 }

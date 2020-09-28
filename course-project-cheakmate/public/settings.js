@@ -1,7 +1,6 @@
 //@Author: Kat
 function center(){
-  document.getElementById('board').style.textAlign = "center";
-  document.getElementById('board').style.margin = "auto";
+  document.getElementById('board').style.float = "none";
 }
 
 function toLeft(){

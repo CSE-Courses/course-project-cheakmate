@@ -1,0 +1,22 @@
+/* Could not get the image to work with css so it had to be inline with the html stuff
+ Wanted the background image to be the body but the image size was too big and couldn't fix it */
+ 
+/*body {
+	background-image: url('https://images-na.ssl-images-amazon.com/images/I/61jzrs62MvL._AC_SL1500_.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size = 10% 10%;
+}
+*/
+
+img {
+	display: block;
+  	margin-left: auto;
+  	margin-right: auto;
+	height: 45%;
+	width: 45%;
+}
+
+.center-button{
+	text-align: center;
+}
