@@ -46,13 +46,13 @@
 					//Image decider
 					if(board[i][j] == null){
 						if ( (i*10+j)%2 == 0 && alternate) {
-							square.innerHTML  = "black " + id;
+							square.innerHTML  = '<img src = "images/tile_grey.png">';
 						}else if ((i*10+j)%2 == 0 && !alternate){
-							square.innerHTML  = "white " + id;
+							square.innerHTML  = '<img src = "images/tile_brown.png">';
 						}else if (alternate){
-							square.innerHTML  = "white " + id;
+							square.innerHTML  = '<img src = "images/tile_brown.png">';
 						}else{
-							square.innerHTML  = "black " + id;
+							square.innerHTML  = '<img src = "images/tile_grey.png">';
 						}
 					}
 					//Insert if condition if the square isn't null
@@ -67,28 +67,31 @@
   	<div class="topbar">
   		<a onclick = "exit()">Exit Game</a>
   	</div>
+
+		<!--Temporary solution to changing settings-->
 		<div class="pref">
 		<h1> SETTINGS </h1>
 
 		<hr>
 
 		<p>Adjust Board Screen</p>
-		<button type="button" name="button" onclick="center()" class="choice"> Default </button>
+		<button type="button" name="button" onclick="toCenter()" class="choice"> Default </button>
 		<button type="button" name="button" onclick="toLeft()" class="choice"> Adjust Board Left </button>
 		<button type="button" name="button" onclick="toRight()" class="choice"> Adjust Board Right </button>
 
 		<br>
 
 		<p>Adjust Background</p>
-		<button type="button" name="button" onclick="chessBg()" class="choice"> Default BG </button>
-		<button type="button" name="button" onclick="toBg1()" class="choice"> Lake BG </button>
-		<button type="button" name="button" onclick="toBg2()" class="choice"> Galaxy BG </button>
+		<button type="button" name="button" onclick="toChessBg()" class="choice"> Default BG </button>
+		<button type="button" name="button" onclick="toLakeBg()" class="choice"> Lake BG </button>
+		<button type="button" name="button" onclick="toGalaxyBg()" class="choice"> Galaxy BG </button>
 
 		<hr><br>
 
 		<a href="index.html"><button type="button" name="button" class="choice"> Main Menu </button></a>
 		</div>
 	<div id = "turn"> <h1>Current turn: {player}</h1></div>
+
 	<div id = "board">
 		<table>
 			<tr>
@@ -213,6 +216,6 @@
 			</tr>
 		</table>
 	</div>
-
-<!--Temporary solution to changing settings-->
 </body>
+
+</html>
