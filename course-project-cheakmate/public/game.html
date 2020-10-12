@@ -33,7 +33,7 @@
 		function populate(){
 			alternate = true;
 			for (i = 0; i < board.length; i++){
-				//alternate is true for even false for odd rows
+				/*alternate is true for even false for odd rows*/
 				if(i % 2 == 0){
 					alternate = true;
 				}else{
@@ -43,23 +43,89 @@
 					id = "" + i + j;
 					square = document.getElementById(id);
 
-					//Image decider
+					/*Image decider*/
 					if(board[i][j] == null){
-						if ( (i*10+j)%2 == 0 && alternate) {
-							square.innerHTML  = '<img src = "images/tile_grey.png">';
+						/*starting pieces get priority placing*/
+						/*starting for black*/
+						if(i==0 && j==0){
+							square.innerHTML = '<img src = "images/sprites/lob.png">';
+						}
+						else if(i==0 && j==1){
+							square.innerHTML = '<img src = "images/sprites/dkb.png">';
+						}
+						else if(i==0 && j==2){
+							square.innerHTML = '<img src = "images/sprites/lhb.png">';
+						}
+						else if(i==0 && j==3){
+							square.innerHTML = '<img src = "images/sprites/dgb.png">';
+						}
+						else if(i==0 && j==4){
+							square.innerHTML = '<img src = "images/sprites/lqb.png">';
+						}
+						else if(i==0 && j==5){
+							square.innerHTML = '<img src = "images/sprites/dhb.png">';
+						}
+						else if(i==0 && j==6){
+							square.innerHTML = '<img src = "images/sprites/lkb.png">';
+						}
+						else if(i==0 && j==7){
+							square.innerHTML = '<img src = "images/sprites/dob.png">';
+						}
+						else if(i==1 && j%2==0){
+							square.innerHTML = '<img src = "images/sprites/dpb.png">';
+						}
+						else if(i==1 && j%2==1){
+							square.innerHTML = '<img src = "images/sprites/lpb.png">';
+						}
+						
+						/*starting for white*/
+						else if(i==7 && j==0){
+							square.innerHTML = '<img src = "images/sprites/dow.png">';
+						}
+						else if(i==7 && j==1){
+							square.innerHTML = '<img src = "images/sprites/lkw.png">';
+						}
+						else if(i==7 && j==2){
+							square.innerHTML = '<img src = "images/sprites/dhw.png">';
+						}
+						else if(i==7 && j==3){
+							square.innerHTML = '<img src = "images/sprites/lgw.png">';
+						}
+						else if(i==7 && j==4){
+							square.innerHTML = '<img src = "images/sprites/dqw.png">';
+						}
+						else if(i==7 && j==5){
+							square.innerHTML = '<img src = "images/sprites/lhw.png">';
+						}
+						else if(i==7 && j==6){
+							square.innerHTML = '<img src = "images/sprites/dkw.png">';
+						}
+						else if(i==7 && j==7){
+							square.innerHTML = '<img src = "images/sprites/low.png">';
+						}
+						else if(i==6 && j%2==0){
+							square.innerHTML = '<img src = "images/sprites/lpw.png">';
+						}
+						else if(i==6 && j%2==1){
+							square.innerHTML = '<img src = "images/sprites/dpw.png">';
+						}
+						/*end of starting pieces*/
+						
+						else if ( (i*10+j)%2 == 0 && alternate) {
+							square.innerHTML  = '<img src = "images/sprites/l.png">';
 						}else if ((i*10+j)%2 == 0 && !alternate){
-							square.innerHTML  = '<img src = "images/tile_brown.png">';
+							square.innerHTML  = '<img src = "images/sprites/d.png">';
 						}else if (alternate){
-							square.innerHTML  = '<img src = "images/tile_brown.png">';
+							square.innerHTML  = '<img src = "images/sprites/d.png">';
 						}else{
-							square.innerHTML  = '<img src = "images/tile_grey.png">';
+							square.innerHTML  = '<img src = "images/sprites/l.png">';
 						}
 					}
-					//Insert if condition if the square isn't null
-
+					/*Insert if condition if the square isn't null*/
 				}
 			}
 		}
+
 	</script>
 </head>
 
