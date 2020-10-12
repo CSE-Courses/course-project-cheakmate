@@ -46,13 +46,13 @@
 					/*Image decider*/
 					if(board[i][j] == null){
 						if ( (i*10+j)%2 == 0 && alternate) {
-							square.innerHTML  = '<img src = "images/tile_grey.png">';
+							square.innerHTML  = '<img src = "images/sprites/d.png">';
 						}else if ((i*10+j)%2 == 0 && !alternate){
-							square.innerHTML  = '<img src = "images/tile_brown.png">';
+							square.innerHTML  = '<img src = "images/sprites/l.png">';
 						}else if (alternate){
-							square.innerHTML  = '<img src = "images/tile_brown.png">';
+							square.innerHTML  = '<img src = "images/sprites/l.png">';
 						}else{
-							square.innerHTML  = '<img src = "images/tile_grey.png">';
+							square.innerHTML  = '<img src = "images/sprites/d.png">';
 						}
 					}
 					/*Insert if condition if the square isn't null*/
