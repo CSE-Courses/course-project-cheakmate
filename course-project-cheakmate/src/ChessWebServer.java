@@ -133,7 +133,7 @@ public class ChessWebServer {
 		System.out.println("The path being searched for is :" + path);
 		
 		//All 200 properly typed out paths
-		if(path.endsWith(".html")) {
+		if(path.endsWith(".html") || path.endsWith("/")) {
 			String fileData = "";
 			if(fileList.containsKey(path)) {
 				output += STATUS200 + TEXT_HTML + NO_SNIFF;
@@ -293,6 +293,7 @@ public class ChessWebServer {
 		//List of files
 		fileList = new HashMap<String, String>();
 		fileList.put("/index.html", "public/index.html");
+		fileList.put("/", "public/index.html");
 		fileList.put("/game.html", "public/game.html");
 		fileList.put("/settings.html", "public/settings.html");
 		fileList.put("/index.css", "public/index.css");
