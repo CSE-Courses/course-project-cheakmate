@@ -213,7 +213,7 @@ public class ChessWebServer {
 		else {index = "images/img404png"; type = "png";}
 		
 		//check to see if image exist in imageList
-		if(!imageList.contains(index)) {index = "img404.png"; type = "png";}
+		if(!imageList.contains(index)) {index = "/images/img404.png"; type = "png";}
 		
 		//Turns the image 
 		BufferedImage bufferedReader = ImageIO.read(new File("public" + index));
@@ -306,8 +306,8 @@ public class ChessWebServer {
 		imageList.add("/images/Lake.jpg");
 		imageList.add("/images/Galaxy.jpg");
 		imageList.add("/images/img404.png");
-		imageList.add("/images/tile_brown.png");
-		imageList.add("/images/tile_grey.png");
+		//imageList.add("/images/tile_brown.png");
+		//imageList.add("/images/tile_grey.png");
 	}
 
 }
