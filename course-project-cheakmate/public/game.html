@@ -47,66 +47,66 @@
 					if(board[i][j] == null){
 						/*starting pieces get priority placing*/
 						/*starting for black*/
-						if(i==0 && j==0){
-							square.innerHTML = '<img src = "images/sprites/lob.png">';
-						}
-						else if(i==0 && j==1){
-							square.innerHTML = '<img src = "images/sprites/dkb.png">';
+						if(i==0 && j==1){
+							square.innerHTML = '<img src = "images/sprites/dob.png">';
 						}
 						else if(i==0 && j==2){
-							square.innerHTML = '<img src = "images/sprites/lhb.png">';
+							square.innerHTML = '<img src = "images/sprites/lkb.png">';
 						}
 						else if(i==0 && j==3){
-							square.innerHTML = '<img src = "images/sprites/dgb.png">';
+							square.innerHTML = '<img src = "images/sprites/dhb.png">';
 						}
 						else if(i==0 && j==4){
 							square.innerHTML = '<img src = "images/sprites/lqb.png">';
 						}
 						else if(i==0 && j==5){
-							square.innerHTML = '<img src = "images/sprites/dhb.png">';
+							square.innerHTML = '<img src = "images/sprites/dgb.png">';
 						}
 						else if(i==0 && j==6){
-							square.innerHTML = '<img src = "images/sprites/lkb.png">';
+							square.innerHTML = '<img src = "images/sprites/lhb.png">';
 						}
 						else if(i==0 && j==7){
-							square.innerHTML = '<img src = "images/sprites/dob.png">';
+							square.innerHTML = '<img src = "images/sprites/dkb.png">';
 						}
-						else if(i==1 && j%2==0){
+						else if(i==0 && j==8){
+							square.innerHTML = '<img src = "images/sprites/lob.png">';
+						}
+						else if(i==1 && j%2==0  && j!=0 && j!=9){
 							square.innerHTML = '<img src = "images/sprites/dpb.png">';
 						}
-						else if(i==1 && j%2==1){
+						else if(i==1 && j%2==1  && j!=0 && j!=9){
 							square.innerHTML = '<img src = "images/sprites/lpb.png">';
 						}
 						
 						/*starting for white*/
-						else if(i==7 && j==0){
-							square.innerHTML = '<img src = "images/sprites/dow.png">';
-						}
-						else if(i==7 && j==1){
-							square.innerHTML = '<img src = "images/sprites/lkw.png">';
-						}
-						else if(i==7 && j==2){
-							square.innerHTML = '<img src = "images/sprites/dhw.png">';
-						}
-						else if(i==7 && j==3){
-							square.innerHTML = '<img src = "images/sprites/lgw.png">';
-						}
-						else if(i==7 && j==4){
-							square.innerHTML = '<img src = "images/sprites/dqw.png">';
-						}
-						else if(i==7 && j==5){
-							square.innerHTML = '<img src = "images/sprites/lhw.png">';
-						}
-						else if(i==7 && j==6){
-							square.innerHTML = '<img src = "images/sprites/dkw.png">';
-						}
-						else if(i==7 && j==7){
+						else if(i==9 && j==1){
 							square.innerHTML = '<img src = "images/sprites/low.png">';
 						}
-						else if(i==6 && j%2==0){
+						else if(i==9 && j==2){
+							square.innerHTML = '<img src = "images/sprites/dkw.png">';
+						}
+						else if(i==9 && j==3){
+							square.innerHTML = '<img src = "images/sprites/lhw.png">';
+						}
+						else if(i==9 && j==4){
+							square.innerHTML = '<img src = "images/sprites/dqw.png">';
+						}
+						else if(i==9 && j==5){
+							square.innerHTML = '<img src = "images/sprites/lgw.png">';
+						}
+						else if(i==9 && j==6){
+							square.innerHTML = '<img src = "images/sprites/dhw.png">';
+						}
+						else if(i==9 && j==7){
+							square.innerHTML = '<img src = "images/sprites/lkw.png">';
+						}
+						else if(i==9 && j==8){
+							square.innerHTML = '<img src = "images/sprites/dow.png">';
+						}
+						else if(i==8 && j%2==0 && j!=0 && j!=9){
 							square.innerHTML = '<img src = "images/sprites/lpw.png">';
 						}
-						else if(i==6 && j%2==1){
+						else if(i==8 && j%2==1 && j!=0 && j!=9){
 							square.innerHTML = '<img src = "images/sprites/dpw.png">';
 						}
 						/*end of starting pieces*/
