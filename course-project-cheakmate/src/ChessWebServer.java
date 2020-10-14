@@ -333,6 +333,7 @@ public class ChessWebServer {
 		imageList.add("/images/sprites/lhb.png");
 		imageList.add("/images/sprites/lhw.png");
 		imageList.add("/images/sprites/lkw.png");
+		imageList.add("/images/sprites/lkb.png");
 		imageList.add("/images/sprites/lob.png");
 		imageList.add("/images/sprites/low.png");
 		imageList.add("/images/sprites/lpb.png");
