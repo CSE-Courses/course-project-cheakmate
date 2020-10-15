@@ -66,7 +66,7 @@ function populate() {
 					square.innerHTML = '<img src = "images/sprites/dhw.png">';
 				} else if (i == 9 && j == 7) {
 					square.innerHTML = '<img src = "images/sprites/lkw.png">';
-				} else if(i == 9 && j == 8) {
+				} else if (i == 9 && j == 8) {
 					square.innerHTML = '<img src = "images/sprites/dow.png">';
 				} else if (i == 8 && j % 2 == 0 && j != 0 && j != 9) {
 					square.innerHTML = '<img src = "images/sprites/lpw.png">';
@@ -92,39 +92,39 @@ function populate() {
 //chess pieces with their id's on the board with their correct array index locations
 // White and Black Rooks
 console.log(board[0][1] = "dob");
-console.log(board[0][8] = "dow");
-console.log(board[9][1] = "lob");
-console.log(board[9][8] = "low");
+console.log(board[9][8] = "dow");
+console.log(board[0][8] = "lob");
+console.log(board[9][1] = "low");
 
 // White and Black Knights
-console.log(board[0][2] = "dkw");
+console.log(board[9][2] = "dkw");
 console.log(board[0][7] = "dkb");
-console.log(board[9][2] = "lkw");
-console.log(board[9][7] = "lkb");
+console.log(board[9][7] = "lkw");
+console.log(board[0][2] = "lkb");
 
 //White and Black Bishops
 console.log(board[0][3] = "dhb");
-console.log(board[0][6] = "dhw");
-console.log(board[9][3] = "lhb");
-console.log(board[9][6] = "lhw");
+console.log(board[9][6] = "dhw");
+console.log(board[0][6] = "lhb");
+console.log(board[9][3] = "lhw");
 
 //White and Black Queens
-console.log(board[0][4] = "dqw");
-console.log(board[9][4] = "lqw");
+console.log(board[9][4] = "dqw");
+console.log(board[0][4] = "lqb");
 
 //White and Black Kings
 console.log(board[0][5] = "dgb");
-console.log(board[9][5] = "lgb");
+console.log(board[9][5] = "lgw");
 
 //White and Black Pawns
-console.log(board[1][1] = "dpb");
-console.log(board[1][2] = "dpw");
-console.log(board[1][3] = "dpb");
-console.log(board[1][4] = "dpw");
-console.log(board[1][5] = "dpb");
-console.log(board[1][6] = "dpw");
-console.log(board[1][7] = "dpb");
-console.log(board[1][8] = "dpw");
+console.log(board[1][1] = "dpw");
+console.log(board[1][2] = "dpb");
+console.log(board[1][3] = "dpw");
+console.log(board[1][4] = "dpb");
+console.log(board[1][5] = "dpw");
+console.log(board[1][6] = "dpb");
+console.log(board[1][7] = "dpw");
+console.log(board[1][8] = "dpb");
 console.log(board[8][1] = "lpb");
 console.log(board[8][2] = "lpw");
 console.log(board[8][3] = "lpb");
