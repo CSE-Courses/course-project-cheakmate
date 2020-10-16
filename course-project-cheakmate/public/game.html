@@ -57,10 +57,12 @@
 							square.innerHTML = '<img src = "images/sprites/dhb.png">';
 						}
 						else if(i==0 && j==4){
-							square.innerHTML = '<img src = "images/sprites/lqb.png">';
+							k = i;
+							m = j;
+							square.innerHTML = '<img id = "black_queen" src = "images/sprites/lqb.png" onclick = "myfunction(k,m,id)">';
 						}
 						else if(i==0 && j==5){
-							square.innerHTML = '<img src = "images/sprites/dgb.png">';
+							square.innerHTML = '<img id = "black_king" src = "images/sprites/dgb.png">';
 						}
 						else if(i==0 && j==6){
 							square.innerHTML = '<img src = "images/sprites/lhb.png">';
@@ -123,6 +125,21 @@
 					}
 					/*Insert if condition if the square isn't null*/
 					
+				}
+			}
+		}
+		function myfunction(k,m, id){
+			window.alert(k + ", " + m + ", " + id);
+			if (id = "black_queen") 
+        	{
+				// this is the format for changing the image
+				// document.getElementById(id).src ="images/sprites/l.png";
+				for(i=0; i<board.length; i++){
+					for(j=0; j<board.length; j++){
+						if(i == j){
+							document.getElementById("01").src ="images/sprites/l.png";
+						}
+					}
 				}
 			}
 		}
