@@ -1,3 +1,5 @@
+<!--@Author: Alam-->
+<!--@Editor: Kat-->
 <!DOCTYPE html>
 <html lang = "en">
 
@@ -5,133 +7,12 @@
 	<meta charset = "UTF-8">
 	<title> Game | Checkmates for Cheakmates </title>
 	<link rel = "stylesheet" href = "game.css">
+	<script src="game.js"></script>
+	<!--<script src="pawn.js"></script>-->
 	<script src="settings.js"></script>
-	<script src="ChessGameBoard.js"></script>
-	<style></style>
-	<script>
-		var board;
-		function start(){
-			board = [ [null,null,null,null,null,null,null,null,null,null],
-					[null,null,null,null,null,null,null,null,null,null],
-					[null,null,null,null,null,null,null,null,null,null],
-					[null,null,null,null,null,null,null,null,null,null],
-					[null,null,null,null,null,null,null,null,null,null],
-					[null,null,null,null,null,null,null,null,null,null],
-					[null,null,null,null,null,null,null,null,null,null],
-					[null,null,null,null,null,null,null,null,null,null],
-					[null,null,null,null,null,null,null,null,null,null],
-					[null,null,null,null,null,null,null,null,null,null]
-					];
-			populate();
-		}
-
-		function exit(){
-			if (confirm("Are you sure you want to leave the game?")) {
- 				window.location.href = "index.html";
- 			}
-		}
-
-		function populate(){
-			alternate = true;
-			for (i = 0; i < board.length; i++){
-				/*alternate is true for even false for odd rows*/
-				if(i % 2 == 0){
-					alternate = true;
-				}else{
-					alternate = false;
-				}
-				for(j = 0; j < board[i].length; j++){
-					id = "" + i + j;
-					square = document.getElementById(id);
-
-					/*Image decider*/
-					if(board[i][j] == null){
-						/*starting pieces get priority placing*/
-						/*starting for black*/
-						if(i==0 && j==1){
-							square.innerHTML = '<img src = "images/sprites/dob.png">';
-						}
-						else if(i==0 && j==2){
-							square.innerHTML = '<img src = "images/sprites/lkb.png">';
-						}
-						else if(i==0 && j==3){
-							square.innerHTML = '<img src = "images/sprites/dhb.png">';
-						}
-						else if(i==0 && j==4){
-							square.innerHTML = '<img src = "images/sprites/lqb.png">';
-						}
-						else if(i==0 && j==5){
-							square.innerHTML = '<img src = "images/sprites/dgb.png">';
-						}
-						else if(i==0 && j==6){
-							square.innerHTML = '<img src = "images/sprites/lhb.png">';
-						}
-						else if(i==0 && j==7){
-							square.innerHTML = '<img src = "images/sprites/dkb.png">';
-						}
-						else if(i==0 && j==8){
-							square.innerHTML = '<img src = "images/sprites/lob.png">';
-						}
-						else if(i==1 && j%2==0  && j!=0 && j!=9){
-							square.innerHTML = '<img src = "images/sprites/dpb.png">';
-						}
-						else if(i==1 && j%2==1  && j!=0 && j!=9){
-							square.innerHTML = '<img src = "images/sprites/lpb.png">';
-						}
-						
-						/*starting for white*/
-						else if(i==9 && j==1){
-							square.innerHTML = '<img src = "images/sprites/low.png">';
-						}
-						else if(i==9 && j==2){
-							square.innerHTML = '<img src = "images/sprites/dkw.png">';
-						}
-						else if(i==9 && j==3){
-							square.innerHTML = '<img src = "images/sprites/lhw.png">';
-						}
-						else if(i==9 && j==4){
-							square.innerHTML = '<img src = "images/sprites/dqw.png">';
-						}
-						else if(i==9 && j==5){
-							square.innerHTML = '<img src = "images/sprites/lgw.png">';
-						}
-						else if(i==9 && j==6){
-							square.innerHTML = '<img src = "images/sprites/dhw.png">';
-						}
-						else if(i==9 && j==7){
-							square.innerHTML = '<img src = "images/sprites/lkw.png">';
-						}
-						else if(i==9 && j==8){
-							square.innerHTML = '<img src = "images/sprites/dow.png">';
-						}
-						else if(i==8 && j%2==0 && j!=0 && j!=9){
-							square.innerHTML = '<img src = "images/sprites/lpw.png">';
-						}
-						else if(i==8 && j%2==1 && j!=0 && j!=9){
-							square.innerHTML = '<img src = "images/sprites/dpw.png">';
-						}
-						/*end of starting pieces*/
-						
-						else if ( (i*10+j)%2 == 0 && alternate) {
-							square.innerHTML  = '<img src = "images/sprites/l.png">';
-						}else if ((i*10+j)%2 == 0 && !alternate){
-							square.innerHTML  = '<img src = "images/sprites/d.png">';
-						}else if (alternate){
-							square.innerHTML  = '<img src = "images/sprites/d.png">';
-						}else{
-							square.innerHTML  = '<img src = "images/sprites/l.png">';
-						}
-					}
-					/*Insert if condition if the square isn't null*/
-					
-				}
-			}
-		}
-
-	</script>
 </head>
 
-<body onload = "start()">
+<body onload = "initialize()">
   	<div class="topbar">
   		<a onclick = "exit()">Exit Game</a>
   	</div>
@@ -158,128 +39,130 @@
 
 		<a href="index.html"><button type="button" name="button" class="choice"> Main Menu </button></a>
 		</div>
-	<div id = "turn"> <h1>Current turn: {player}</h1></div>
+		<!--End of Temporary solution to changing settings-->
+
+	<div id = "turn"> <h1>Current Turn: {player}</h1></div>
 	<div id = "board">
 		<table>
 			<tr>
-				<td id = "00">00</td>
-				<td id = "01">01</td>
-				<td id = "02">02</td>
-				<td id = "03">03</td>
-				<td id = "04">04</td>
-				<td id = "05">05</td>
-				<td id = "06">06</td>
-				<td id = "07">07</td>
-				<td id = "08">08</td>
-				<td id = "09">09</td>
+				<td><img id = "00" src="//:0" alt="null" onclick="runGame('00')"></td>
+				<td><img id = "01" src="//:0" alt="null" onclick="runGame('01')"></td>
+				<td><img id = "02" src="//:0" alt="null" onclick="runGame('02')"></td>
+				<td><img id = "03" src="//:0" alt="null" onclick="runGame('03')"></td>
+				<td><img id = "04" src="//:0" alt="null" onclick="runGame('04')"></td>
+				<td><img id = "05" src="//:0" alt="null" onclick="runGame('05')"></td>
+				<td><img id = "06" src="//:0" alt="null" onclick="runGame('06')"></td>
+				<td><img id = "07" src="//:0" alt="null" onclick="runGame('07')"></td>
+				<td><img id = "08" src="//:0" alt="null" onclick="runGame('08')"></td>
+				<td><img id = "09" src="//:0" alt="null" onclick="runGame('09')"></td>
 			</tr>
 			<tr>
-				<td id = "10">10</td>
-				<td id = "11">11</td>
-				<td id = "12">12</td>
-				<td id = "13">13</td>
-				<td id = "14">14</td>
-				<td id = "15">15</td>
-				<td id = "16">16</td>
-				<td id = "17">17</td>
-				<td id = "18">18</td>
-				<td id = "19">19</td>
+				<td><img id = "10" src="//:0" alt="null" onclick="runGame('10')"></td>
+				<td><img id = "11" src="//:0" alt="null" onclick="runGame('11')"></td>
+				<td><img id = "12" src="//:0" alt="null" onclick="runGame('12')"></td>
+				<td><img id = "13" src="//:0" alt="null" onclick="runGame('13')"></td>
+				<td><img id = "14" src="//:0" alt="null" onclick="runGame('14')"></td>
+				<td><img id = "15" src="//:0" alt="null" onclick="runGame('15')"></td>
+				<td><img id = "16" src="//:0" alt="null" onclick="runGame('16')"></td>
+				<td><img id = "17" src="//:0" alt="null" onclick="runGame('17')"></td>
+				<td><img id = "18" src="//:0" alt="null" onclick="runGame('18')"></td>
+				<td><img id = "19" src="//:0" alt="null" onclick="runGame('19')"></td>
 			</tr>
 			<tr>
-				<td id = "20">20</td>
-				<td id = "21">21</td>
-				<td id = "22">22</td>
-				<td id = "23">23</td>
-				<td id = "24">24</td>
-				<td id = "25">25</td>
-				<td id = "26">26</td>
-				<td id = "27">27</td>
-				<td id = "28">28</td>
-				<td id = "29">29</td>
+				<td><img id = "20" src="//:0" alt="null" onclick="runGame('20')"></td>
+				<td><img id = "21" src="//:0" alt="null" onclick="runGame('21')"></td>
+				<td><img id = "22" src="//:0" alt="null" onclick="runGame('22')"></td>
+				<td><img id = "23" src="//:0" alt="null" onclick="runGame('23')"></td>
+				<td><img id = "24" src="//:0" alt="null" onclick="runGame('24')"></td>
+				<td><img id = "25" src="//:0" alt="null" onclick="runGame('25')"></td>
+				<td><img id = "26" src="//:0" alt="null" onclick="runGame('26')"></td>
+				<td><img id = "27" src="//:0" alt="null" onclick="runGame('27')"></td>
+				<td><img id = "28" src="//:0" alt="null" onclick="runGame('28')"></td>
+				<td><img id = "29" src="//:0" alt="null" onclick="runGame('29')"></td>
 			</tr>
 			<tr>
-				<td id = "30">30</td>
-				<td id = "31">31</td>
-				<td id = "32">32</td>
-				<td id = "33">33</td>
-				<td id = "34">34</td>
-				<td id = "35">35</td>
-				<td id = "36">36</td>
-				<td id = "37">37</td>
-				<td id = "38">38</td>
-				<td id = "39">39</td>
+				<td><img id = "30" src="//:0" alt="null" onclick="runGame('30')"></td>
+				<td><img id = "31" src="//:0" alt="null" onclick="runGame('31')"></td>
+				<td><img id = "32" src="//:0" alt="null" onclick="runGame('32')"></td>
+				<td><img id = "33" src="//:0" alt="null" onclick="runGame('33')"></td>
+				<td><img id = "34" src="//:0" alt="null" onclick="runGame('34')"></td>
+				<td><img id = "35" src="//:0" alt="null" onclick="runGame('35')"></td>
+				<td><img id = "36" src="//:0" alt="null" onclick="runGame('36')"></td>
+				<td><img id = "37" src="//:0" alt="null" onclick="runGame('37')"></td>
+				<td><img id = "38" src="//:0" alt="null" onclick="runGame('38')"></td>
+				<td><img id = "39" src="//:0" alt="null" onclick="runGame('39')"></td>
 			</tr>
 			<tr>
-				<td id = "40">40</td>
-				<td id = "41">41</td>
-				<td id = "42">42</td>
-				<td id = "43">43</td>
-				<td id = "44">44</td>
-				<td id = "45">45</td>
-				<td id = "46">46</td>
-				<td id = "47">47</td>
-				<td id = "48">48</td>
-				<td id = "49">49</td>
+				<td><img id = "40" src="//:0" alt="null" onclick="runGame('40')"></td>
+				<td><img id = "41" src="//:0" alt="null" onclick="runGame('41')"></td>
+				<td><img id = "42" src="//:0" alt="null" onclick="runGame('42')"></td>
+				<td><img id = "43" src="//:0" alt="null" onclick="runGame('43')"></td>
+				<td><img id = "44" src="//:0" alt="null" onclick="runGame('44')"></td>
+				<td><img id = "45" src="//:0" alt="null" onclick="runGame('45')"></td>
+				<td><img id = "46" src="//:0" alt="null" onclick="runGame('46')"></td>
+				<td><img id = "47" src="//:0" alt="null" onclick="runGame('47')"></td>
+				<td><img id = "48" src="//:0" alt="null" onclick="runGame('48')"></td>
+				<td><img id = "49" src="//:0" alt="null" onclick="runGame('49')"></td>
 			</tr>
 			<tr>
-				<td id = "50">50</td>
-				<td id = "51">51</td>
-				<td id = "52">52</td>
-				<td id = "53">53</td>
-				<td id = "54">54</td>
-				<td id = "55">55</td>
-				<td id = "56">56</td>
-				<td id = "57">57</td>
-				<td id = "58">58</td>
-				<td id = "59">59</td>
+				<td><img id = "50" src="//:0" alt="null" onclick="runGame('50')"></td>
+				<td><img id = "51" src="//:0" alt="null" onclick="runGame('51')"></td>
+				<td><img id = "52" src="//:0" alt="null" onclick="runGame('52')"></td>
+				<td><img id = "53" src="//:0" alt="null" onclick="runGame('53')"></td>
+				<td><img id = "54" src="//:0" alt="null" onclick="runGame('54')"></td>
+				<td><img id = "55" src="//:0" alt="null" onclick="runGame('55')"></td>
+				<td><img id = "56" src="//:0" alt="null" onclick="runGame('56')"></td>
+				<td><img id = "57" src="//:0" alt="null" onclick="runGame('57')"></td>
+				<td><img id = "58" src="//:0" alt="null" onclick="runGame('58')"></td>
+				<td><img id = "59" src="//:0" alt="null" onclick="runGame('59')"></td>
 			</tr>
 			<tr>
-				<td id = "60">60</td>
-				<td id = "61">61</td>
-				<td id = "62">62</td>
-				<td id = "63">63</td>
-				<td id = "64">64</td>
-				<td id = "65">65</td>
-				<td id = "66">66</td>
-				<td id = "67">67</td>
-				<td id = "68">68</td>
-				<td id = "69">69</td>
+				<td><img id = "60" src="//:0" alt="null" onclick="runGame('60')"></td>
+				<td><img id = "61" src="//:0" alt="null" onclick="runGame('61')"></td>
+				<td><img id = "62" src="//:0" alt="null" onclick="runGame('62')"></td>
+				<td><img id = "63" src="//:0" alt="null" onclick="runGame('63')"></td>
+				<td><img id = "64" src="//:0" alt="null" onclick="runGame('64')"></td>
+				<td><img id = "65" src="//:0" alt="null" onclick="runGame('65')"></td>
+				<td><img id = "66" src="//:0" alt="null" onclick="runGame('66')"></td>
+				<td><img id = "67" src="//:0" alt="null" onclick="runGame('67')"></td>
+				<td><img id = "68" src="//:0" alt="null" onclick="runGame('68')"></td>
+				<td><img id = "69" src="//:0" alt="null" onclick="runGame('69')"></td>
 			</tr>
 			<tr>
-				<td id = "70">70</td>
-				<td id = "71">71</td>
-				<td id = "72">72</td>
-				<td id = "73">73</td>
-				<td id = "74">74</td>
-				<td id = "75">75</td>
-				<td id = "76">76</td>
-				<td id = "77">77</td>
-				<td id = "78">78</td>
-				<td id = "79">79</td>
+				<td><img id = "70" src="//:0" alt="null" onclick="runGame('70')"></td>
+				<td><img id = "71" src="//:0" alt="null" onclick="runGame('71')"></td>
+				<td><img id = "72" src="//:0" alt="null" onclick="runGame('72')"></td>
+				<td><img id = "73" src="//:0" alt="null" onclick="runGame('73')"></td>
+				<td><img id = "74" src="//:0" alt="null" onclick="runGame('74')"></td>
+				<td><img id = "75" src="//:0" alt="null" onclick="runGame('75')"></td>
+				<td><img id = "76" src="//:0" alt="null" onclick="runGame('76')"></td>
+				<td><img id = "77" src="//:0" alt="null" onclick="runGame('77')"></td>
+				<td><img id = "78" src="//:0" alt="null" onclick="runGame('78')"></td>
+				<td><img id = "79" src="//:0" alt="null" onclick="runGame('79')"></td>
 			</tr>
 			<tr>
-				<td id = "80">80</td>
-				<td id = "81">81</td>
-				<td id = "82">82</td>
-				<td id = "83">83</td>
-				<td id = "84">84</td>
-				<td id = "85">85</td>
-				<td id = "86">86</td>
-				<td id = "87">87</td>
-				<td id = "88">88</td>
-				<td id = "89">89</td>
+				<td><img id = "80" src="//:0" alt="null" onclick="runGame('80')"></td>
+				<td><img id = "81" src="//:0" alt="null" onclick="runGame('81')"></td>
+				<td><img id = "82" src="//:0" alt="null" onclick="runGame('82')"></td>
+				<td><img id = "83" src="//:0" alt="null" onclick="runGame('83')"></td>
+				<td><img id = "84" src="//:0" alt="null" onclick="runGame('84')"></td>
+				<td><img id = "85" src="//:0" alt="null" onclick="runGame('85')"></td>
+				<td><img id = "86" src="//:0" alt="null" onclick="runGame('86')"></td>
+				<td><img id = "87" src="//:0" alt="null" onclick="runGame('87')"></td>
+				<td><img id = "88" src="//:0" alt="null" onclick="runGame('88')"></td>
+				<td><img id = "89" src="//:0" alt="null" onclick="runGame('89')"></td>
 			</tr>
 			<tr>
-				<td id = "90">90</td>
-				<td id = "91">91</td>
-				<td id = "92">92</td>
-				<td id = "93">93</td>
-				<td id = "94">94</td>
-				<td id = "95">95</td>
-				<td id = "96">96</td>
-				<td id = "97">97</td>
-				<td id = "98">98</td>
-				<td id = "99">99</td>
+				<td><img id = "90" src="//:0" alt="null" onclick="runGame('90')"></td>
+				<td><img id = "91" src="//:0" alt="null" onclick="runGame('91')"></td>
+				<td><img id = "92" src="//:0" alt="null" onclick="runGame('92')"></td>
+				<td><img id = "93" src="//:0" alt="null" onclick="runGame('93')"></td>
+				<td><img id = "94" src="//:0" alt="null" onclick="runGame('94')"></td>
+				<td><img id = "95" src="//:0" alt="null" onclick="runGame('95')"></td>
+				<td><img id = "96" src="//:0" alt="null" onclick="runGame('96')"></td>
+				<td><img id = "97" src="//:0" alt="null" onclick="runGame('97')"></td>
+				<td><img id = "98" src="//:0" alt="null" onclick="runGame('98')"></td>
+				<td><img id = "99" src="//:0" alt="null" onclick="runGame('99')"></td>
 			</tr>
 		</table>
 	</div>
