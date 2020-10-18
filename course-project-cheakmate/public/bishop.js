@@ -330,14 +330,91 @@ function showPossiblePawnMoves(r, c){
 	6. */
 function showPossibleBishopMoves(r, c){
 	var num;
+	var rw = r;
+	var cl = c;
 	moves = new Array();
 	if(board[r][c].includes("hw")){
-		/* movement up left */
-		for(i = r, j = c; r >= 0 && c >= 0 && board[i][j].includes("l.png") || board[i][j].includes("d.png"); i--, j--){
-			window.alert("this is row " + i + " and column " + j);
+		/*up left movement */
+		for(i=rw-1, j=cl-1; i>-1 && j>-1; i--, j--){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("b.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* up right movement */
+		for(i=rw-1, j=cl+1; i>-1 && j<10; i--, j++){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("b.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* down left movement */
+		for(i=rw+1, j=cl-1; i<10 && j>-1; i++, j--){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("b.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* down right movement */
+		for(i=rw+1, j=cl+1; i>-1 && j<10; i++, j++){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("b.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
 		}
 	}
-
 }
 
 
