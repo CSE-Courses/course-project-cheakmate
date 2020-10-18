@@ -32,7 +32,7 @@ table, tr, td {
 	margin: auto;
 }
 
-.topbar {
+/*.topbar {
 	background-color: lightskyblue;
 	border: black;
 	border-radius: 12px;
@@ -42,7 +42,7 @@ table, tr, td {
   	display: inline-block;
 	font-size: 18px;
   	transition-duration: 0.5s;
-}
+}*/
 
 .topbar:hover {
 	background-color: darkblue;
@@ -57,6 +57,33 @@ img{
 }
 
 
+/*Temperory solution to changing settings through Navigation bar*/
+ul{
+	list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+	background: rgba(0, 0, 26, 0.5);
+}
+
+li{
+	display: block;
+	float: left;
+	border-right: 1px solid white;
+}
+
+button{
+	border: none;
+	text-decoration: none;
+	padding: 10px 10px 10px 10px;
+	background: rgba(0, 0, 26, 0.15);
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.navbar:hover{
+	background: rgba(105, 105, 105, 0.5);
+}
+
 /*Temporary solution to changing settings*/
 body{
 	background-image: url('images/Default.jpg');
@@ -64,14 +91,15 @@ body{
 	background-attachment: fixed;
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
-hd1, p, div.pref{
+hd1, p, #pref{
 	text-align: center;
 }
 a:link, a:visited{
 	color: black;
 	text-decoration: none;
 }
-div.pref{
+#pref{
+	display: none;
 	border-style: solid;
 	border-color: black;
 	padding: 10px 10px 10px 10px;

@@ -1,65 +1,20 @@
-/*@Author: Kat
-//https://www.w3schools.com/js/js_cookies.asp
-// function setCookie(cname,cvalue, days) {
-//   if (days) {
-//     var date = new Date();
-//     date.setTime(date.getTime()+(days*24*60*60*1000));
-//     var expires = "; expires="+date.toGMTString();
-//   }
-//   else{
-//     var expires = "";
-//   }
-//   document.cookie = cname + "=" + cvalue + expires + "; path=/";
-// }
-//
-// function getCookie(cname) {
-//   var cn = cname + "=";
-//   var decodedCookie = decodeURIComponent(document.cookie);
-//   var ca = decodedCookie.split(';');
-//   for(var i = 0; i < ca.length; i++) {
-//     var c = ca[i];
-//     while (c.charAt(0) == ' ') {
-//       c = c.substring(1);
-//     }
-//     if (c.indexOf(cn) == 0) {
-//       return c.substring(cn.length, c.length);
-//     }
-//   }
-//   return "";
-// }
-//
-// function checkCookie() {
-//   var pos = getCookie("board");
-//   var bg = getCookie("bg");
-//   if (pos != "") {
-//     if(pos == "center"){
-//       toCenter();
-//     }
-//     if(pos == "left"){
-//       toLeft();
-//     }
-//     if(pos == "right"){
-//       toRight();
-//     }
-//   } else {
-//      setCookie('board', 'center');
-//   }
-//
-//   if (bg != "") {
-//     if(bg == "chess"){
-//       toChessBg();
-//     }
-//     if(bg == "lake"){
-//       toLakeBg();
-//     }
-//     if(bg == "galaxy"){
-//       toGalaxyBg();
-//     }
-//   } else {
-//      setCookie('bg', 'chess');
-//   }
-// }
-*/
+/*@Author: Kat*/
+var click = 0;
+
+function settingsVisibility(){
+  if(click == 0){
+    document.getElementById('pref').style.display = "block";
+    click = 1;
+  }
+  else if (click == 1) {
+    document.getElementById('pref').style.display = "none";
+    click = 0;
+  }
+  else {
+    alert("This button is not working.");
+  }
+}
+
 function toCenter(){
   document.getElementById('board').style.float = "none";
   /* setCookie('board', 'center');*/
