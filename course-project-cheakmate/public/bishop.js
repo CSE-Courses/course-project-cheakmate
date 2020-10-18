@@ -170,15 +170,15 @@ function runGame(imageId){
 
     /* TODO:
     //Checks if it is a Bishops here
-      //If it is, show possible moves*/
+	  //If it is, show possible moves*/
+	if(isBishop(r, c)){
+		first = imageId;
+		showPossibleBishopMoves(r,c);
+	}
 
     /* TODO: DONE
     //Checks if it is a King here
 	  //If it is, show possible moves*/
-	if(isKing(r, c)){
-		first = imageId;
-		showPossibleKingMoves(r,c);
-	}
 
     /* TODO:
     //Checks if it is a Queen here
@@ -217,8 +217,8 @@ function isPawn(r, c){
   }
 }
 
-function isKing(r, c){
-	if(board[r][c].includes("gb") || board[r][c].includes("gw")){
+function isBishop(r, c){
+	if(board[r][c].includes("hb") || board[r][c].includes("hw")){
 		return true;
 	}
 	else{
@@ -328,245 +328,16 @@ function showPossiblePawnMoves(r, c){
 	4. Kings cannot move to a tile that causes a check
 	5. Kings can do a castle with rook
 	6. */
-function showPossibleKingMoves(r, c){
+function showPossibleBishopMoves(r, c){
 	var num;
-	/*since it can go in 8 directions with 8 possible captures*/
-	moves = new Array(16);
-	/*this populates the moves array with empty strings*/
-	for(var i = 0; i < moves.length; i++){
-    	moves[i] = "";
+	moves = new Array();
+	if(board[r][c].includes("hw")){
+		/* movement up left */
+		for(i = r, j = c; r >= 0 && c >= 0 && board[i][j].includes("l.png") || board[i][j].includes("d.png"); i--, j--){
+			window.alert("this is row " + i + " and column " + j);
+		}
 	}
-	
-	if(board[r][c].includes("gw")){
-		/*going up*/
-		if(r - 1 >= 0 && (board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png"))){
-      		num = "" + (r - 1) + c;
-      		changeBorderColor(num, "#33cccc");
-      		moves[0] = num;
-		}
-		/*going down*/
-		if(r + 1 <= 9 && (board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png"))){
-			num = "" + (r + 1) + c;
-			changeBorderColor(num, "#33cccc");
-			moves[1] = num;
-		}
-		/*going left*/
-		if(c - 1 >= 0 && (board[r][c - 1].includes("l.png") || board[r][c - 1].includes("d.png"))){
-			num = "" + r + (c - 1);
-			changeBorderColor(num, "#33cccc");
-			moves[2] = num;
-		}
-		/*going down*/
-		if(c + 1 <= 9 && (board[r][c + 1].includes("l.png") || board[r][c + 1].includes("d.png"))){
-			num = "" + r + (c + 1);
-			changeBorderColor(num, "#33cccc");
-			moves[3] = num;
-		}
-		/*going up left*/
-		if((r - 1 >=0 && c - 1 >= 0) && (board[r - 1][c - 1].includes("l.png") || board[r - 1][c - 1].includes("d.png"))){
-			num = "" + (r - 1) + (c - 1);
-			changeBorderColor(num, "#33cccc");
-			moves[4] = num;
-		}
-		/*going up right*/
-		if((r - 1 >=0 && c + 1 <= 9) && (board[r - 1][c + 1].includes("l.png") || board[r - 1][c + 1].includes("d.png"))){
-			num = "" + (r - 1) + (c + 1);
-			changeBorderColor(num, "#33cccc");
-			moves[5] = num;
-		}
-		/*going down left*/
-		if((r + 1 <=9 && c - 1 >= 0) && (board[r + 1][c - 1].includes("l.png") || board[r + 1][c - 1].includes("d.png"))){
-			num = "" + (r + 1) + (c - 1);
-			changeBorderColor(num, "#33cccc");
-			moves[6] = num;
-		}
-		/*going down right*/
-		if((r + 1 <=9 && c + 1 >= 0) && (board[r + 1][c + 1].includes("l.png") || board[r + 1][c + 1].includes("d.png"))){
-			num = "" + (r + 1) + (c + 1);
-			changeBorderColor(num, "#33cccc");
-			moves[7] = num;
-		}
 
-		/*capture up*/
-		if(r - 1 >= 0){
-			num = "" + (r - 1) + c;
-			if(!(board[r - 1][c].includes("l.png")) && !(board[r - 1][c].includes("d.png")) && !(board[r - 1][c].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[8] = num;
-			}
-		}
-		/*capture down*/
-		if(r + 1 <= 9){
-			num = "" + (r + 1) + c;
-			if(!(board[r + 1][c].includes("l.png")) && !(board[r + 1][c].includes("d.png")) && !(board[r + 1][c].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[9] = num;
-			}
-		}
-		/*capture left*/
-		if(c - 1 >= 0){
-			num = "" + r + (c - 1);
-			if(!(board[r][c - 1].includes("l.png")) && !(board[r][c - 1].includes("d.png")) && !(board[r][c - 1].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[10] = num;
-			}
-		}
-		/*capture right*/
-		if(c + 1 <= 9){
-			num = "" + r + (c + 1);
-			if(!(board[r][c + 1].includes("l.png")) && !(board[r][c + 1].includes("d.png")) && !(board[r][c + 1].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[11] = num;
-			}
-		}
-		/*capture up left*/
-		if(r - 1 >= 0 && c - 1 >= 0){
-			num = "" + (r - 1) + (c - 1);
-			if(!(board[r - 1][c - 1].includes("l.png")) && !(board[r - 1][c - 1].includes("d.png")) && !(board[r - 1][c - 1].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[12] = num;
-			}
-		}
-		/*capture down left*/
-		if(r + 1 >= 0 && c - 1 >= 0){
-			num = "" + (r + 1) + (c - 1);
-			if(!(board[r + 1][c - 1].includes("l.png")) && !(board[r + 1][c - 1].includes("d.png")) && !(board[r + 1][c - 1].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[13] = num;
-			}
-		}
-		/*capture up right*/
-		if(r + 1 <= 9 && c + 1 <= 9){
-			num = "" + (r + 1) + (c + 1);
-			if(!(board[r + 1][c + 1].includes("l.png")) && !(board[r + 1][c + 1].includes("d.png")) && !(board[r + 1][c + 1].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[14] = num;
-			}
-		}
-		/*capture down right*/
-		if(r - 1 >= 0 && c + 1 <= 9){
-			num = "" + (r - 1) + (c + 1);
-			if(!(board[r - 1][c + 1].includes("l.png")) && !(board[r - 1][c + 1].includes("d.png")) && !(board[r - 1][c + 1].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[15] = num;
-			}
-		}
-	}
-	if(board[r][c].includes("gb")){
-		/*going up*/
-		if(r - 1 >= 0 && (board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png"))){
-      		num = "" + (r - 1) + c;
-      		changeBorderColor(num, "#33cccc");
-      		moves[0] = num;
-		}
-		/*going down*/
-		if(r + 1 <= 9 && (board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png"))){
-			num = "" + (r + 1) + c;
-			changeBorderColor(num, "#33cccc");
-			moves[1] = num;
-		}
-		/*going left*/
-		if(c - 1 >= 0 && (board[r][c - 1].includes("l.png") || board[r][c - 1].includes("d.png"))){
-			num = "" + r + (c - 1);
-			changeBorderColor(num, "#33cccc");
-			moves[2] = num;
-		}
-		/*going down*/
-		if(c + 1 <= 9 && (board[r][c + 1].includes("l.png") || board[r][c + 1].includes("d.png"))){
-			num = "" + r + (c + 1);
-			changeBorderColor(num, "#33cccc");
-			moves[3] = num;
-		}
-		/*going up left*/
-		if((r - 1 >=0 && c - 1 >= 0) && (board[r - 1][c - 1].includes("l.png") || board[r - 1][c - 1].includes("d.png"))){
-			num = "" + (r - 1) + (c - 1);
-			changeBorderColor(num, "#33cccc");
-			moves[4] = num;
-		}
-		/*going up right*/
-		if((r - 1 >=0 && c + 1 <= 9) && (board[r - 1][c + 1].includes("l.png") || board[r - 1][c + 1].includes("d.png"))){
-			num = "" + (r - 1) + (c + 1);
-			changeBorderColor(num, "#33cccc");
-			moves[5] = num;
-		}
-		/*going down left*/
-		if((r + 1 <=9 && c - 1 >= 0) && (board[r + 1][c - 1].includes("l.png") || board[r + 1][c - 1].includes("d.png"))){
-			num = "" + (r + 1) + (c - 1);
-			changeBorderColor(num, "#33cccc");
-			moves[6] = num;
-		}
-		/*going down right*/
-		if((r + 1 <=9 && c + 1 >= 0) && (board[r + 1][c + 1].includes("l.png") || board[r + 1][c + 1].includes("d.png"))){
-			num = "" + (r + 1) + (c + 1);
-			changeBorderColor(num, "#33cccc");
-			moves[7] = num;
-		}
-
-		/*capture up*/
-		if(r - 1 >= 0){
-			num = "" + (r - 1) + c;
-			if(!(board[r - 1][c].includes("l.png")) && !(board[r - 1][c].includes("d.png")) && !(board[r - 1][c].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[8] = num;
-			}
-		}
-		/*capture down*/
-		if(r + 1 <= 9){
-			num = "" + (r + 1) + c;
-			if(!(board[r + 1][c].includes("l.png")) && !(board[r + 1][c].includes("d.png")) && !(board[r + 1][c].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[9] = num;
-			}
-		}
-		/*capture left*/
-		if(c - 1 >= 0){
-			num = "" + r + (c - 1);
-			if(!(board[r][c - 1].includes("l.png")) && !(board[r][c - 1].includes("d.png")) && !(board[r][c - 1].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[10] = num;
-			}
-		}
-		/*capture right*/
-		if(c + 1 <= 9){
-			num = "" + r + (c + 1);
-			if(!(board[r][c + 1].includes("l.png")) && !(board[r][c + 1].includes("d.png")) && !(board[r][c + 1].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[11] = num;
-			}
-		}
-		/*capture up left*/
-		if(r - 1 >= 0 && c - 1 >= 0){
-			num = "" + (r - 1) + (c - 1);
-			if(!(board[r - 1][c - 1].includes("l.png")) && !(board[r - 1][c - 1].includes("d.png")) && !(board[r - 1][c - 1].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[12] = num;
-			}
-		}
-		/*capture down left*/
-		if(r + 1 >= 0 && c - 1 >= 0){
-			num = "" + (r + 1) + (c - 1);
-			if(!(board[r + 1][c - 1].includes("l.png")) && !(board[r + 1][c - 1].includes("d.png")) && !(board[r + 1][c - 1].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[13] = num;
-			}
-		}
-		/*capture up right*/
-		if(r + 1 <= 9 && c + 1 <= 9){
-			num = "" + (r + 1) + (c + 1);
-			if(!(board[r + 1][c + 1].includes("l.png")) && !(board[r + 1][c + 1].includes("d.png")) && !(board[r + 1][c + 1].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[14] = num;
-			}
-		}
-		/*capture down right*/
-		if(r - 1 >= 0 && c + 1 <= 9){
-			num = "" + (r - 1) + (c + 1);
-			if(!(board[r - 1][c + 1].includes("l.png")) && !(board[r - 1][c + 1].includes("d.png")) && !(board[r - 1][c + 1].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[15] = num;
-			}
-		}
-	}
 }
 
 
