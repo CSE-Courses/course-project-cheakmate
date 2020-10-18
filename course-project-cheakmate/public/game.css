@@ -3,16 +3,18 @@
 #board {
 	width: 1033px;
 	height: 1100px;
-	background-color: burlywood;
-	display: center;
-	margin-left: auto;
-	margin-right: auto;
+	border-style: solid;
+	border-color: black;
+	padding: 10px 10px 10px 10px;
+	background: rgba(105, 105, 105, 0.5);
+	position: relative;
+	margin: auto;
 }
 
 table, tr, td {
-	width: 700px;
-	height: 85px;
-	border: 1px solid black;
+	width: 750px;
+	height: 75px;
+	border: 3px solid black;
 	border-collapse: collapse;
 	display: center;
 	margin-left: auto;
@@ -22,19 +24,24 @@ table, tr, td {
 #turn {
 	text-align: center;
 	font-family: Impact, Charcoal, sans-serif;
-	color: orangered;
+	border-style: solid;
+	border-color: black;
+	padding: 10px 10px 10px 10px;
+	background: rgba(105, 105, 105, 0.5);
+	position: relative;
+	margin: auto;
 }
 
 .topbar {
 	background-color: lightskyblue;
 	border: black;
 	border-radius: 12px;
-  	color: black;
-  	padding: 10px 30px;
-  	text-align: center;
-  	display: inline-block;
+  color: black;
+  padding: 10px 30px;
+  text-align: center;
+  display: inline-block;
 	font-size: 18px;
-  	transition-duration: 0.5s;
+  transition-duration: 0.5s;
 }
 
 .topbar:hover {
@@ -43,7 +50,10 @@ table, tr, td {
 }
 
 img{
-	boder: "0px solid black";
+	border: 3px solid black;
+	width: auto;
+	height: 100%;
+	display: block;
 }
 
 
