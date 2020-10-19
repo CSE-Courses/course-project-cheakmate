@@ -248,14 +248,14 @@ function showPossiblePawnMoves(r, c){
     }
     if(r - 1 >= 0 && c - 1 >= 0){
       num = "" + (r - 1) + (c - 1);
-      if(!(board[r - 1][c - 1].includes("l.png")) && !(board[r - 1][c - 1].includes("d.png")) && !(board[r - 1][c - 1].includes("pw.png"))){
+      if(!(board[r - 1][c - 1].includes("l.png")) && !(board[r - 1][c - 1].includes("d.png")) && !(board[r - 1][c - 1].includes("w.png"))){
         changeBorderColor(num, "#ff5050");
         moves[2] = num;
       }
     }
     if(r - 1 >= 0 && c + 1 <= 9){
       num = "" + (r - 1) + (c + 1);
-      if(!(board[r - 1][c + 1].includes("l.png")) && !(board[r - 1][c + 1].includes("d.png")) && !(board[r - 1][c + 1].includes("pw.png"))){
+      if(!(board[r - 1][c + 1].includes("l.png")) && !(board[r - 1][c + 1].includes("d.png")) && !(board[r - 1][c + 1].includes("w.png"))){
         changeBorderColor(num, "#ff5050");
         moves[3] = num;
       }
@@ -279,14 +279,14 @@ function showPossiblePawnMoves(r, c){
     }
     if(r + 1 <= 9 && c + 1 <= 9){
       num = "" + (r + 1) + (c + 1);
-      if(!(board[r + 1][c + 1].includes("l.png")) && !(board[r + 1][c + 1].includes("d.png")) && !(board[r + 1][c + 1].includes("pb.png"))){
+      if(!(board[r + 1][c + 1].includes("l.png")) && !(board[r + 1][c + 1].includes("d.png")) && !(board[r + 1][c + 1].includes("b.png"))){
         changeBorderColor(num, "#ff5050");
         moves[2] = num;
       }
     }
     if(r + 1 <= 9 && c - 1 >= 0){
       num = "" + (r + 1) + (c - 1);
-      if(!(board[r + 1][c - 1].includes("l.png")) && !(board[r + 1][c - 1].includes("d.png")) && !(board[r + 1][c - 1].includes("pb.png"))){
+      if(!(board[r + 1][c - 1].includes("l.png")) && !(board[r + 1][c - 1].includes("d.png")) && !(board[r + 1][c - 1].includes("b.png"))){
         changeBorderColor(num, "#ff5050");
         moves[3] = num;
       }

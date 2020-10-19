@@ -9,16 +9,23 @@
 	<link rel = "stylesheet" href = "game.css">
 	<script src="bishop.js"></script>
 	<!--<script src="pawn.js"></script>-->
+	<!--<script src="rook.js"></script>-->
 	<script src="settings.js"></script>
 </head>
 
 <body onload = "initialize()">
-  	<div class="topbar">
+  	<!--<div class="topbar">
   		<a onclick = "exit()">Exit Game</a>
-  	</div>
+  	</div>-->
+
+		<ul>
+			<li><button type="button" name="button" onclick="settingsVisibility()" class = "navbar" >Settings</button></li>
+			<li><button type="button" name="button" onclick="exit()" class = "navbar" >Exit Game</button></li>
+		</ul>
+		<br>
 
 		<!--Temporary solution to changing settings-->
-		<div class="pref">
+		<div id="pref">
 		<h1> SETTINGS </h1>
 
 		<hr>
