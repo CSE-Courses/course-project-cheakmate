@@ -175,10 +175,18 @@ function runGame(imageId){
     /* TODO:
     //Checks if it is a Bishops here
       //If it is, show possible moves*/
+    if(isBishop(r, c)){
+		  first = imageId;
+		  showPossibleBishopMoves(r,c);
+    } 
 
     /* TODO:
     //Checks if it is a King here
       //If it is, show possible moves*/
+    if(isKing(r, c)){
+		  first = imageId;
+		  showPossibleKingMoves(r,c);
+	  }
 
     /* TODO:
     //Checks if it is a Queen here
@@ -212,12 +220,28 @@ function isPawn(r, c){
     return false;
   }
 }
+function isKing(r, c){
+	if(board[r][c].includes("gb") || board[r][c].includes("gw")){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
 
 function isRook(r, c){
 	if(board[r][c].includes("ob") || board[r][c].includes("ow")){
 		return true;
 	}
 	else {
+		return false;
+	}
+}
+function isBishop(r, c){
+	if(board[r][c].includes("hb") || board[r][c].includes("hw")){
+		return true;
+	}
+	else{
 		return false;
 	}
 }
@@ -442,6 +466,425 @@ function showPossibleRookMoves(r, c){
 	}
 
 	
+}
+
+/* Conditions for king's movement
+	1. Kings can only move one space
+	2. Kings can go in all 8 directions
+	3. Kings can capture any opposite colored piece if in movement range
+		***not implimented yet***
+	4. Kings cannot move to a tile that causes a check
+	5. Kings can do a castle with rook
+	6. */
+function showPossibleKingMoves(r, c){
+	var num;
+	/*since it can go in 8 directions with 8 possible captures*/
+	moves = new Array(16);
+	/*this populates the moves array with empty strings*/
+	for(var i = 0; i < moves.length; i++){
+    	moves[i] = "";
+	}
+
+	if(board[r][c].includes("gw")){
+		/*going up*/
+		if(r - 1 >= 0 && (board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png"))){
+      		num = "" + (r - 1) + c;
+      		changeBorderColor(num, "#33cccc");
+      		moves[0] = num;
+		}
+		/*going down*/
+		if(r + 1 <= 9 && (board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png"))){
+			num = "" + (r + 1) + c;
+			changeBorderColor(num, "#33cccc");
+			moves[1] = num;
+		}
+		/*going left*/
+		if(c - 1 >= 0 && (board[r][c - 1].includes("l.png") || board[r][c - 1].includes("d.png"))){
+			num = "" + r + (c - 1);
+			changeBorderColor(num, "#33cccc");
+			moves[2] = num;
+		}
+		/*going down*/
+		if(c + 1 <= 9 && (board[r][c + 1].includes("l.png") || board[r][c + 1].includes("d.png"))){
+			num = "" + r + (c + 1);
+			changeBorderColor(num, "#33cccc");
+			moves[3] = num;
+		}
+		/*going up left*/
+		if((r - 1 >=0 && c - 1 >= 0) && (board[r - 1][c - 1].includes("l.png") || board[r - 1][c - 1].includes("d.png"))){
+			num = "" + (r - 1) + (c - 1);
+			changeBorderColor(num, "#33cccc");
+			moves[4] = num;
+		}
+		/*going up right*/
+		if((r - 1 >=0 && c + 1 <= 9) && (board[r - 1][c + 1].includes("l.png") || board[r - 1][c + 1].includes("d.png"))){
+			num = "" + (r - 1) + (c + 1);
+			changeBorderColor(num, "#33cccc");
+			moves[5] = num;
+		}
+		/*going down left*/
+		if((r + 1 <=9 && c - 1 >= 0) && (board[r + 1][c - 1].includes("l.png") || board[r + 1][c - 1].includes("d.png"))){
+			num = "" + (r + 1) + (c - 1);
+			changeBorderColor(num, "#33cccc");
+			moves[6] = num;
+		}
+		/*going down right*/
+		if((r + 1 <=9 && c + 1 >= 0) && (board[r + 1][c + 1].includes("l.png") || board[r + 1][c + 1].includes("d.png"))){
+			num = "" + (r + 1) + (c + 1);
+			changeBorderColor(num, "#33cccc");
+			moves[7] = num;
+		}
+
+		/*capture up*/
+		if(r - 1 >= 0){
+			num = "" + (r - 1) + c;
+			if(!(board[r - 1][c].includes("l.png")) && !(board[r - 1][c].includes("d.png")) && !(board[r - 1][c].includes("w.png"))){
+				changeBorderColor(num, "#ff5050");
+        		moves[8] = num;
+			}
+		}
+		/*capture down*/
+		if(r + 1 <= 9){
+			num = "" + (r + 1) + c;
+			if(!(board[r + 1][c].includes("l.png")) && !(board[r + 1][c].includes("d.png")) && !(board[r + 1][c].includes("w.png"))){
+				changeBorderColor(num, "#ff5050");
+        		moves[9] = num;
+			}
+		}
+		/*capture left*/
+		if(c - 1 >= 0){
+			num = "" + r + (c - 1);
+			if(!(board[r][c - 1].includes("l.png")) && !(board[r][c - 1].includes("d.png")) && !(board[r][c - 1].includes("w.png"))){
+				changeBorderColor(num, "#ff5050");
+        		moves[10] = num;
+			}
+		}
+		/*capture right*/
+		if(c + 1 <= 9){
+			num = "" + r + (c + 1);
+			if(!(board[r][c + 1].includes("l.png")) && !(board[r][c + 1].includes("d.png")) && !(board[r][c + 1].includes("w.png"))){
+				changeBorderColor(num, "#ff5050");
+        		moves[11] = num;
+			}
+		}
+		/*capture up left*/
+		if(r - 1 >= 0 && c - 1 >= 0){
+			num = "" + (r - 1) + (c - 1);
+			if(!(board[r - 1][c - 1].includes("l.png")) && !(board[r - 1][c - 1].includes("d.png")) && !(board[r - 1][c - 1].includes("w.png"))){
+				changeBorderColor(num, "#ff5050");
+        		moves[12] = num;
+			}
+		}
+		/*capture down left*/
+		if(r + 1 >= 0 && c - 1 >= 0){
+			num = "" + (r + 1) + (c - 1);
+			if(!(board[r + 1][c - 1].includes("l.png")) && !(board[r + 1][c - 1].includes("d.png")) && !(board[r + 1][c - 1].includes("w.png"))){
+				changeBorderColor(num, "#ff5050");
+        		moves[13] = num;
+			}
+		}
+		/*capture up right*/
+		if(r + 1 <= 9 && c + 1 <= 9){
+			num = "" + (r + 1) + (c + 1);
+			if(!(board[r + 1][c + 1].includes("l.png")) && !(board[r + 1][c + 1].includes("d.png")) && !(board[r + 1][c + 1].includes("w.png"))){
+				changeBorderColor(num, "#ff5050");
+        		moves[14] = num;
+			}
+		}
+		/*capture down right*/
+		if(r - 1 >= 0 && c + 1 <= 9){
+			num = "" + (r - 1) + (c + 1);
+			if(!(board[r - 1][c + 1].includes("l.png")) && !(board[r - 1][c + 1].includes("d.png")) && !(board[r - 1][c + 1].includes("w.png"))){
+				changeBorderColor(num, "#ff5050");
+        		moves[15] = num;
+			}
+		}
+	}
+	if(board[r][c].includes("gb")){
+		/*going up*/
+		if(r - 1 >= 0 && (board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png"))){
+      		num = "" + (r - 1) + c;
+      		changeBorderColor(num, "#33cccc");
+      		moves[0] = num;
+		}
+		/*going down*/
+		if(r + 1 <= 9 && (board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png"))){
+			num = "" + (r + 1) + c;
+			changeBorderColor(num, "#33cccc");
+			moves[1] = num;
+		}
+		/*going left*/
+		if(c - 1 >= 0 && (board[r][c - 1].includes("l.png") || board[r][c - 1].includes("d.png"))){
+			num = "" + r + (c - 1);
+			changeBorderColor(num, "#33cccc");
+			moves[2] = num;
+		}
+		/*going down*/
+		if(c + 1 <= 9 && (board[r][c + 1].includes("l.png") || board[r][c + 1].includes("d.png"))){
+			num = "" + r + (c + 1);
+			changeBorderColor(num, "#33cccc");
+			moves[3] = num;
+		}
+		/*going up left*/
+		if((r - 1 >=0 && c - 1 >= 0) && (board[r - 1][c - 1].includes("l.png") || board[r - 1][c - 1].includes("d.png"))){
+			num = "" + (r - 1) + (c - 1);
+			changeBorderColor(num, "#33cccc");
+			moves[4] = num;
+		}
+		/*going up right*/
+		if((r - 1 >=0 && c + 1 <= 9) && (board[r - 1][c + 1].includes("l.png") || board[r - 1][c + 1].includes("d.png"))){
+			num = "" + (r - 1) + (c + 1);
+			changeBorderColor(num, "#33cccc");
+			moves[5] = num;
+		}
+		/*going down left*/
+		if((r + 1 <=9 && c - 1 >= 0) && (board[r + 1][c - 1].includes("l.png") || board[r + 1][c - 1].includes("d.png"))){
+			num = "" + (r + 1) + (c - 1);
+			changeBorderColor(num, "#33cccc");
+			moves[6] = num;
+		}
+		/*going down right*/
+		if((r + 1 <=9 && c + 1 >= 0) && (board[r + 1][c + 1].includes("l.png") || board[r + 1][c + 1].includes("d.png"))){
+			num = "" + (r + 1) + (c + 1);
+			changeBorderColor(num, "#33cccc");
+			moves[7] = num;
+		}
+
+		/*capture up*/
+		if(r - 1 >= 0){
+			num = "" + (r - 1) + c;
+			if(!(board[r - 1][c].includes("l.png")) && !(board[r - 1][c].includes("d.png")) && !(board[r - 1][c].includes("b.png"))){
+				changeBorderColor(num, "#ff5050");
+        		moves[8] = num;
+			}
+		}
+		/*capture down*/
+		if(r + 1 <= 9){
+			num = "" + (r + 1) + c;
+			if(!(board[r + 1][c].includes("l.png")) && !(board[r + 1][c].includes("d.png")) && !(board[r + 1][c].includes("b.png"))){
+				changeBorderColor(num, "#ff5050");
+        		moves[9] = num;
+			}
+		}
+		/*capture left*/
+		if(c - 1 >= 0){
+			num = "" + r + (c - 1);
+			if(!(board[r][c - 1].includes("l.png")) && !(board[r][c - 1].includes("d.png")) && !(board[r][c - 1].includes("b.png"))){
+				changeBorderColor(num, "#ff5050");
+        		moves[10] = num;
+			}
+		}
+		/*capture right*/
+		if(c + 1 <= 9){
+			num = "" + r + (c + 1);
+			if(!(board[r][c + 1].includes("l.png")) && !(board[r][c + 1].includes("d.png")) && !(board[r][c + 1].includes("b.png"))){
+				changeBorderColor(num, "#ff5050");
+        		moves[11] = num;
+			}
+		}
+		/*capture up left*/
+		if(r - 1 >= 0 && c - 1 >= 0){
+			num = "" + (r - 1) + (c - 1);
+			if(!(board[r - 1][c - 1].includes("l.png")) && !(board[r - 1][c - 1].includes("d.png")) && !(board[r - 1][c - 1].includes("b.png"))){
+				changeBorderColor(num, "#ff5050");
+        		moves[12] = num;
+			}
+		}
+		/*capture down left*/
+		if(r + 1 >= 0 && c - 1 >= 0){
+			num = "" + (r + 1) + (c - 1);
+			if(!(board[r + 1][c - 1].includes("l.png")) && !(board[r + 1][c - 1].includes("d.png")) && !(board[r + 1][c - 1].includes("b.png"))){
+				changeBorderColor(num, "#ff5050");
+        		moves[13] = num;
+			}
+		}
+		/*capture up right*/
+		if(r + 1 <= 9 && c + 1 <= 9){
+			num = "" + (r + 1) + (c + 1);
+			if(!(board[r + 1][c + 1].includes("l.png")) && !(board[r + 1][c + 1].includes("d.png")) && !(board[r + 1][c + 1].includes("b.png"))){
+				changeBorderColor(num, "#ff5050");
+        		moves[14] = num;
+			}
+		}
+		/*capture down right*/
+		if(r - 1 >= 0 && c + 1 <= 9){
+			num = "" + (r - 1) + (c + 1);
+			if(!(board[r - 1][c + 1].includes("l.png")) && !(board[r - 1][c + 1].includes("d.png")) && !(board[r - 1][c + 1].includes("b.png"))){
+				changeBorderColor(num, "#ff5050");
+        		moves[15] = num;
+			}
+		}
+	}
+}
+function showPossibleBishopMoves(r, c){
+	var num;
+	var rw = r;
+	var cl = c;
+	moves = new Array();
+	if(board[r][c].includes("hw")){
+		/*up left movement */
+		for(i=rw-1, j=cl-1; i>-1 && j>-1; i--, j--){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("b.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* up right movement */
+		for(i=rw-1, j=cl+1; i>-1 && j<10; i--, j++){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("b.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* down left movement */
+		for(i=rw+1, j=cl-1; i<10 && j>-1; i++, j--){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("b.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* down right movement */
+		for(i=rw+1, j=cl+1; i>-1 && j<10; i++, j++){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("b.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+  }
+  if(board[r][c].includes("hb")){
+		/*up left movement */
+		for(i=rw-1, j=cl-1; i>-1 && j>-1; i--, j--){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("w.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* up right movement */
+		for(i=rw-1, j=cl+1; i>-1 && j<10; i--, j++){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("w.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* down left movement */
+		for(i=rw+1, j=cl-1; i<10 && j>-1; i++, j--){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("w.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* down right movement */
+		for(i=rw+1, j=cl+1; i>-1 && j<10; i++, j++){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("w.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+	}
 }
 /*Moves selected chess piece to selected location*/
 function moveChessPiece(first, second){
