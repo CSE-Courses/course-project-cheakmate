@@ -414,6 +414,88 @@ function showPossibleBishopMoves(r, c){
 				moves.push(num);
 			}
 		}
+  }
+  if(board[r][c].includes("hb")){
+		/*up left movement */
+		for(i=rw-1, j=cl-1; i>-1 && j>-1; i--, j--){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("w.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* up right movement */
+		for(i=rw-1, j=cl+1; i>-1 && j<10; i--, j++){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("w.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* down left movement */
+		for(i=rw+1, j=cl-1; i<10 && j>-1; i++, j--){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("w.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* down right movement */
+		for(i=rw+1, j=cl+1; i>-1 && j<10; i++, j++){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("w.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
 	}
 }
 
