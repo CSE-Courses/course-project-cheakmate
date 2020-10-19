@@ -220,14 +220,6 @@ function isPawn(r, c){
     return false;
   }
 }
-function isKing(r, c){
-	if(board[r][c].includes("gb") || board[r][c].includes("gw")){
-		return true;
-	}
-	else{
-		return false;
-	}
-}
 
 function isRook(r, c){
 	if(board[r][c].includes("ob") || board[r][c].includes("ow")){
@@ -237,6 +229,7 @@ function isRook(r, c){
 		return false;
 	}
 }
+
 function isBishop(r, c){
 	if(board[r][c].includes("hb") || board[r][c].includes("hw")){
 		return true;
@@ -245,6 +238,16 @@ function isBishop(r, c){
 		return false;
 	}
 }
+
+function isKing(r, c){
+	if(board[r][c].includes("gb") || board[r][c].includes("gw")){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
 function isInMoves(imageId){
   for(var i = 0; i < moves.length; i++){
     if(moves[i] == imageId){
@@ -341,381 +344,199 @@ function showPossibleRookMoves(r, c){
 	 }
 	/*Moving Rook upwards*/
 	for(var up = r; up >= 0; up--){
-		/*alert("My position is " + up + ", " + c);*/
-		if(up >= 0 && (board[up][c].includes("l.png") || board[up][c].includes("d.png"))){
-			num = "" + up + c;
-			changeBorderColor(num, "#006699");
-			
-			moves[movesIndex] = num;
-			movesIndex++;
+		if(board[r][c].includes("w.png")){
+			/*If the piece is white it should check if there are any
+			 * black pieces and should be highlighted red*/
+			if(up-1 >= 0){
+				if(board[up-1][c].includes("w.png")){
+					break;
+				}else if(board[up-1][c].includes("b.png")){
+					num = "" + (up-1) + c;
+					changeBorderColor(num, "#ff5050");
+	
+					moves[movesIndex] = num;
+					movesIndex++;
+					break;
+				}else{
+					num = "" + (up-1) + c;
+					changeBorderColor(num, "#33cccc");
+					
+					moves[movesIndex] = num;
+					movesIndex++;
+				}
+			}
 		}
-		/*Only while you're white, pieces are the black pieces red*/
-		if(board[up][c].includes("b.png") && board[r][c].includes("ow")){
-			num = "" + up + c;
-			changeBorderColor(num, "#ff0000");
-			
-			moves[movesIndex] = num;
-			movesIndex++;
-			break;
+		if(board[r][c].includes("b.png")){
+			/*If the piece is white it should check if there are any
+			 * black pieces and should be highlighted red*/
+			if(up-1 >= 0){
+				if(board[up-1][c].includes("b.png")){
+					break;
+				}else if(board[up-1][c].includes("w.png")){
+					num = "" + (up-1) + c;
+					changeBorderColor(num, "#ff5050");
+	
+					moves[movesIndex] = num;
+					movesIndex++;
+					break;
+				}else{
+					num = "" + (up-1) + c;
+					changeBorderColor(num, "#33cccc");
+					
+					moves[movesIndex] = num;
+					movesIndex++;
+				}
+			}
 		}
-		/*Only while you're black, pieces are the white pieces red*/
-		if(board[up][c].includes("w.png") && board[r][c].includes("ob")){
-			num = "" + up + c;
-			changeBorderColor(num, "#ff0000");
-			
-			moves[movesIndex] = num;
-			movesIndex++;
-			break;
-		}
+		
 	}
 	/*Moving Rook downwards*/
 	for(var down = r; down <= 9; down++){
-		/*alert("My position is " + down + ", " + c);*/
-		if(down <= 9 && (board[down][c].includes("l.png") || board[down][c].includes("d.png"))){
-			num = "" + down + c;
-			changeBorderColor(num, "#006699");
-			
-			moves[movesIndex] = num;
-			movesIndex++;
+		if(board[r][c].includes("w.png")){
+			/*If the piece is white it should check if there are any
+			 * black pieces and should be highlighted red*/
+			if(down+1 <= 9){
+				if(board[down+1][c].includes("w.png")){
+					break;
+				}else if(board[down+1][c].includes("b.png")){
+					num = "" + (down+1) + c;
+					changeBorderColor(num, "#ff5050");
+	
+					moves[movesIndex] = num;
+					movesIndex++;
+					break;
+				}else{
+					num = "" + (down+1) + c;
+					changeBorderColor(num, "#33cccc");
+					
+					moves[movesIndex] = num;
+					movesIndex++;
+				}
+			}
 		}
-		/*Only while you're white, pieces are the black pieces red*/
-		if(board[down][c].includes("b.png") && board[r][c].includes("ow")){
-			num = "" + down + c;
-			changeBorderColor(num, "#ff0000");
-
-			moves[movesIndex] = num;
-			movesIndex++;
-			break;
-		}
-		/*Only while you're black, pieces are the white pieces red*/
-		if(board[down][c].includes("w.png") && board[r][c].includes("ob")){
-			num = "" + down + c;
-			changeBorderColor(num, "#ff0000");
-			
-			moves[movesIndex] = num;
-			movesIndex++;
-			break;
+		if(board[r][c].includes("b.png")){
+			/*If the piece is white it should check if there are any
+			 * black pieces and should be highlighted red*/
+			if(down+1 <= 9){
+				if(board[down+1][c].includes("b.png")){
+					break;
+				}else if(board[down+1][c].includes("w.png")){
+					num = "" + (down+1) + c;
+					changeBorderColor(num, "#ff5050");
+	
+					moves[movesIndex] = num;
+					movesIndex++;
+					break;
+				}else{
+					num = "" + (down+1) + c;
+					changeBorderColor(num, "#33cccc");
+					
+					moves[movesIndex] = num;
+					movesIndex++;
+				}
+			}
 		}
 	}
 	/*Moving Rook left*/
 	for(var left = c; left >= 0; left--){
-		/*alert("My position is " + r + ", " + left);*/
-		if(left >= 0 && (board[r][left].includes("l.png") || board[r][left].includes("d.png"))){
-			num = "" + r + left;
-			changeBorderColor(num, "#006699");
-			
-			moves[movesIndex] = num;
-			movesIndex++;
+		if(board[r][c].includes("w.png")){
+			/*If the piece is white it should check if there are any
+			 * black pieces and should be highlighted red*/
+			if(left-1 >= 0){
+				if(board[r][left -1].includes("w.png")){
+					break;
+				}else if(board[r][left-1].includes("b.png")){
+					num = "" + r + (left-1);
+					changeBorderColor(num, "#ff5050");
+	
+					moves[movesIndex] = num;
+					movesIndex++;
+					break;
+				}else{
+					num = "" + r + (left-1);
+					changeBorderColor(num, "#33cccc");
+					
+					moves[movesIndex] = num;
+					movesIndex++;
+				}
+			}
 		}
-		/*Only while you're white, pieces are the black pieces red*/
-		if(board[r][left].includes("b.png") && board[r][c].includes("ow")){
-			num = "" + r + left;
-			changeBorderColor(num, "#ff0000");
-			
-			moves[movesIndex] = num;
-			movesIndex++;
-			break;
-		}
-		/*Only while you're black, pieces are the white pieces red*/
-		if(board[r][left].includes("w.png") && board[r][c].includes("ob")){
-			num = "" + r + left;
-			changeBorderColor(num, "#ff0000");
-			
-			moves[movesIndex] = num;
-			movesIndex++;
-			break;
+		if(board[r][c].includes("b.png")){
+			/*If the piece is white it should check if there are any
+			 * black pieces and should be highlighted red*/
+			if(left-1 >= 0){
+				if(board[r][left -1].includes("b.png")){
+					break;
+				}else if(board[r][left-1].includes("w.png")){
+					num = "" + r + (left-1);
+					changeBorderColor(num, "#ff5050");
+	
+					moves[movesIndex] = num;
+					movesIndex++;
+					break;
+				}else{
+					num = "" + r + (left-1);
+					changeBorderColor(num, "#33cccc");
+					
+					moves[movesIndex] = num;
+					movesIndex++;
+				}
+			}
 		}
 	}
+	
+	
+	
 	/*Moving Rook right*/
 	for(var right = c; right <= 9; right++){
-		/*Only while you're white/black, when your path has your piece color, it shouldn't detect past it*/
-		if( right+1 <= 9 && (board[r][right+1].includes("w.png") && board[r][c].includes("ow") )|| (board[r][right+1].includes("b.png") && board[r][c].includes("ob")) ){
-			/*alert("var right is: " + right);
-			alert("My piece is: " + board[r][c] + "To my right is: " + board[r][right+1]);*/
-			break;
-		}else{
-
-			/*alert("My position is " + r + ", " + right);*/
-			if(right <= 9 && (board[r][right+1].includes("l.png") || board[r][right+1].includes("d.png"))){
-				num = "" + r + (right+1);
-				changeBorderColor(num, "#006699");
-				
-				moves[movesIndex] = num;
-				movesIndex++;
-			}
-			/*Only while you're white, the first black piece are red*/
-			if(board[r][right+1].includes("b.png") && board[r][c].includes("ow")){
-				num = "" + r + (right + 1);
-				changeBorderColor(num, "#ff0000");
-				
-				moves[movesIndex] = num;
-				movesIndex++;
-				break;
-			}
-			/*Only while you're black, the first white pieces are red*/
-			if(board[r][right+1].includes("w.png") && board[r][c].includes("ob")){
-				num = "" + r + (right+1);
-				changeBorderColor(num, "#ff0000");
-				
-				moves[movesIndex] = num;
-				movesIndex++;
-				break;
+		if(board[r][c].includes("w.png")){
+			/*If the piece is white it should check if there are any
+			 * black pieces and should be highlighted red*/
+			if (right+1 <= 9){
+				if(board[r][right+1].includes("w.png")){
+					break;
+				}else if(board[r][right+1].includes("b.png")){
+					num = "" + r + (right+1);
+					changeBorderColor(num, "#ff5050");
+	
+					moves[movesIndex] = num;
+					movesIndex++;
+					break;
+				}else{
+					num = "" + r + (right+1);
+					changeBorderColor(num, "#33cccc");
+					
+					moves[movesIndex] = num;
+					movesIndex++;
+				}
 			}
 		}
-
+		if(board[r][c].includes("b.png")){
+			/*If the piece is white it should check if there are any
+			 * black pieces and should be highlighted red*/
+			if (right+1 <= 9){
+				if(board[r][right+1].includes("b.png")){
+					break;
+				}else if(board[r][right+1].includes("w.png")){
+					num = "" + r + (right+1);
+					changeBorderColor(num, "#ff5050");
+	
+					moves[movesIndex] = num;
+					movesIndex++;
+					break;
+				}else{
+					num = "" + r + (right+1);
+					changeBorderColor(num, "#33cccc");
+					
+					moves[movesIndex] = num;
+					movesIndex++;
+				}
+			}
+		}
 	}
-
 	
 }
 
-/* Conditions for king's movement
-	1. Kings can only move one space
-	2. Kings can go in all 8 directions
-	3. Kings can capture any opposite colored piece if in movement range
-		***not implimented yet***
-	4. Kings cannot move to a tile that causes a check
-	5. Kings can do a castle with rook
-	6. */
-function showPossibleKingMoves(r, c){
-	var num;
-	/*since it can go in 8 directions with 8 possible captures*/
-	moves = new Array(16);
-	/*this populates the moves array with empty strings*/
-	for(var i = 0; i < moves.length; i++){
-    	moves[i] = "";
-	}
-
-	if(board[r][c].includes("gw")){
-		/*going up*/
-		if(r - 1 >= 0 && (board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png"))){
-      		num = "" + (r - 1) + c;
-      		changeBorderColor(num, "#33cccc");
-      		moves[0] = num;
-		}
-		/*going down*/
-		if(r + 1 <= 9 && (board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png"))){
-			num = "" + (r + 1) + c;
-			changeBorderColor(num, "#33cccc");
-			moves[1] = num;
-		}
-		/*going left*/
-		if(c - 1 >= 0 && (board[r][c - 1].includes("l.png") || board[r][c - 1].includes("d.png"))){
-			num = "" + r + (c - 1);
-			changeBorderColor(num, "#33cccc");
-			moves[2] = num;
-		}
-		/*going down*/
-		if(c + 1 <= 9 && (board[r][c + 1].includes("l.png") || board[r][c + 1].includes("d.png"))){
-			num = "" + r + (c + 1);
-			changeBorderColor(num, "#33cccc");
-			moves[3] = num;
-		}
-		/*going up left*/
-		if((r - 1 >=0 && c - 1 >= 0) && (board[r - 1][c - 1].includes("l.png") || board[r - 1][c - 1].includes("d.png"))){
-			num = "" + (r - 1) + (c - 1);
-			changeBorderColor(num, "#33cccc");
-			moves[4] = num;
-		}
-		/*going up right*/
-		if((r - 1 >=0 && c + 1 <= 9) && (board[r - 1][c + 1].includes("l.png") || board[r - 1][c + 1].includes("d.png"))){
-			num = "" + (r - 1) + (c + 1);
-			changeBorderColor(num, "#33cccc");
-			moves[5] = num;
-		}
-		/*going down left*/
-		if((r + 1 <=9 && c - 1 >= 0) && (board[r + 1][c - 1].includes("l.png") || board[r + 1][c - 1].includes("d.png"))){
-			num = "" + (r + 1) + (c - 1);
-			changeBorderColor(num, "#33cccc");
-			moves[6] = num;
-		}
-		/*going down right*/
-		if((r + 1 <=9 && c + 1 >= 0) && (board[r + 1][c + 1].includes("l.png") || board[r + 1][c + 1].includes("d.png"))){
-			num = "" + (r + 1) + (c + 1);
-			changeBorderColor(num, "#33cccc");
-			moves[7] = num;
-		}
-
-		/*capture up*/
-		if(r - 1 >= 0){
-			num = "" + (r - 1) + c;
-			if(!(board[r - 1][c].includes("l.png")) && !(board[r - 1][c].includes("d.png")) && !(board[r - 1][c].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[8] = num;
-			}
-		}
-		/*capture down*/
-		if(r + 1 <= 9){
-			num = "" + (r + 1) + c;
-			if(!(board[r + 1][c].includes("l.png")) && !(board[r + 1][c].includes("d.png")) && !(board[r + 1][c].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[9] = num;
-			}
-		}
-		/*capture left*/
-		if(c - 1 >= 0){
-			num = "" + r + (c - 1);
-			if(!(board[r][c - 1].includes("l.png")) && !(board[r][c - 1].includes("d.png")) && !(board[r][c - 1].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[10] = num;
-			}
-		}
-		/*capture right*/
-		if(c + 1 <= 9){
-			num = "" + r + (c + 1);
-			if(!(board[r][c + 1].includes("l.png")) && !(board[r][c + 1].includes("d.png")) && !(board[r][c + 1].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[11] = num;
-			}
-		}
-		/*capture up left*/
-		if(r - 1 >= 0 && c - 1 >= 0){
-			num = "" + (r - 1) + (c - 1);
-			if(!(board[r - 1][c - 1].includes("l.png")) && !(board[r - 1][c - 1].includes("d.png")) && !(board[r - 1][c - 1].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[12] = num;
-			}
-		}
-		/*capture down left*/
-		if(r + 1 >= 0 && c - 1 >= 0){
-			num = "" + (r + 1) + (c - 1);
-			if(!(board[r + 1][c - 1].includes("l.png")) && !(board[r + 1][c - 1].includes("d.png")) && !(board[r + 1][c - 1].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[13] = num;
-			}
-		}
-		/*capture up right*/
-		if(r + 1 <= 9 && c + 1 <= 9){
-			num = "" + (r + 1) + (c + 1);
-			if(!(board[r + 1][c + 1].includes("l.png")) && !(board[r + 1][c + 1].includes("d.png")) && !(board[r + 1][c + 1].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[14] = num;
-			}
-		}
-		/*capture down right*/
-		if(r - 1 >= 0 && c + 1 <= 9){
-			num = "" + (r - 1) + (c + 1);
-			if(!(board[r - 1][c + 1].includes("l.png")) && !(board[r - 1][c + 1].includes("d.png")) && !(board[r - 1][c + 1].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[15] = num;
-			}
-		}
-	}
-	if(board[r][c].includes("gb")){
-		/*going up*/
-		if(r - 1 >= 0 && (board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png"))){
-      		num = "" + (r - 1) + c;
-      		changeBorderColor(num, "#33cccc");
-      		moves[0] = num;
-		}
-		/*going down*/
-		if(r + 1 <= 9 && (board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png"))){
-			num = "" + (r + 1) + c;
-			changeBorderColor(num, "#33cccc");
-			moves[1] = num;
-		}
-		/*going left*/
-		if(c - 1 >= 0 && (board[r][c - 1].includes("l.png") || board[r][c - 1].includes("d.png"))){
-			num = "" + r + (c - 1);
-			changeBorderColor(num, "#33cccc");
-			moves[2] = num;
-		}
-		/*going down*/
-		if(c + 1 <= 9 && (board[r][c + 1].includes("l.png") || board[r][c + 1].includes("d.png"))){
-			num = "" + r + (c + 1);
-			changeBorderColor(num, "#33cccc");
-			moves[3] = num;
-		}
-		/*going up left*/
-		if((r - 1 >=0 && c - 1 >= 0) && (board[r - 1][c - 1].includes("l.png") || board[r - 1][c - 1].includes("d.png"))){
-			num = "" + (r - 1) + (c - 1);
-			changeBorderColor(num, "#33cccc");
-			moves[4] = num;
-		}
-		/*going up right*/
-		if((r - 1 >=0 && c + 1 <= 9) && (board[r - 1][c + 1].includes("l.png") || board[r - 1][c + 1].includes("d.png"))){
-			num = "" + (r - 1) + (c + 1);
-			changeBorderColor(num, "#33cccc");
-			moves[5] = num;
-		}
-		/*going down left*/
-		if((r + 1 <=9 && c - 1 >= 0) && (board[r + 1][c - 1].includes("l.png") || board[r + 1][c - 1].includes("d.png"))){
-			num = "" + (r + 1) + (c - 1);
-			changeBorderColor(num, "#33cccc");
-			moves[6] = num;
-		}
-		/*going down right*/
-		if((r + 1 <=9 && c + 1 >= 0) && (board[r + 1][c + 1].includes("l.png") || board[r + 1][c + 1].includes("d.png"))){
-			num = "" + (r + 1) + (c + 1);
-			changeBorderColor(num, "#33cccc");
-			moves[7] = num;
-		}
-
-		/*capture up*/
-		if(r - 1 >= 0){
-			num = "" + (r - 1) + c;
-			if(!(board[r - 1][c].includes("l.png")) && !(board[r - 1][c].includes("d.png")) && !(board[r - 1][c].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[8] = num;
-			}
-		}
-		/*capture down*/
-		if(r + 1 <= 9){
-			num = "" + (r + 1) + c;
-			if(!(board[r + 1][c].includes("l.png")) && !(board[r + 1][c].includes("d.png")) && !(board[r + 1][c].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[9] = num;
-			}
-		}
-		/*capture left*/
-		if(c - 1 >= 0){
-			num = "" + r + (c - 1);
-			if(!(board[r][c - 1].includes("l.png")) && !(board[r][c - 1].includes("d.png")) && !(board[r][c - 1].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[10] = num;
-			}
-		}
-		/*capture right*/
-		if(c + 1 <= 9){
-			num = "" + r + (c + 1);
-			if(!(board[r][c + 1].includes("l.png")) && !(board[r][c + 1].includes("d.png")) && !(board[r][c + 1].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[11] = num;
-			}
-		}
-		/*capture up left*/
-		if(r - 1 >= 0 && c - 1 >= 0){
-			num = "" + (r - 1) + (c - 1);
-			if(!(board[r - 1][c - 1].includes("l.png")) && !(board[r - 1][c - 1].includes("d.png")) && !(board[r - 1][c - 1].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[12] = num;
-			}
-		}
-		/*capture down left*/
-		if(r + 1 >= 0 && c - 1 >= 0){
-			num = "" + (r + 1) + (c - 1);
-			if(!(board[r + 1][c - 1].includes("l.png")) && !(board[r + 1][c - 1].includes("d.png")) && !(board[r + 1][c - 1].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[13] = num;
-			}
-		}
-		/*capture up right*/
-		if(r + 1 <= 9 && c + 1 <= 9){
-			num = "" + (r + 1) + (c + 1);
-			if(!(board[r + 1][c + 1].includes("l.png")) && !(board[r + 1][c + 1].includes("d.png")) && !(board[r + 1][c + 1].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[14] = num;
-			}
-		}
-		/*capture down right*/
-		if(r - 1 >= 0 && c + 1 <= 9){
-			num = "" + (r - 1) + (c + 1);
-			if(!(board[r - 1][c + 1].includes("l.png")) && !(board[r - 1][c + 1].includes("d.png")) && !(board[r - 1][c + 1].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-        		moves[15] = num;
-			}
-		}
-	}
-}
 function showPossibleBishopMoves(r, c){
 	var num;
 	var rw = r;
@@ -886,6 +707,256 @@ function showPossibleBishopMoves(r, c){
 		}
 	}
 }
+
+/* Conditions for king's movement
+1. Kings can only move one space
+2. Kings can go in all 8 directions
+3. Kings can capture any opposite colored piece if in movement range
+	***not implimented yet***
+4. Kings cannot move to a tile that causes a check
+5. Kings can do a castle with rook
+6. */
+function showPossibleKingMoves(r, c){
+var num;
+/*since it can go in 8 directions with 8 possible captures*/
+moves = new Array(16);
+/*this populates the moves array with empty strings*/
+for(var i = 0; i < moves.length; i++){
+	moves[i] = "";
+}
+
+if(board[r][c].includes("gw")){
+	/*going up*/
+	if(r - 1 >= 0 && (board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png"))){
+  		num = "" + (r - 1) + c;
+  		changeBorderColor(num, "#33cccc");
+  		moves[0] = num;
+	}
+	/*going down*/
+	if(r + 1 <= 9 && (board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png"))){
+		num = "" + (r + 1) + c;
+		changeBorderColor(num, "#33cccc");
+		moves[1] = num;
+	}
+	/*going left*/
+	if(c - 1 >= 0 && (board[r][c - 1].includes("l.png") || board[r][c - 1].includes("d.png"))){
+		num = "" + r + (c - 1);
+		changeBorderColor(num, "#33cccc");
+		moves[2] = num;
+	}
+	/*going down*/
+	if(c + 1 <= 9 && (board[r][c + 1].includes("l.png") || board[r][c + 1].includes("d.png"))){
+		num = "" + r + (c + 1);
+		changeBorderColor(num, "#33cccc");
+		moves[3] = num;
+	}
+	/*going up left*/
+	if((r - 1 >=0 && c - 1 >= 0) && (board[r - 1][c - 1].includes("l.png") || board[r - 1][c - 1].includes("d.png"))){
+		num = "" + (r - 1) + (c - 1);
+		changeBorderColor(num, "#33cccc");
+		moves[4] = num;
+	}
+	/*going up right*/
+	if((r - 1 >=0 && c + 1 <= 9) && (board[r - 1][c + 1].includes("l.png") || board[r - 1][c + 1].includes("d.png"))){
+		num = "" + (r - 1) + (c + 1);
+		changeBorderColor(num, "#33cccc");
+		moves[5] = num;
+	}
+	/*going down left*/
+	if((r + 1 <=9 && c - 1 >= 0) && (board[r + 1][c - 1].includes("l.png") || board[r + 1][c - 1].includes("d.png"))){
+		num = "" + (r + 1) + (c - 1);
+		changeBorderColor(num, "#33cccc");
+		moves[6] = num;
+	}
+	/*going down right*/
+	if((r + 1 <=9 && c + 1 >= 0) && (board[r + 1][c + 1].includes("l.png") || board[r + 1][c + 1].includes("d.png"))){
+		num = "" + (r + 1) + (c + 1);
+		changeBorderColor(num, "#33cccc");
+		moves[7] = num;
+	}
+
+	/*capture up*/
+	if(r - 1 >= 0){
+		num = "" + (r - 1) + c;
+		if(!(board[r - 1][c].includes("l.png")) && !(board[r - 1][c].includes("d.png")) && !(board[r - 1][c].includes("w.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[8] = num;
+		}
+	}
+	/*capture down*/
+	if(r + 1 <= 9){
+		num = "" + (r + 1) + c;
+		if(!(board[r + 1][c].includes("l.png")) && !(board[r + 1][c].includes("d.png")) && !(board[r + 1][c].includes("w.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[9] = num;
+		}
+	}
+	/*capture left*/
+	if(c - 1 >= 0){
+		num = "" + r + (c - 1);
+		if(!(board[r][c - 1].includes("l.png")) && !(board[r][c - 1].includes("d.png")) && !(board[r][c - 1].includes("w.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[10] = num;
+		}
+	}
+	/*capture right*/
+	if(c + 1 <= 9){
+		num = "" + r + (c + 1);
+		if(!(board[r][c + 1].includes("l.png")) && !(board[r][c + 1].includes("d.png")) && !(board[r][c + 1].includes("w.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[11] = num;
+		}
+	}
+	/*capture up left*/
+	if(r - 1 >= 0 && c - 1 >= 0){
+		num = "" + (r - 1) + (c - 1);
+		if(!(board[r - 1][c - 1].includes("l.png")) && !(board[r - 1][c - 1].includes("d.png")) && !(board[r - 1][c - 1].includes("w.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[12] = num;
+		}
+	}
+	/*capture down left*/
+	if(r + 1 >= 0 && c - 1 >= 0){
+		num = "" + (r + 1) + (c - 1);
+		if(!(board[r + 1][c - 1].includes("l.png")) && !(board[r + 1][c - 1].includes("d.png")) && !(board[r + 1][c - 1].includes("w.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[13] = num;
+		}
+	}
+	/*capture up right*/
+	if(r + 1 <= 9 && c + 1 <= 9){
+		num = "" + (r + 1) + (c + 1);
+		if(!(board[r + 1][c + 1].includes("l.png")) && !(board[r + 1][c + 1].includes("d.png")) && !(board[r + 1][c + 1].includes("w.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[14] = num;
+		}
+	}
+	/*capture down right*/
+	if(r - 1 >= 0 && c + 1 <= 9){
+		num = "" + (r - 1) + (c + 1);
+		if(!(board[r - 1][c + 1].includes("l.png")) && !(board[r - 1][c + 1].includes("d.png")) && !(board[r - 1][c + 1].includes("w.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[15] = num;
+		}
+	}
+}
+if(board[r][c].includes("gb")){
+	/*going up*/
+	if(r - 1 >= 0 && (board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png"))){
+  		num = "" + (r - 1) + c;
+  		changeBorderColor(num, "#33cccc");
+  		moves[0] = num;
+	}
+	/*going down*/
+	if(r + 1 <= 9 && (board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png"))){
+		num = "" + (r + 1) + c;
+		changeBorderColor(num, "#33cccc");
+		moves[1] = num;
+	}
+	/*going left*/
+	if(c - 1 >= 0 && (board[r][c - 1].includes("l.png") || board[r][c - 1].includes("d.png"))){
+		num = "" + r + (c - 1);
+		changeBorderColor(num, "#33cccc");
+		moves[2] = num;
+	}
+	/*going down*/
+	if(c + 1 <= 9 && (board[r][c + 1].includes("l.png") || board[r][c + 1].includes("d.png"))){
+		num = "" + r + (c + 1);
+		changeBorderColor(num, "#33cccc");
+		moves[3] = num;
+	}
+	/*going up left*/
+	if((r - 1 >=0 && c - 1 >= 0) && (board[r - 1][c - 1].includes("l.png") || board[r - 1][c - 1].includes("d.png"))){
+		num = "" + (r - 1) + (c - 1);
+		changeBorderColor(num, "#33cccc");
+		moves[4] = num;
+	}
+	/*going up right*/
+	if((r - 1 >=0 && c + 1 <= 9) && (board[r - 1][c + 1].includes("l.png") || board[r - 1][c + 1].includes("d.png"))){
+		num = "" + (r - 1) + (c + 1);
+		changeBorderColor(num, "#33cccc");
+		moves[5] = num;
+	}
+	/*going down left*/
+	if((r + 1 <=9 && c - 1 >= 0) && (board[r + 1][c - 1].includes("l.png") || board[r + 1][c - 1].includes("d.png"))){
+		num = "" + (r + 1) + (c - 1);
+		changeBorderColor(num, "#33cccc");
+		moves[6] = num;
+	}
+	/*going down right*/
+	if((r + 1 <=9 && c + 1 >= 0) && (board[r + 1][c + 1].includes("l.png") || board[r + 1][c + 1].includes("d.png"))){
+		num = "" + (r + 1) + (c + 1);
+		changeBorderColor(num, "#33cccc");
+		moves[7] = num;
+	}
+
+	/*capture up*/
+	if(r - 1 >= 0){
+		num = "" + (r - 1) + c;
+		if(!(board[r - 1][c].includes("l.png")) && !(board[r - 1][c].includes("d.png")) && !(board[r - 1][c].includes("b.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[8] = num;
+		}
+	}
+	/*capture down*/
+	if(r + 1 <= 9){
+		num = "" + (r + 1) + c;
+		if(!(board[r + 1][c].includes("l.png")) && !(board[r + 1][c].includes("d.png")) && !(board[r + 1][c].includes("b.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[9] = num;
+		}
+	}
+	/*capture left*/
+	if(c - 1 >= 0){
+		num = "" + r + (c - 1);
+		if(!(board[r][c - 1].includes("l.png")) && !(board[r][c - 1].includes("d.png")) && !(board[r][c - 1].includes("b.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[10] = num;
+		}
+	}
+	/*capture right*/
+	if(c + 1 <= 9){
+		num = "" + r + (c + 1);
+		if(!(board[r][c + 1].includes("l.png")) && !(board[r][c + 1].includes("d.png")) && !(board[r][c + 1].includes("b.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[11] = num;
+		}
+	}
+	/*capture up left*/
+	if(r - 1 >= 0 && c - 1 >= 0){
+		num = "" + (r - 1) + (c - 1);
+		if(!(board[r - 1][c - 1].includes("l.png")) && !(board[r - 1][c - 1].includes("d.png")) && !(board[r - 1][c - 1].includes("b.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[12] = num;
+		}
+	}
+	/*capture down left*/
+	if(r + 1 >= 0 && c - 1 >= 0){
+		num = "" + (r + 1) + (c - 1);
+		if(!(board[r + 1][c - 1].includes("l.png")) && !(board[r + 1][c - 1].includes("d.png")) && !(board[r + 1][c - 1].includes("b.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[13] = num;
+		}
+	}
+	/*capture up right*/
+	if(r + 1 <= 9 && c + 1 <= 9){
+		num = "" + (r + 1) + (c + 1);
+		if(!(board[r + 1][c + 1].includes("l.png")) && !(board[r + 1][c + 1].includes("d.png")) && !(board[r + 1][c + 1].includes("b.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[14] = num;
+		}
+	}
+	/*capture down right*/
+	if(r - 1 >= 0 && c + 1 <= 9){
+		num = "" + (r - 1) + (c + 1);
+		if(!(board[r - 1][c + 1].includes("l.png")) && !(board[r - 1][c + 1].includes("d.png")) && !(board[r - 1][c + 1].includes("b.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[15] = num;
+		}
+	}
+}
+}
+
 /*Moves selected chess piece to selected location*/
 function moveChessPiece(first, second){
   var r1 = parseInt(first.substring(0,1));

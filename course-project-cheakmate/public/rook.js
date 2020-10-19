@@ -317,130 +317,196 @@ function showPossibleRookMoves(r, c){
 	 }
 	/*Moving Rook upwards*/
 	for(var up = r; up >= 0; up--){
-		/*alert("My position is " + up + ", " + c);*/
-		if(up >= 0 && (board[up][c].includes("l.png") || board[up][c].includes("d.png"))){
-			num = "" + up + c;
-			changeBorderColor(num, "#006699");
-			
-			moves[movesIndex] = num;
-			movesIndex++;
+		if(board[r][c].includes("w.png")){
+			/*If the piece is white it should check if there are any
+			 * black pieces and should be highlighted red*/
+			if(up-1 >= 0){
+				if(board[up-1][c].includes("w.png")){
+					break;
+				}else if(board[up-1][c].includes("b.png")){
+					num = "" + (up-1) + c;
+					changeBorderColor(num, "#ff0000");
+	
+					moves[movesIndex] = num;
+					movesIndex++;
+					break;
+				}else{
+					num = "" + (up-1) + c;
+					changeBorderColor(num, "#006699");
+					
+					moves[movesIndex] = num;
+					movesIndex++;
+				}
+			}
 		}
-		/*Only while you're white, pieces are the black pieces red*/
-		if(board[up][c].includes("b.png") && board[r][c].includes("ow")){
-			num = "" + up + c;
-			changeBorderColor(num, "#ff0000");
-			
-			moves[movesIndex] = num;
-			movesIndex++;
-			break;
+		if(board[r][c].includes("b.png")){
+			/*If the piece is white it should check if there are any
+			 * black pieces and should be highlighted red*/
+			if(up-1 >= 0){
+				if(board[up-1][c].includes("b.png")){
+					break;
+				}else if(board[up-1][c].includes("w.png")){
+					num = "" + (up-1) + c;
+					changeBorderColor(num, "#ff0000");
+	
+					moves[movesIndex] = num;
+					movesIndex++;
+					break;
+				}else{
+					num = "" + (up-1) + c;
+					changeBorderColor(num, "#006699");
+					
+					moves[movesIndex] = num;
+					movesIndex++;
+				}
+			}
 		}
-		/*Only while you're black, pieces are the white pieces red*/
-		if(board[up][c].includes("w.png") && board[r][c].includes("ob")){
-			num = "" + up + c;
-			changeBorderColor(num, "#ff0000");
-			
-			moves[movesIndex] = num;
-			movesIndex++;
-			break;
-		}
+		
 	}
 	/*Moving Rook downwards*/
 	for(var down = r; down <= 9; down++){
-		/*alert("My position is " + down + ", " + c);*/
-		if(down <= 9 && (board[down][c].includes("l.png") || board[down][c].includes("d.png"))){
-			num = "" + down + c;
-			changeBorderColor(num, "#006699");
-			
-			moves[movesIndex] = num;
-			movesIndex++;
+		if(board[r][c].includes("w.png")){
+			/*If the piece is white it should check if there are any
+			 * black pieces and should be highlighted red*/
+			if(down+1 <= 9){
+				if(board[down+1][c].includes("w.png")){
+					break;
+				}else if(board[down+1][c].includes("b.png")){
+					num = "" + (down+1) + c;
+					changeBorderColor(num, "#ff0000");
+	
+					moves[movesIndex] = num;
+					movesIndex++;
+					break;
+				}else{
+					num = "" + (down+1) + c;
+					changeBorderColor(num, "#006699");
+					
+					moves[movesIndex] = num;
+					movesIndex++;
+				}
+			}
 		}
-		/*Only while you're white, pieces are the black pieces red*/
-		if(board[down][c].includes("b.png") && board[r][c].includes("ow")){
-			num = "" + down + c;
-			changeBorderColor(num, "#ff0000");
-
-			moves[movesIndex] = num;
-			movesIndex++;
-			break;
-		}
-		/*Only while you're black, pieces are the white pieces red*/
-		if(board[down][c].includes("w.png") && board[r][c].includes("ob")){
-			num = "" + down + c;
-			changeBorderColor(num, "#ff0000");
-			
-			moves[movesIndex] = num;
-			movesIndex++;
-			break;
+		if(board[r][c].includes("b.png")){
+			/*If the piece is white it should check if there are any
+			 * black pieces and should be highlighted red*/
+			if(down+1 <= 9){
+				if(board[down+1][c].includes("b.png")){
+					break;
+				}else if(board[down+1][c].includes("w.png")){
+					num = "" + (down+1) + c;
+					changeBorderColor(num, "#ff0000");
+	
+					moves[movesIndex] = num;
+					movesIndex++;
+					break;
+				}else{
+					num = "" + (down+1) + c;
+					changeBorderColor(num, "#006699");
+					
+					moves[movesIndex] = num;
+					movesIndex++;
+				}
+			}
 		}
 	}
 	/*Moving Rook left*/
 	for(var left = c; left >= 0; left--){
-		/*alert("My position is " + r + ", " + left);*/
-		if(left >= 0 && (board[r][left].includes("l.png") || board[r][left].includes("d.png"))){
-			num = "" + r + left;
-			changeBorderColor(num, "#006699");
-			
-			moves[movesIndex] = num;
-			movesIndex++;
+		if(board[r][c].includes("w.png")){
+			/*If the piece is white it should check if there are any
+			 * black pieces and should be highlighted red*/
+			if(left-1 >= 0){
+				if(board[r][left -1].includes("w.png")){
+					break;
+				}else if(board[r][left-1].includes("b.png")){
+					num = "" + r + (left-1);
+					changeBorderColor(num, "#ff0000");
+	
+					moves[movesIndex] = num;
+					movesIndex++;
+					break;
+				}else{
+					num = "" + r + (left-1);
+					changeBorderColor(num, "#006699");
+					
+					moves[movesIndex] = num;
+					movesIndex++;
+				}
+			}
 		}
-		/*Only while you're white, pieces are the black pieces red*/
-		if(board[r][left].includes("b.png") && board[r][c].includes("ow")){
-			num = "" + r + left;
-			changeBorderColor(num, "#ff0000");
-			
-			moves[movesIndex] = num;
-			movesIndex++;
-			break;
-		}
-		/*Only while you're black, pieces are the white pieces red*/
-		if(board[r][left].includes("w.png") && board[r][c].includes("ob")){
-			num = "" + r + left;
-			changeBorderColor(num, "#ff0000");
-			
-			moves[movesIndex] = num;
-			movesIndex++;
-			break;
+		if(board[r][c].includes("b.png")){
+			/*If the piece is white it should check if there are any
+			 * black pieces and should be highlighted red*/
+			if(left-1 >= 0){
+				if(board[r][left -1].includes("b.png")){
+					break;
+				}else if(board[r][left-1].includes("w.png")){
+					num = "" + r + (left-1);
+					changeBorderColor(num, "#ff0000");
+	
+					moves[movesIndex] = num;
+					movesIndex++;
+					break;
+				}else{
+					num = "" + r + (left-1);
+					changeBorderColor(num, "#006699");
+					
+					moves[movesIndex] = num;
+					movesIndex++;
+				}
+			}
 		}
 	}
+	
+	
+	
 	/*Moving Rook right*/
 	for(var right = c; right <= 9; right++){
-		/*Only while you're white/black, when your path has your piece color, it shouldn't detect past it*/
-		if( right+1 <= 9 && (board[r][right+1].includes("w.png") && board[r][c].includes("ow") )|| (board[r][right+1].includes("b.png") && board[r][c].includes("ob")) ){
-			/*alert("var right is: " + right);
-			alert("My piece is: " + board[r][c] + "To my right is: " + board[r][right+1]);*/
-			break;
-		}else{
-
-			/*alert("My position is " + r + ", " + right);*/
-			if(right <= 9 && (board[r][right+1].includes("l.png") || board[r][right+1].includes("d.png"))){
-				num = "" + r + (right+1);
-				changeBorderColor(num, "#006699");
-				
-				moves[movesIndex] = num;
-				movesIndex++;
-			}
-			/*Only while you're white, the first black piece are red*/
-			if(board[r][right+1].includes("b.png") && board[r][c].includes("ow")){
-				num = "" + r + (right + 1);
-				changeBorderColor(num, "#ff0000");
-				
-				moves[movesIndex] = num;
-				movesIndex++;
-				break;
-			}
-			/*Only while you're black, the first white pieces are red*/
-			if(board[r][right+1].includes("w.png") && board[r][c].includes("ob")){
-				num = "" + r + (right+1);
-				changeBorderColor(num, "#ff0000");
-				
-				moves[movesIndex] = num;
-				movesIndex++;
-				break;
+		if(board[r][c].includes("w.png")){
+			/*If the piece is white it should check if there are any
+			 * black pieces and should be highlighted red*/
+			if (right+1 <= 9){
+				if(board[r][right+1].includes("w.png")){
+					break;
+				}else if(board[r][right+1].includes("b.png")){
+					num = "" + r + (right+1);
+					changeBorderColor(num, "#ff0000");
+	
+					moves[movesIndex] = num;
+					movesIndex++;
+					break;
+				}else{
+					num = "" + r + (right+1);
+					changeBorderColor(num, "#006699");
+					
+					moves[movesIndex] = num;
+					movesIndex++;
+				}
 			}
 		}
-
+		if(board[r][c].includes("b.png")){
+			/*If the piece is white it should check if there are any
+			 * black pieces and should be highlighted red*/
+			if (right+1 <= 9){
+				if(board[r][right+1].includes("b.png")){
+					break;
+				}else if(board[r][right+1].includes("w.png")){
+					num = "" + r + (right+1);
+					changeBorderColor(num, "#ff0000");
+	
+					moves[movesIndex] = num;
+					movesIndex++;
+					break;
+				}else{
+					num = "" + r + (right+1);
+					changeBorderColor(num, "#006699");
+					
+					moves[movesIndex] = num;
+					movesIndex++;
+				}
+			}
+		}
 	}
-
 	
 }
 /*Moves selected chess piece to selected location*/
