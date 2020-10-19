@@ -11,6 +11,8 @@
 	margin: auto;
 }
 
+/*@Author: Alex*/
+/*@Editor: Kat*/
 table, tr, td {
 	width: 750px;
 	height: 75px;
@@ -21,6 +23,8 @@ table, tr, td {
 	margin-right: auto;
 }
 
+/*@Author: Alex*/
+/*@Editor: Kat*/
 #turn {
 	text-align: center;
 	font-family: Impact, Charcoal, sans-serif;
@@ -32,7 +36,8 @@ table, tr, td {
 	margin: auto;
 }
 
-/*.topbar {
+/*@Author: Alex
+.topbar {
 	background-color: lightskyblue;
 	border: black;
 	border-radius: 12px;
@@ -42,13 +47,14 @@ table, tr, td {
   	display: inline-block;
 	font-size: 18px;
   	transition-duration: 0.5s;
-}*/
+}
 
 .topbar:hover {
 	background-color: darkblue;
 	color: white;
-}
+}*/
 
+/*@Author: Kat*/
 img{
 	border: 3px solid black;
 	width: auto;
@@ -58,6 +64,7 @@ img{
 
 
 /*Temperory solution to changing settings through Navigation bar*/
+/*@Author: Kat*/
 ul{
 	list-style-type: none;
   margin: 0;
@@ -66,12 +73,14 @@ ul{
 	background: rgba(0, 0, 26, 0.5);
 }
 
+/*@Author: Kat*/
 li{
 	display: block;
 	float: left;
 	border-right: 1px solid white;
 }
 
+/*@Author: Kat*/
 button{
 	border: none;
 	text-decoration: none;
@@ -80,24 +89,32 @@ button{
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
+/*@Author: Kat*/
 .navbar:hover{
 	background: rgba(105, 105, 105, 0.5);
 }
 
 /*Temporary solution to changing settings*/
+/*@Author: Kat*/
 body{
 	background-image: url('images/Default.jpg');
 	object-fit: cover;
 	background-attachment: fixed;
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
+
+/*@Author: Kat*/
 hd1, p, #pref{
 	text-align: center;
 }
+
+/*@Author: Kat*/
 a:link, a:visited{
 	color: black;
 	text-decoration: none;
 }
+
+/*@Author: Kat*/
 #pref{
 	display: none;
 	border-style: solid;
@@ -108,6 +125,8 @@ a:link, a:visited{
 	position: relative;
 	margin: auto;
 }
+
+/*@Author: Kat*/
 .choice {
 	border: none;
 	text-decoration: none;
@@ -116,6 +135,7 @@ a:link, a:visited{
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
+/*@Author: Kat*/
 p, button:hover{
 	background: rgba(0, 0, 26, 0.75);
 }

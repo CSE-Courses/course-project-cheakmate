@@ -5,6 +5,9 @@ var moves; /*Keeps track of possible moves for a selected chess piece*/
 var first = ""; /*Keeps track of first img to be moved*/
 var second = ""; /*Keeps track of second img to be moved*/
 
+/*@Author: Alex*/
+/*@Editor: Kat*/
+/*Initializes the chess board*/
 function initialize(){
   /*Create a 10 x 10 board*/
   board = new Array(10);
@@ -96,6 +99,9 @@ function initialize(){
   populate();
 }
 
+/*@Author: Alam*/
+/*@Editor: Alex*/
+/*@Author: Kat*/
 /*Reads the 2-D array and changes the image source accoring to its image id*/
 function populate(){
   var num;
@@ -107,6 +113,7 @@ function populate(){
   }
 }
 
+/*@Author: Alam*/
 /*Exits the game and returns to main menu*/
 function exit(){
   if (confirm("Are you sure you want to leave the game?")) {
@@ -114,19 +121,25 @@ function exit(){
   }
 }
 
+/*@Author: Kat*/
+/*Resets image selection and moves array*/
 function clearMoves(){
   first = "";
   second = "";
   moves = new Array();
 }
 
+/*@Author: Kat*/
 /*Changes border color of image
   Happens when the image is selected
   Happens when possible moves are shown*/
+/*@Param string imageId is the location of the image*/
+/*@Param string color is the color selected*/
 function changeBorderColor(imageId, color){
   document.getElementById(imageId).style.border = "3px solid " + color;
 }
 
+/*@Author: Kat*/
 /*Resets border color of all images
   Happens when the image selected is changed
   Happens when turn is over*/
@@ -140,11 +153,15 @@ function resetBorderColor(){
   }
 }
 
+/*@Author: Kat*/
+/*@Editor: Kevin*/
+/*@Editor: Richard*/
 /*Each image onclick calls for the function to run game
   This works by
   Checking the type of chess piece
   Finding the possible moves of the chess piece
   Moving the chess piece*/
+/*@Param string imageId is the location of the image*/
 function runGame(imageId){
   resetBorderColor();
   var r = parseInt(imageId.substring(0,1));
@@ -178,7 +195,7 @@ function runGame(imageId){
     if(isBishop(r, c)){
 		  first = imageId;
 		  showPossibleBishopMoves(r,c);
-    } 
+    }
 
     /* TODO:
     //Checks if it is a King here
@@ -203,6 +220,10 @@ function runGame(imageId){
   }
 }
 
+/*@Author: Kat*/
+/*Checks if a tile has a chess piece*/
+/*@Param int r is the number value for row*/
+/*@Param int c is the number value for column*/
 function isEmptyTile(r, c){
   if(board[r][c].includes("l.png") || board[r][c].includes("d.png")){
     return true;
@@ -212,6 +233,10 @@ function isEmptyTile(r, c){
   }
 }
 
+/*@Author: Kat*/
+/*Checks if a tile is a pawn*/
+/*@Param int r is the number value for row*/
+/*@Param int c is the number value for column*/
 function isPawn(r, c){
   if(board[r][c].includes("pb") || board[r][c].includes("pw")){
     return true;
@@ -221,6 +246,10 @@ function isPawn(r, c){
   }
 }
 
+/*@Author: Kevin*/
+/*Checks if a tile is a rook*/
+/*@Param int r is the number value for row*/
+/*@Param int c is the number value for column*/
 function isRook(r, c){
 	if(board[r][c].includes("ob") || board[r][c].includes("ow")){
 		return true;
@@ -230,6 +259,10 @@ function isRook(r, c){
 	}
 }
 
+/*@Author: Richard*/
+/*Checks if a tile is a bihop*/
+/*@Param int r is the number value for row*/
+/*@Param int c is the number value for column*/
 function isBishop(r, c){
 	if(board[r][c].includes("hb") || board[r][c].includes("hw")){
 		return true;
@@ -239,6 +272,10 @@ function isBishop(r, c){
 	}
 }
 
+/*@Author: Richard*/
+/*Checks if a tile is a king*/
+/*@Param int r is the number value for row*/
+/*@Param int c is the number value for column*/
 function isKing(r, c){
 	if(board[r][c].includes("gb") || board[r][c].includes("gw")){
 		return true;
@@ -248,6 +285,9 @@ function isKing(r, c){
 	}
 }
 
+/*@Author: Kat*/
+/*Checks if the second tile || chess piece is in the listed possible moves of the first chess piece*/
+/*@Param string imageId is the location of the image*/
 function isInMoves(imageId){
   for(var i = 0; i < moves.length; i++){
     if(moves[i] == imageId){
@@ -257,12 +297,16 @@ function isInMoves(imageId){
   return false;
 }
 
+/*@Author: Kat*/
+/*Shows possible moves for pawn*/
 /*Conditions are made in order and according to the following rules
   Rule 1 : Pawns can only move forward one square at a time
   Rule 1.5 : Pawns can not move backwards
   Rule 2 : Pawns can move forward two squares for their very first move
   Rule 2.5 : There must be no chess pieces in between the two squares
   Rule 3 : Pawns can only capture one square diagonally in front of them*/
+/*@Param int r is the number value for row*/
+/*@Param int c is the number value for column*/
 function showPossiblePawnMoves(r, c){
   var num;
   moves = new Array(4);
@@ -333,15 +377,19 @@ function showPossiblePawnMoves(r, c){
   }
 }
 
-/*By Kevin*/
+/*@Author: Kevin*/
+/*Shows possible moves for rook*/
+/*@Param int r is the number value for row*/
+/*@Param int c is the number value for column*/
 function showPossibleRookMoves(r, c){
 	var num;
 	var movesIndex = 0;
-	
+
 	moves = new Array(18);/*The most possible moves rook can have*/
 	 for(var i = 0; i < moves.length; i++){
 		 moves[i] = "";
 	 }
+
 	/*Moving Rook upwards*/
 	for(var up = r; up >= 0; up--){
 		if(board[r][c].includes("w.png")){
@@ -353,14 +401,14 @@ function showPossibleRookMoves(r, c){
 				}else if(board[up-1][c].includes("b.png")){
 					num = "" + (up-1) + c;
 					changeBorderColor(num, "#ff5050");
-	
+
 					moves[movesIndex] = num;
 					movesIndex++;
 					break;
 				}else{
 					num = "" + (up-1) + c;
 					changeBorderColor(num, "#33cccc");
-					
+
 					moves[movesIndex] = num;
 					movesIndex++;
 				}
@@ -375,21 +423,21 @@ function showPossibleRookMoves(r, c){
 				}else if(board[up-1][c].includes("w.png")){
 					num = "" + (up-1) + c;
 					changeBorderColor(num, "#ff5050");
-	
+
 					moves[movesIndex] = num;
 					movesIndex++;
 					break;
 				}else{
 					num = "" + (up-1) + c;
 					changeBorderColor(num, "#33cccc");
-					
+
 					moves[movesIndex] = num;
 					movesIndex++;
 				}
 			}
 		}
-		
 	}
+
 	/*Moving Rook downwards*/
 	for(var down = r; down <= 9; down++){
 		if(board[r][c].includes("w.png")){
@@ -401,14 +449,14 @@ function showPossibleRookMoves(r, c){
 				}else if(board[down+1][c].includes("b.png")){
 					num = "" + (down+1) + c;
 					changeBorderColor(num, "#ff5050");
-	
+
 					moves[movesIndex] = num;
 					movesIndex++;
 					break;
 				}else{
 					num = "" + (down+1) + c;
 					changeBorderColor(num, "#33cccc");
-					
+
 					moves[movesIndex] = num;
 					movesIndex++;
 				}
@@ -423,14 +471,14 @@ function showPossibleRookMoves(r, c){
 				}else if(board[down+1][c].includes("w.png")){
 					num = "" + (down+1) + c;
 					changeBorderColor(num, "#ff5050");
-	
+
 					moves[movesIndex] = num;
 					movesIndex++;
 					break;
 				}else{
 					num = "" + (down+1) + c;
 					changeBorderColor(num, "#33cccc");
-					
+
 					moves[movesIndex] = num;
 					movesIndex++;
 				}
@@ -448,14 +496,14 @@ function showPossibleRookMoves(r, c){
 				}else if(board[r][left-1].includes("b.png")){
 					num = "" + r + (left-1);
 					changeBorderColor(num, "#ff5050");
-	
+
 					moves[movesIndex] = num;
 					movesIndex++;
 					break;
 				}else{
 					num = "" + r + (left-1);
 					changeBorderColor(num, "#33cccc");
-					
+
 					moves[movesIndex] = num;
 					movesIndex++;
 				}
@@ -470,23 +518,21 @@ function showPossibleRookMoves(r, c){
 				}else if(board[r][left-1].includes("w.png")){
 					num = "" + r + (left-1);
 					changeBorderColor(num, "#ff5050");
-	
+
 					moves[movesIndex] = num;
 					movesIndex++;
 					break;
 				}else{
 					num = "" + r + (left-1);
 					changeBorderColor(num, "#33cccc");
-					
+
 					moves[movesIndex] = num;
 					movesIndex++;
 				}
 			}
 		}
 	}
-	
-	
-	
+
 	/*Moving Rook right*/
 	for(var right = c; right <= 9; right++){
 		if(board[r][c].includes("w.png")){
@@ -498,14 +544,14 @@ function showPossibleRookMoves(r, c){
 				}else if(board[r][right+1].includes("b.png")){
 					num = "" + r + (right+1);
 					changeBorderColor(num, "#ff5050");
-	
+
 					moves[movesIndex] = num;
 					movesIndex++;
 					break;
 				}else{
 					num = "" + r + (right+1);
 					changeBorderColor(num, "#33cccc");
-					
+
 					moves[movesIndex] = num;
 					movesIndex++;
 				}
@@ -520,23 +566,26 @@ function showPossibleRookMoves(r, c){
 				}else if(board[r][right+1].includes("w.png")){
 					num = "" + r + (right+1);
 					changeBorderColor(num, "#ff5050");
-	
+
 					moves[movesIndex] = num;
 					movesIndex++;
 					break;
 				}else{
 					num = "" + r + (right+1);
 					changeBorderColor(num, "#33cccc");
-					
+
 					moves[movesIndex] = num;
 					movesIndex++;
 				}
 			}
 		}
 	}
-	
 }
 
+/*@Author: Richard*/
+/*Shows possible moves for bishop*/
+/*@Param int r is the number value for row*/
+/*@Param int c is the number value for column*/
 function showPossibleBishopMoves(r, c){
 	var num;
 	var rw = r;
@@ -708,6 +757,8 @@ function showPossibleBishopMoves(r, c){
 	}
 }
 
+/*@Author: Richard*/
+/*Shows possible moves for king*/
 /* Conditions for king's movement
 1. Kings can only move one space
 2. Kings can go in all 8 directions
@@ -716,6 +767,8 @@ function showPossibleBishopMoves(r, c){
 4. Kings cannot move to a tile that causes a check
 5. Kings can do a castle with rook
 6. */
+/*@Param int r is the number value for row*/
+/*@Param int c is the number value for column*/
 function showPossibleKingMoves(r, c){
 var num;
 /*since it can go in 8 directions with 8 possible captures*/
@@ -957,7 +1010,10 @@ if(board[r][c].includes("gb")){
 }
 }
 
+/*@Author: Kat*/
 /*Moves selected chess piece to selected location*/
+/*@Param string first is the source of the first selected tile*/
+/*@Param string second is the source of the second selected tile*/
 function moveChessPiece(first, second){
   var r1 = parseInt(first.substring(0,1));
   var c1 = parseInt(first.substring(1));

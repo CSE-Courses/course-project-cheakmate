@@ -27,6 +27,12 @@ import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
+/**
+ * This is the class to host the Web Server
+ * All related Java files are taken from CSE312 Course Work
+ * @author Illham Alam
+ *
+ */
 public class ChessWebServer {
 	
 	//Global Variables for server set up
