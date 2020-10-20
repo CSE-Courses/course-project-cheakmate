@@ -187,11 +187,11 @@ function runGame(imageId){
 
     /* TODO:
     //Checks if it is a Knights here
-      //If it is, show possible moves*/
-      if(isKnight(r, c)){
-        first = imageId;
-        showPossibleKnightMoves(r, c);
-      }
+    //If it is, show possible moves*/
+    if(isKnight(r, c)){
+      first = imageId;
+      showPossibleKnightMoves(r, c);
+    }
 
     /* TODO:
     //Checks if it is a Bishops here
@@ -212,6 +212,10 @@ function runGame(imageId){
     /* TODO:
     //Checks if it is a Queen here
       //If it is, show possible moves*/
+		if(isQueen(r,c)){
+			first = imageId;
+			showPossibleQueenMoves(r,c);
+		}
   }
   else if (isInMoves(imageId)){
     second = imageId;
@@ -233,6 +237,19 @@ function isEmptyTile(r, c){
     return true;
   }
   else {
+    return false;
+  }
+}
+
+/*Author: Richard */
+/*Checks if a tile is out of the board */
+/*@Param int r is the number value for row*/
+/*@Param int c is the number value for column*/
+function isOutOfBounds(r,c){
+  if(r>9 || r<0 || c>9 || c<0){
+    return true;
+  }
+  else{
     return false;
   }
 }
@@ -295,6 +312,19 @@ function isBishop(r, c){
 /*@Param int c is the number value for column*/
 function isKing(r, c){
 	if(board[r][c].includes("gb") || board[r][c].includes("gw")){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+/*@Author: Richard*/
+/*Checks if a tile is a queen*/
+/*@Param int r is the number value for row*/
+/*@Param int c is the number value for column*/
+function isQueen(r,c){
+	if(board[r][c].includes("qw.png") || board[r][c].includes("qb.png")){
 		return true;
 	}
 	else{
@@ -801,8 +831,14 @@ function showPossibleKnightMoves(r, c){
 
 /*@Author: Richard*/
 /*Shows possible moves for bishop*/
+/* Conditions for bishop movement
+1. bishops can only move diagonally
+2. bishops can move unlimited around of spaces until the end of 
+the board or there is a piece in the way
+3. bishop can capture any opposite piece in movement range
 /*@Param int r is the number value for row*/
 /*@Param int c is the number value for column*/
+
 function showPossibleBishopMoves(r, c){
 	var num;
 	var rw = r;
@@ -1226,6 +1262,349 @@ if(board[r][c].includes("gb")){
 	}
 }
 }
+
+/*@Author: Richard*/
+/*Shows possible moves for queen*/
+/* Conditions for queen movement
+1. Queens can go unlimited amount of spaces until queen hits the end of 
+board or a piece
+2. Queens can go in all 8 directions
+3. Queen can capture any opposite colored piece if in movement range
+/*@Param int r is the number value for row*/
+/*@Param int c is the number value for column*/
+function showPossibleQueenMoves(r,c){
+	var num;
+	move = new Array();
+	/* Copy and paste from "bishop.js", but for Queens*/
+	rw = r;
+	cl = c;
+	if(board[r][c].includes("qw")){
+		/*up left movement */
+		for(i=rw-1, j=cl-1; i>-1 && j>-1; i--, j--){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j) && !isOutOfBounds(i,j)){
+				if(board[i][j].includes("b.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* up right movement */
+		for(i=rw-1, j=cl+1; i>-1 && j<10; i--, j++){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j) && !isOutOfBounds(i,j)){
+				if(board[i][j].includes("b.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* down left movement */
+		for(i=rw+1, j=cl-1; i<10 && j>-1; i++, j--){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j) && !isOutOfBounds(i,j)){
+				if(board[i][j].includes("b.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* down right movement */
+		for(i=rw+1, j=cl+1; i<10 && j<10; i++, j++){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j) && !isOutOfBounds(i,j)){
+				if(board[i][j].includes("b.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* verticle and horiziontal movement */
+		/* up movement */
+		for(i=rw-1; i>-1; i--){
+			if(!isEmptyTile(i,c)){
+				if(board[i][c].includes("b.png")){
+					num = "" + i + c;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + c;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* down movement */
+		for(i=rw+1; i<10; i++){
+			/*window.alert(i); */
+			if(!isEmptyTile(i,c)){
+				if(board[i][c].includes("b.png")){
+					num = "" + i + c;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + c;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* right movement */
+		for(i=cl+1; i<10; i++){
+			/* window.alert(i) */
+			if(!isEmptyTile(r,i)){
+				if(board[r][i].includes("b.png")){
+					num = "" + r + i;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + r + i;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/*left movement */
+		for(i=cl-1; i>-1; i--){
+			/* window.alert(i) */
+			if(!isEmptyTile(r,i)){
+				if(board[r][i].includes("b.png")){
+					num = "" + r + i;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + r + i;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+    }
+    if(board[r][c].includes("qb")){
+		/*up left movement */
+		for(i=rw-1, j=cl-1; i>-1 && j>-1; i--, j--){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j) && !isOutOfBounds(i,j)){
+				if(board[i][j].includes("w.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* up right movement */
+		for(i=rw-1, j=cl+1; i>-1 && j<10; i--, j++){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j) && !isOutOfBounds(i,j)){
+				if(board[i][j].includes("w.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* down left movement */
+		for(i=rw+1, j=cl-1; i<10 && j>-1; i++, j--){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j) && !isOutOfBounds(i,j)){
+				if(board[i][j].includes("w.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* down right movement */
+		for(i=rw+1, j=cl+1; i<10 && j<10; i++, j++){
+			/* window.alert(i + " " + j); */
+			if(!isEmptyTile(i,j) && !isOutOfBounds(i,j)){
+				if(board[i][j].includes("w.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* verticle and horiziontal movement */
+		/* down movement */
+		for(i=rw+1; i<10; i++){
+			/* window.alert(i) */
+			if(!isEmptyTile(i,c)){
+				if(board[i][c].includes("w.png")){
+					num = "" + i + c;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + c;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* up movement */
+		for(i=rw-1; i>-1; i--){
+			/* window.alert(i) */
+			if(!isEmptyTile(i,c)){
+				if(board[i][c].includes("w.png")){
+					num = "" + i + c;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + i + c;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/* right movement */
+		for(i=cl+1; i<10; i++){
+			/* window.alert(i) */
+			if(!isEmptyTile(r,i)){
+				if(board[r][i].includes("w.png")){
+					num = "" + r + i;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + r + i;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+		/*left movement */
+		for(i=cl-1; i>-1; i--){
+			/* window.alert(i) */
+			if(!isEmptyTile(r,i)){
+				if(board[r][i].includes("w.png")){
+					num = "" + r + i;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				num = "" + r + i;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
+			}
+		}
+	}
+}
+
 
 /*@Author: Kat*/
 /*Moves selected chess piece to selected location*/
