@@ -101,7 +101,7 @@ function initialize(){
 
 /*@Author: Alam*/
 /*@Editor: Alex*/
-/*@Author: Kat*/
+/*@Editor: Kat*/
 /*Reads the 2-D array and changes the image source accoring to its image id*/
 function populate(){
   var num;
@@ -188,6 +188,10 @@ function runGame(imageId){
     /* TODO:
     //Checks if it is a Knights here
       //If it is, show possible moves*/
+      if(isKnight(r, c)){
+        first = imageId;
+        showPossibleKnightMoves(r, c);
+      }
 
     /* TODO:
     //Checks if it is a Bishops here
@@ -257,6 +261,19 @@ function isRook(r, c){
 	else {
 		return false;
 	}
+}
+
+/*@Author: Kat*/
+/*Checks if a tile is a knight*/
+/*@Param int r is the number value for row*/
+/*@Param int c is the number value for column*/
+function isKnight(r, c){
+  if(board[r][c].includes("kb") || board[r][c].includes("kw")){
+    return true;
+  }
+  else {
+    return false;
+  }
 }
 
 /*@Author: Richard*/
@@ -580,6 +597,206 @@ function showPossibleRookMoves(r, c){
 			}
 		}
 	}
+}
+
+
+/*@Author: Kat*/
+/*Shows possible moves for knight*/
+/*Conditions are made in order and according to the following rules
+  Rule 1 : Knights can skip over pieces
+  Rule 2 : Knights move two squares up || down || left || right
+  Rule 2.5 : Followed by one more square at a 90 degree turn
+  Rule 2.75 : This generally makes the shape of a 'L'*/
+/*@Param int r is the number value for row*/
+/*@Param int c is the number value for column*/
+function showPossibleKnightMoves(r, c){
+  var num;
+  moves = new Array(8);
+  for(var i = 0; i < moves.length; i++){
+    moves[i] = "";
+  }
+
+  if(board[r][c].includes("kw")){
+    if(r - 2 >= 0 && c - 1 >= 0){
+      num = "" + (r - 2) + (c - 1);
+      if(board[r - 2][c - 1].includes("l.png") || board[r - 2][c - 1].includes("d.png")){
+        changeBorderColor(num, "#33cccc");
+        moves[0] = num;
+      }
+      else if (board[r - 2][c - 1].includes("b.png")){
+        changeBorderColor(num, "#ff5050");
+        moves[0] = num;
+      }
+    }
+    if(r - 2 >= 0 && c + 1 <= 9){
+      num = "" + (r - 2) + (c + 1);
+      if(board[r - 2][c + 1].includes("l.png") || board[r - 2][c + 1].includes("d.png")){
+        changeBorderColor(num, "#33cccc");
+        moves[1] = num;
+      }
+      else if (board[r - 2][c + 1].includes("b.png")){
+        changeBorderColor(num, "#ff5050");
+        moves[1] = num;
+      }
+    }
+    if(c + 2 <= 9 && r - 1 >= 0){
+      num = "" + (r - 1) + (c + 2);
+      if(board[r - 1][c + 2].includes("l.png") || board[r - 1][c + 2].includes("d.png")){
+        changeBorderColor(num, "#33cccc");
+        moves[2] = num;
+      }
+      else if (board[r - 1][c + 2].includes("b.png")){
+        changeBorderColor(num, "#ff5050");
+        moves[2] = num;
+      }
+    }
+    if(c + 2 <= 9 && r + 1 <= 9){
+      num = "" + (r + 1) + (c + 2);
+      if(board[r + 1][c + 2].includes("l.png") || board[r + 1][c + 2].includes("d.png")){
+        changeBorderColor(num, "#33cccc");
+        moves[3] = num;
+      }
+      else if (board[r + 1][c + 2].includes("b.png")){
+        changeBorderColor(num, "#ff5050");
+        moves[3] = num;
+      }
+    }
+    if(r + 2 <= 9 && c + 1 <= 9){
+      num = "" + (r + 2) + (c + 1);
+      if(board[r + 2][c + 1].includes("l.png") || board[r + 2][c + 1].includes("d.png")){
+        changeBorderColor(num, "#33cccc");
+        moves[4] = num;
+      }
+      else if (board[r + 2][c + 1].includes("b.png")){
+        changeBorderColor(num, "#ff5050");
+        moves[4] = num;
+      }
+    }
+    if(r + 2 <= 9 && c - 1 >= 0){
+      num = "" + (r + 2) + (c - 1);
+      if(board[r + 2][c - 1].includes("l.png") || board[r + 2][c - 1].includes("d.png")){
+        changeBorderColor(num, "#33cccc");
+        moves[5] = num;
+      }
+      else if (board[r + 2][c - 1].includes("b.png")){
+        changeBorderColor(num, "#ff5050");
+        moves[5] = num;
+      }
+    }
+    if(c - 2 >= 0 && r + 1 <= 9){
+      num = "" + (r + 1) + (c - 2);
+      if(board[r + 1][c - 2].includes("l.png") || board[r + 1][c - 2].includes("d.png")){
+        changeBorderColor(num, "#33cccc");
+        moves[6] = num;
+      }
+      else if (board[r + 1][c - 2].includes("b.png")){
+        changeBorderColor(num, "#ff5050");
+        moves[6] = num;
+      }
+    }
+    if(c - 2 >= 0 && r - 1 >= 0){
+      num = "" + (r - 1) + (c - 2);
+      if(board[r - 1][c - 2].includes("l.png") || board[r - 1][c - 2].includes("d.png")){
+        changeBorderColor(num, "#33cccc");
+        moves[7] = num;
+      }
+      else if (board[r - 1][c - 2].includes("b.png")){
+        changeBorderColor(num, "#ff5050");
+        moves[7] = num;
+      }
+    }
+  }
+
+  if(board[r][c].includes("kb")){
+    if(r - 2 >= 0 && c - 1 >= 0){
+      num = "" + (r - 2) + (c - 1);
+      if(board[r - 2][c - 1].includes("l.png") || board[r - 2][c - 1].includes("d.png")){
+        changeBorderColor(num, "#33cccc");
+        moves[0] = num;
+      }
+      else if (board[r - 2][c - 1].includes("w.png")){
+        changeBorderColor(num, "#ff5050");
+        moves[0] = num;
+      }
+    }
+    if(r - 2 >= 0 && c + 1 <= 9){
+      num = "" + (r - 2) + (c + 1);
+      if(board[r - 2][c + 1].includes("l.png") || board[r - 2][c + 1].includes("d.png")){
+        changeBorderColor(num, "#33cccc");
+        moves[1] = num;
+      }
+      else if (board[r - 2][c + 1].includes("w.png")){
+        changeBorderColor(num, "#ff5050");
+        moves[1] = num;
+      }
+    }
+    if(c + 2 <= 9 && r - 1 >= 0){
+      num = "" + (r - 1) + (c + 2);
+      if(board[r - 1][c + 2].includes("l.png") || board[r - 1][c + 2].includes("d.png")){
+        changeBorderColor(num, "#33cccc");
+        moves[2] = num;
+      }
+      else if (board[r - 1][c + 2].includes("w.png")){
+        changeBorderColor(num, "#ff5050");
+        moves[2] = num;
+      }
+    }
+    if(c + 2 <= 9 && r + 1 <= 9){
+      num = "" + (r + 1) + (c + 2);
+      if(board[r + 1][c + 2].includes("l.png") || board[r + 1][c + 2].includes("d.png")){
+        changeBorderColor(num, "#33cccc");
+        moves[3] = num;
+      }
+      else if (board[r + 1][c + 2].includes("w.png")){
+        changeBorderColor(num, "#ff5050");
+        moves[3] = num;
+      }
+    }
+    if(r + 2 <= 9 && c + 1 <= 9){
+      num = "" + (r + 2) + (c + 1);
+      if(board[r + 2][c + 1].includes("l.png") || board[r + 2][c + 1].includes("d.png")){
+        changeBorderColor(num, "#33cccc");
+        moves[4] = num;
+      }
+      else if (board[r + 2][c + 1].includes("w.png")){
+        changeBorderColor(num, "#ff5050");
+        moves[4] = num;
+      }
+    }
+    if(r + 2 <= 9 && c - 1 >= 0){
+      num = "" + (r + 2) + (c - 1);
+      if(board[r + 2][c - 1].includes("l.png") || board[r + 2][c - 1].includes("d.png")){
+        changeBorderColor(num, "#33cccc");
+        moves[5] = num;
+      }
+      else if (board[r + 2][c - 1].includes("w.png")){
+        changeBorderColor(num, "#ff5050");
+        moves[5] = num;
+      }
+    }
+    if(c - 2 >= 0 && r + 1 <= 9){
+      num = "" + (r + 1) + (c - 2);
+      if(board[r + 1][c - 2].includes("l.png") || board[r + 1][c - 2].includes("d.png")){
+        changeBorderColor(num, "#33cccc");
+        moves[6] = num;
+      }
+      else if (board[r + 1][c - 2].includes("w.png")){
+        changeBorderColor(num, "#ff5050");
+        moves[6] = num;
+      }
+    }
+    if(c - 2 >= 0 && r - 1 >= 0){
+      num = "" + (r - 1) + (c - 2);
+      if(board[r - 1][c - 2].includes("l.png") || board[r - 1][c - 2].includes("d.png")){
+        changeBorderColor(num, "#33cccc");
+        moves[7] = num;
+      }
+      else if (board[r - 1][c - 2].includes("w.png")){
+        changeBorderColor(num, "#ff5050");
+        moves[7] = num;
+      }
+    }
+  }
 }
 
 /*@Author: Richard*/
