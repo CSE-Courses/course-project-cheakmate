@@ -7,7 +7,8 @@
 	<meta charset = "UTF-8">
 	<title> Game | Checkmates for Cheakmates </title>
 	<link rel = "stylesheet" href = "game.css">
-	<script src="game.js"></script>
+	<!--<script src="game.js"></script>-->
+	<script src="CapturedTable.js"></script>	
 	<script src="settings.js"></script>
 </head>
 
@@ -170,6 +171,48 @@
 				<td><img id = "97" src="//:0" alt="null" onclick="runGame('97')"></td>
 				<td><img id = "98" src="//:0" alt="null" onclick="runGame('98')"></td>
 				<td><img id = "99" src="//:0" alt="null" onclick="runGame('99')"></td>
+			</tr>
+		</table>
+	</div>
+</body>
+
+
+<body onload = "CapturedTable()">
+
+	<div id = whiteCapturedPieces>
+		<table style = "float: left">
+			<!--<tr>
+				<td><h1 style = "text-align:right">test</h1></td>
+			</tr>-->
+			<tr>
+				<td><img id = "w1" src="/images/sprites/r.png"></td>
+				<td><img id = "w2" src="/images/sprites/r.png"></td>
+				<td><img id = "w3" src="/images/sprites/r.png"></td>
+				<td><img id = "w4" src="/images/sprites/r.png"></td>
+				<td><img id = "w5" src="/images/sprites/r.png"></td>
+				<td><img id = "w6" src="/images/sprites/r.png"></td>
+				<td><img id = "w7" src="/images/sprites/r.png"></td>
+				<td><img id = "w8" src="/images/sprites/r.png"></td>
+				<td><img id = "w9" src="/images/sprites/r.png"></td>
+				<td><img id = "w10" src="/images/sprites/r.png"></td>
+				
+			</tr>
+		</table>
+	</div>
+	<div id = blackCapturedPieces>
+		<table style = "float: right">
+						<tr>
+				<td><img id = "b1" src="/images/sprites/r.png"></td>
+				<td><img id = "b2" src="/images/sprites/r.png"></td>
+				<td><img id = "b3" src="/images/sprites/r.png"></td>
+				<td><img id = "b4" src="/images/sprites/r.png"></td>
+				<td><img id = "b5" src="/images/sprites/r.png"></td>
+				<td><img id = "b6" src="/images/sprites/r.png"></td>
+				<td><img id = "b7" src="/images/sprites/r.png"></td>
+				<td><img id = "b8" src="/images/sprites/r.png"></td>
+				<td><img id = "b9" src="/images/sprites/r.png"></td>
+				<td><img id = "b10" src="/images/sprites/r.png"></td>
+				
 			</tr>
 		</table>
 	</div>
