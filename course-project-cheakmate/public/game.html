@@ -9,6 +9,47 @@
 	<link rel = "stylesheet" href = "game.css">
 	<script src="game.js"></script>
 	<script src="settings.js"></script>
+	<script>
+		//placeholders of the time
+		var seconds = 0;
+        var minutes = 0;
+        var hours = 0;
+        //showing time in the 00:00:00 format using the placeholders
+        var showSeconds = 0;
+        var showMinutes = 0;
+        var showHours = 0;
+        var counter = setInterval(function() { 
+            seconds += 1;
+            if (seconds/60 == 1) {
+                seconds = 0; //set seconds back to 0
+                minutes += 1; 
+                if (minutes/60 == 1) {
+                    minutes = 0; //set minutes back to 0
+                    hours += 1;
+                }
+            }
+            //Showing the 00:00:00 format
+            if (seconds < 10) {
+                showSeconds = "0" + seconds.toString();
+            } 
+            else {
+                showSeconds = seconds;
+            }
+            if (minutes < 10) {
+                showMinutes = "0" + minutes.toString();
+            }
+            else {
+                showMinutes = minutes;
+            }
+            if (hours < 10) {
+                showHours = "0" + hours.toString();
+            }
+            else {
+                showHours = hours;
+            }
+            document.getElementById("time").innerHTML = showHours + ":" + showMinutes + ":" + showSeconds; 
+        }, 1000);
+	</script>
 </head>
 
 <body onload = "initialize()">
@@ -47,7 +88,7 @@
 		<!--End of Temporary solution to changing settings-->
 
 	<br>
-	<div id = "turn"> <h1>Current Turn: {player}</h1></div>
+	<div id = "turn"> <p id = "time">00:00:00</p> <h1>Current Turn: {player}</h1></div>
 	<br>
 	<div id = "board">
 		<table>

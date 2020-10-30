@@ -23,6 +23,19 @@ table, tr, td {
 	margin-right: auto;
 }
 
+/* @Author: Alex */
+#time {
+	text-align: left;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 80px;
+	border-style: none;
+	border-color: black;
+	padding: 10px 10px 10px 10px;
+	background: rgba(105, 105, 105, 0.0);
+	position: relative;
+	margin: auto;
+}
+
 /*@Author: Alex*/
 /*@Editor: Kat*/
 #turn {
