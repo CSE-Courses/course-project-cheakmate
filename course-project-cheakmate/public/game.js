@@ -1,14 +1,22 @@
 /*@Author: Alam & Alex & Kat & Kevin & Richard*/
+var player = ""; /*Keeps track of player*/
+const WHITE = "WHITE"; /*Possible player value WHITE*/
+const BLACK = "BLACK"; /*Possible Player value BLACK*/
+
 var board; /*2-D array keeping image sources for board*/
 var moves; /*Keeps track of possible moves for a selected chess piece*/
 
-var first = ""; /*Keeps track of first img to be moved*/
-var second = ""; /*Keeps track of second img to be moved*/
+var firstPiece = ""; /*Keeps track of first img to be moved*/
+var secondPiece = ""; /*Keeps track of second img to be moved*/
 
 /*@Author: Alex*/
 /*@Editor: Kat*/
 /*Initializes the chess board*/
 function initialize(){
+  /*initialize turn to White*/
+  setPlayer(WHITE);
+  displayPlayer();
+
   /*Create a 10 x 10 board*/
   board = new Array(10);
   for(var i = 0; i < board.length; i++){
@@ -43,7 +51,7 @@ function initialize(){
   board[0][4] = "images/sprites/lqb.png";
   board[9][4] = "images/sprites/dqw.png";
 
-  /*Set up Queens*/
+  /*Set up Empty Tiles*/
   for(var i = 0; i < board.length; i++){
     for(var j = 0; j < board[i].length; j++){
       if(i % 2 == 0 && j == 0 && board[i][j] == null){
@@ -111,44 +119,115 @@ function populate(){
       document.getElementById(num).src = board[i][j];
     }
   }
+
+  setTurn();
 }
 
-/*@Author: Alam*/
-/*Exits the game and returns to main menu*/
-function exit(){
-  if (confirm("Are you sure you want to leave the game?")) {
-    window.location.href = "index.html";
+/*@Author: Kat*/
+/*Sets the current condition of the chess board for each turn
+  If current player is white, enable white chess pieces and disable black chess pieces.
+  If current player is black, enable black chess pieces and disable white chess pieces.*/
+function setTurn(){
+  if(getCurrentPlayer() == WHITE){
+    enablePieces(WHITE);
+    disablePieces(BLACK);
+  }
+  else if (getCurrentPlayer() == BLACK) {
+    enablePieces(BLACK);
+    disablePieces(WHITE);
   }
 }
 
 /*@Author: Kat*/
-/*Resets image selection and moves array*/
-function clearMoves(){
-  first = "";
-  second = "";
-  moves = new Array();
+/*Set the current player*/
+/*@Param string p is the current player color (e.g. WHITE or BLACK)*/
+function setPlayer(p){
+  player = p;
 }
 
 /*@Author: Kat*/
-/*Changes border color of image
-  Happens when the image is selected
-  Happens when possible moves are shown*/
-/*@Param string imageId is the location of the image*/
-/*@Param string color is the color selected*/
-function changeBorderColor(imageId, color){
-  document.getElementById(imageId).style.border = "3px solid " + color;
+/*Returns a string containing the current player (e.g. WHITE or BLACK)*/
+function getCurrentPlayer(){
+  return player;
 }
 
 /*@Author: Kat*/
-/*Resets border color of all images
-  Happens when the image selected is changed
-  Happens when turn is over*/
-function resetBorderColor(){
-  var num;
-  for(var i = 0; i < board.length; i++){
-    for(var j = 0; j < board[i].length; j++){
-      num = "" + i + j;
-      document.getElementById(num).style.border = "3px solid black";
+/*Changes the current player*/
+function changePlayer(){
+  if(getCurrentPlayer() == WHITE){
+    setPlayer(BLACK);
+  }
+  else if (getCurrentPlayer() == BLACK) {
+    setPlayer(WHITE);
+  }
+
+  displayPlayer(player);
+}
+
+/*@Author: Kat*/
+/*Displays the current player (e.g. WHITE or BLACK)*/
+function displayPlayer(){
+  document.getElementById("player").innerHTML = "Current Player: " + player;
+}
+
+/*@Author: Kat*/
+/*Enables functionality of chess pieces depending on the player
+  If current player is white, enable white chess pieces.
+  If current player is black, enable black chess pieces.*/
+/*@Param string p is the player's color for chess pieces that needs to be enabled*/
+function enablePieces(p){
+  var imgId = "";
+
+  if(p == WHITE){
+    for(var i = 0; i < board.length; i++){
+      for(var j = 0; j < board[i].length; j++){
+        var imgId = "" + i + j;
+        if(board[i][j].includes("w.png")){
+          document.getElementById(imgId).style.pointerEvents = "auto";
+        }
+      }
+    }
+  }
+
+  if(p == BLACK){
+    for(var i = 0; i < board.length; i++){
+      for(var j = 0; j < board[i].length; j++){
+        var imgId = "" + i + j;
+        if(board[i][j].includes("b.png")){
+          document.getElementById(imgId).style.pointerEvents = "auto";
+        }
+      }
+    }
+  }
+}
+
+/*@Author: Kat*/
+/*Disables functionality of chess pieces depending on the player
+  If current player is white, disable black chess pieces.
+  If current player is black, disable white chess pieces.*/
+/*@Param string p is the player's color for chess pieces that need to be disabled*/
+function disablePieces(p){
+  var imgId = "";
+
+  if(p == WHITE){
+    for(var i = 0; i < board.length; i++){
+      for(var j = 0; j < board[i].length; j++){
+        var imgId = "" + i + j;
+        if(board[i][j].includes("w.png")){
+          document.getElementById(imgId).style.pointerEvents = "none";
+        }
+      }
+    }
+  }
+
+  if(p == BLACK){
+    for(var i = 0; i < board.length; i++){
+      for(var j = 0; j < board[i].length; j++){
+        var imgId = "" + i + j;
+        if(board[i][j].includes("b.png")){
+          document.getElementById(imgId).style.pointerEvents = "none";
+        }
+      }
     }
   }
 }
@@ -171,9 +250,9 @@ function runGame(imageId){
     changeBorderColor(imageId, "#33cccc");
   }
 
-  if(first == ""){
+  if(firstPiece == ""){
     if(isPawn(r, c)){
-      first = imageId;
+      firstPiece = imageId;
       showPossiblePawnMoves(r, c);
     }
 
@@ -181,7 +260,7 @@ function runGame(imageId){
     //Checks if it is a Rook here
       //If it is, show possible moves*/
     if(isRook(r, c)){
-    	first = imageId;
+    	firstPiece = imageId;
 	    showPossibleRookMoves(r, c);
     }
 
@@ -189,7 +268,7 @@ function runGame(imageId){
     //Checks if it is a Knights here
     //If it is, show possible moves*/
     if(isKnight(r, c)){
-      first = imageId;
+      firstPiece = imageId;
       showPossibleKnightMoves(r, c);
     }
 
@@ -197,7 +276,7 @@ function runGame(imageId){
     //Checks if it is a Bishops here
       //If it is, show possible moves*/
     if(isBishop(r, c)){
-		  first = imageId;
+		  firstPiece = imageId;
 		  showPossibleBishopMoves(r,c);
     }
 
@@ -205,7 +284,7 @@ function runGame(imageId){
     //Checks if it is a King here
       //If it is, show possible moves*/
     if(isKing(r, c)){
-		  first = imageId;
+		  firstPiece = imageId;
 		  showPossibleKingMoves(r,c);
 	  }
 
@@ -213,31 +292,18 @@ function runGame(imageId){
     //Checks if it is a Queen here
       //If it is, show possible moves*/
 		if(isQueen(r,c)){
-			first = imageId;
+			firstPiece = imageId;
 			showPossibleQueenMoves(r,c);
 		}
   }
   else if (isInMoves(imageId)){
-    second = imageId;
-    moveChessPiece(first, second);
+    secondPiece = imageId;
+    moveChessPiece(firstPiece, secondPiece);
     clearMoves();
   }
   else {
-    first = "";
+    firstPiece = "";
     runGame(imageId);
-  }
-}
-
-/*@Author: Kat*/
-/*Checks if a tile has a chess piece*/
-/*@Param int r is the number value for row*/
-/*@Param int c is the number value for column*/
-function isEmptyTile(r, c){
-  if(board[r][c].includes("l.png") || board[r][c].includes("d.png")){
-    return true;
-  }
-  else {
-    return false;
   }
 }
 
@@ -250,6 +316,19 @@ function isOutOfBounds(r,c){
     return true;
   }
   else{
+    return false;
+  }
+}
+
+/*@Author: Kat*/
+/*Checks if a tile has a chess piece*/
+/*@Param int r is the number value for row*/
+/*@Param int c is the number value for column*/
+function isEmptyTile(r, c){
+  if(board[r][c].includes("l.png") || board[r][c].includes("d.png")){
+    return true;
+  }
+  else {
     return false;
   }
 }
@@ -342,6 +421,14 @@ function isInMoves(imageId){
     }
   }
   return false;
+}
+
+/*@Author: Kat*/
+/*Resets image selection and moves array*/
+function clearMoves(){
+  firstPiece = "";
+  secondPiece = "";
+  moves = new Array();
 }
 
 /*@Author: Kat*/
@@ -833,12 +920,11 @@ function showPossibleKnightMoves(r, c){
 /*Shows possible moves for bishop*/
 /* Conditions for bishop movement
 1. bishops can only move diagonally
-2. bishops can move unlimited around of spaces until the end of 
+2. bishops can move unlimited around of spaces until the end of
 the board or there is a piece in the way
 3. bishop can capture any opposite piece in movement range
 /*@Param int r is the number value for row*/
 /*@Param int c is the number value for column*/
-
 function showPossibleBishopMoves(r, c){
 	var num;
 	var rw = r;
@@ -1266,7 +1352,7 @@ if(board[r][c].includes("gb")){
 /*@Author: Richard*/
 /*Shows possible moves for queen*/
 /* Conditions for queen movement
-1. Queens can go unlimited amount of spaces until queen hits the end of 
+1. Queens can go unlimited amount of spaces until queen hits the end of
 board or a piece
 2. Queens can go in all 8 directions
 3. Queen can capture any opposite colored piece if in movement range
@@ -1605,7 +1691,6 @@ function showPossibleQueenMoves(r,c){
 	}
 }
 
-
 /*@Author: Kat*/
 /*Moves selected chess piece to selected location*/
 /*@Param string first is the source of the first selected tile*/
@@ -1622,5 +1707,38 @@ function moveChessPiece(first, second){
   board[r1][c1] = src1.substring(0, 16) + ".png";
   board[r2][c2] = src2.substring(0, 16) + src1.substring(16);
 
+  changePlayer(player);
   populate();
+}
+
+/*@Author: Kat*/
+/*Changes border color of image
+  Happens when the image is selected
+  Happens when possible moves are shown*/
+/*@Param string imageId is the location of the image*/
+/*@Param string color is the color selected*/
+function changeBorderColor(imageId, color){
+  document.getElementById(imageId).style.border = "3px solid " + color;
+}
+
+/*@Author: Kat*/
+/*Resets border color of all images
+  Happens when the image selected is changed
+  Happens when turn is over*/
+function resetBorderColor(){
+  var num;
+  for(var i = 0; i < board.length; i++){
+    for(var j = 0; j < board[i].length; j++){
+      num = "" + i + j;
+      document.getElementById(num).style.border = "3px solid black";
+    }
+  }
+}
+
+/*@Author: Alam*/
+/*Exits the game and returns to main menu*/
+function exit(){
+  if (confirm("Are you sure you want to leave the game?")) {
+    window.location.href = "index.html";
+  }
 }
