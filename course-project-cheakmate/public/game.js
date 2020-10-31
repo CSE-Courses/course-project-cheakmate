@@ -4,7 +4,7 @@ const WHITE = "WHITE"; /*Possible player value WHITE*/
 const BLACK = "BLACK"; /*Possible Player value BLACK*/
 
 var board; /*2-D array keeping image sources for board*/
-var moves; /*Keeps track of possible moves for a selected chess piece*/
+var moves; /*Keeps track of possible moves for a selected chess piece by keeping track of string containing row and column*/
 
 var firstPiece = ""; /*Keeps track of first img to be moved*/
 var secondPiece = ""; /*Keeps track of second img to be moved*/
@@ -120,6 +120,7 @@ function populate(){
     }
   }
 
+  resetBorderColor();
   setTurn();
 }
 
@@ -202,6 +203,37 @@ function enablePieces(p){
 }
 
 /*@Author: Kat*/
+/*Enables functionality of chess pieces that are capturable depending on the player
+  If current player is white, enable capturable black chess pieces.
+  If current player is black, enable capturable white chess pieces.*/
+/*@Param string p is the player's color for chess pieces that needs to be enabled*/
+function enableCapturePieces(){
+  if(player == WHITE && moves != null){
+    for(var k = 0; k < moves.length; k++){
+      if(moves[k] != ""){
+        var r = parseInt(moves[k].substring(0,1));
+        var c = parseInt(moves[k].substring(1));
+        if(board[r][c].includes("b.png")){
+          document.getElementById(moves[k]).style.pointerEvents = "auto";
+        }
+      }
+    }
+  }
+
+  if(player == BLACK && moves != null){
+    for(var k = 0; k < moves.length; k++){
+      if(moves[k] != ""){
+        var r = parseInt(moves[k].substring(0,1));
+        var c = parseInt(moves[k].substring(1));
+        if(board[r][c].includes("w.png")){
+          document.getElementById(moves[k]).style.pointerEvents = "auto";
+        }
+      }
+    }
+  }
+}
+
+/*@Author: Kat*/
 /*Disables functionality of chess pieces depending on the player
   If current player is white, disable black chess pieces.
   If current player is black, disable white chess pieces.*/
@@ -226,6 +258,37 @@ function disablePieces(p){
         var imgId = "" + i + j;
         if(board[i][j].includes("b.png")){
           document.getElementById(imgId).style.pointerEvents = "none";
+        }
+      }
+    }
+  }
+}
+
+/*@Author: Kat*/
+/*Disables functionality of chess pieces that were capturable depending on the player
+  If current player is white, and selects another white piece, disable black chess pieces that were capturable for previous select.
+  If current player is black, and selects another black piece, disable white chess pieces that were capturable for previous select.*/
+/*@Param string p is the player's color for chess pieces that needs to be enabled*/
+function disableCapturePieces(){
+  if(player == WHITE && moves != null){
+    for(var k = 0; k < moves.length; k++){
+      if(moves[k] != ""){
+        var r = parseInt(moves[k].substring(0,1));
+        var c = parseInt(moves[k].substring(1));
+        if(board[r][c].includes("b.png")){
+          document.getElementById(moves[k]).style.pointerEvents = "none";
+        }
+      }
+    }
+  }
+
+  if(player == BLACK && moves != null){
+    for(var k = 0; k < moves.length; k++){
+      if(moves[k] != ""){
+        var r = parseInt(moves[k].substring(0,1));
+        var c = parseInt(moves[k].substring(1), 10);
+        if(board[r][c].includes("w.png")){
+          document.getElementById(moves[k]).style.pointerEvents = "none";
         }
       }
     }
@@ -303,6 +366,7 @@ function runGame(imageId){
   }
   else {
     firstPiece = "";
+    disableCapturePieces();
     runGame(imageId);
   }
 }
@@ -509,6 +573,8 @@ function showPossiblePawnMoves(r, c){
       }
     }
   }
+
+  enableCapturePieces();
 }
 
 /*@Author: Kevin*/
@@ -714,6 +780,8 @@ function showPossibleRookMoves(r, c){
 			}
 		}
 	}
+
+  enableCapturePieces();
 }
 
 
@@ -914,6 +982,8 @@ function showPossibleKnightMoves(r, c){
       }
     }
   }
+
+  enableCapturePieces();
 }
 
 /*@Author: Richard*/
@@ -1094,6 +1164,8 @@ function showPossibleBishopMoves(r, c){
 			}
 		}
 	}
+
+  enableCapturePieces();
 }
 
 /*@Author: Richard*/
@@ -1347,6 +1419,8 @@ if(board[r][c].includes("gb")){
 		}
 	}
 }
+
+enableCapturePieces();
 }
 
 /*@Author: Richard*/
@@ -1689,6 +1763,8 @@ function showPossibleQueenMoves(r,c){
 			}
 		}
 	}
+
+  enableCapturePieces();
 }
 
 /*@Author: Kat*/
