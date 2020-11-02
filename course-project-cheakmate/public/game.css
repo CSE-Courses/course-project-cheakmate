@@ -23,11 +23,24 @@ table, tr, td {
 	margin-right: auto;
 }
 
+/* @Author: Alex */
+#time {
+	text-align: center;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 30px;
+	border-style: none;
+	border-color: black;
+	padding: 10px 10px 10px 10px;
+	background: rgba(105, 105, 105, 0.0);
+	position: relative;
+	margin: auto;
+}
+
 /*@Author: Alex*/
 /*@Editor: Kat*/
 #turn {
 	text-align: center;
-	font-family: Impact, Charcoal, sans-serif;
+		font-family: Impact, Charcoal, sans-serif;
 	border-style: solid;
 	border-color: black;
 	padding: 10px 10px 10px 10px;

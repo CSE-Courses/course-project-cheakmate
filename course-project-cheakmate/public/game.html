@@ -10,46 +10,88 @@
 	<!--<script src="game.js"></script>-->
 	<script src="CapturedTable.js"></script>	
 	<script src="settings.js"></script>
+	<script>
+		//placeholders of the time
+		var seconds = 0;
+        var minutes = 0;
+        var hours = 0;
+        //showing time in the 00:00:00 format using the placeholders
+        var showSeconds = 0;
+        var showMinutes = 0;
+        var showHours = 0;
+        var counter = setInterval(function() {
+            seconds += 1;
+            if (seconds/60 == 1) {
+                seconds = 0; //set seconds back to 0
+                minutes += 1;
+                if (minutes/60 == 1) {
+                    minutes = 0; //set minutes back to 0
+                    hours += 1;
+                }
+            }
+            //Showing the 00:00:00 format
+            if (seconds < 10) {
+                showSeconds = "0" + seconds.toString();
+            }
+            else {
+                showSeconds = seconds;
+            }
+            if (minutes < 10) {
+                showMinutes = "0" + minutes.toString();
+            }
+            else {
+                showMinutes = minutes;
+            }
+            if (hours < 10) {
+                showHours = "0" + hours.toString();
+            }
+            else {
+                showHours = hours;
+            }
+            document.getElementById("time").innerHTML = showHours + ":" + showMinutes + ":" + showSeconds;
+        }, 1000);
+	</script>
 </head>
 
 <body onload = "initialize()">
-  	<!--<div class="topbar">
-  		<a onclick = "exit()">Exit Game</a>
-  	</div>-->
-
 		<ul>
 			<li><button type="button" name="button" onclick="settingsVisibility()" class = "navbar" >Settings</button></li>
 			<li><button type="button" name="button" onclick="exit()" class = "navbar" >Exit Game</button></li>
 		</ul>
 		<br>
 
-		<!--Temporary solution to changing settings-->
-		<div id="pref">
-		<h1> SETTINGS </h1>
+	<!--Temporary solution to changing settings-->
+	<div id="pref">
+	<h1> SETTINGS </h1>
 
+	<hr>
+
+	<p>Adjust Board Screen</p>
+	<button type="button" name="button" onclick="toCenter()" class="choice"> Default </button>
+	<button type="button" name="button" onclick="toLeft()" class="choice"> Adjust Board Left </button>
+	<button type="button" name="button" onclick="toRight()" class="choice"> Adjust Board Right </button>
+
+	<br>
+
+	<p>Adjust Background</p>
+	<button type="button" name="button" onclick="toChessBg()" class="choice"> Default BG </button>
+	<button type="button" name="button" onclick="toLakeBg()" class="choice"> Lake BG </button>
+	<button type="button" name="button" onclick="toGalaxyBg()" class="choice"> Galaxy BG </button>
+
+	<hr><br>
+
+	<a href="index.html"><button type="button" name="button" class="choice"> Main Menu </button></a>
+	</div>
+	<!--End of Temporary solution to changing settings-->
+
+	<br>
+	<div id = "turn">
+		<h1 id="player">Current Player: {player}</h1>
 		<hr>
-
-		<p>Adjust Board Screen</p>
-		<button type="button" name="button" onclick="toCenter()" class="choice"> Default </button>
-		<button type="button" name="button" onclick="toLeft()" class="choice"> Adjust Board Left </button>
-		<button type="button" name="button" onclick="toRight()" class="choice"> Adjust Board Right </button>
-
-		<br>
-
-		<p>Adjust Background</p>
-		<button type="button" name="button" onclick="toChessBg()" class="choice"> Default BG </button>
-		<button type="button" name="button" onclick="toLakeBg()" class="choice"> Lake BG </button>
-		<button type="button" name="button" onclick="toGalaxyBg()" class="choice"> Galaxy BG </button>
-
-		<hr><br>
-
-		<a href="index.html"><button type="button" name="button" class="choice"> Main Menu </button></a>
-		</div>
-		<!--End of Temporary solution to changing settings-->
-
+		<p id = "time">00:00:00</p>
+	</div>
 	<br>
-	<div id = "turn"> <h1>Current Turn: {player}</h1></div>
-	<br>
+
 	<div id = "board">
 		<table>
 			<tr>
