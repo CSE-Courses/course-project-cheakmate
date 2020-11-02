@@ -986,7 +986,7 @@ function showPossibleKnightMoves(r, c){
   enableCapturePieces();
 }
 
-/*@Author: Richard*/
+/*Author: Richard*/
 /*Shows possible moves for bishop*/
 /* Conditions for bishop movement
 1. bishops can only move diagonally
@@ -1004,81 +1004,89 @@ function showPossibleBishopMoves(r, c){
 		/*up left movement */
 		for(i=rw-1, j=cl-1; i>-1 && j>-1; i--, j--){
 			/* window.alert(i + " " + j); */
-			if(!isEmptyTile(i,j)){
-				if(board[i][j].includes("b.png")){
-					num = "" + i + j;
-					changeBorderColor(num, "#ff5050");
-					moves.push(num);
-					break;
+			if(!isOutOfBounds(i,j)){
+				if(!isEmptyTile(i,j)){
+					if(board[i][j].includes("b.png")){
+						num = "" + i + j;
+						changeBorderColor(num, "#ff5050");
+						moves.push(num);
+						break;
+					}
+					else{
+						break;
+					}
 				}
 				else{
-					break;
+					num = "" + i + j;
+					changeBorderColor(num, "#33cccc");
+					moves.push(num);
 				}
-			}
-			else{
-				num = "" + i + j;
-				changeBorderColor(num, "#33cccc");
-				moves.push(num);
 			}
 		}
 		/* up right movement */
 		for(i=rw-1, j=cl+1; i>-1 && j<10; i--, j++){
 			/* window.alert(i + " " + j); */
-			if(!isEmptyTile(i,j)){
-				if(board[i][j].includes("b.png")){
-					num = "" + i + j;
-					changeBorderColor(num, "#ff5050");
-					moves.push(num);
-					break;
+			if(!isOutOfBounds(i,j)){
+				if(!isEmptyTile(i,j)){
+					if(board[i][j].includes("b.png")){
+						num = "" + i + j;
+						changeBorderColor(num, "#ff5050");
+						moves.push(num);
+						break;
+					}
+					else{
+						break;
+					}
 				}
 				else{
-					break;
+					num = "" + i + j;
+					changeBorderColor(num, "#33cccc");
+					moves.push(num);
 				}
-			}
-			else{
-				num = "" + i + j;
-				changeBorderColor(num, "#33cccc");
-				moves.push(num);
 			}
 		}
 		/* down left movement */
 		for(i=rw+1, j=cl-1; i<10 && j>-1; i++, j--){
 			/* window.alert(i + " " + j); */
-			if(!isEmptyTile(i,j)){
-				if(board[i][j].includes("b.png")){
-					num = "" + i + j;
-					changeBorderColor(num, "#ff5050");
-					moves.push(num);
-					break;
+			if(!isOutOfBounds(i,j)){
+				if(!isEmptyTile(i,j)){
+					if(board[i][j].includes("b.png")){
+						num = "" + i + j;
+						changeBorderColor(num, "#ff5050");
+						moves.push(num);
+						break;
+					}
+					else{
+						break;
+					}
 				}
 				else{
-					break;
+					num = "" + i + j;
+					changeBorderColor(num, "#33cccc");
+					moves.push(num);
 				}
-			}
-			else{
-				num = "" + i + j;
-				changeBorderColor(num, "#33cccc");
-				moves.push(num);
 			}
 		}
 		/* down right movement */
 		for(i=rw+1, j=cl+1; i>-1 && j<10; i++, j++){
 			/* window.alert(i + " " + j); */
-			if(!isEmptyTile(i,j)){
-				if(board[i][j].includes("b.png")){
-					num = "" + i + j;
-					changeBorderColor(num, "#ff5050");
-					moves.push(num);
-					break;
+			if(!isOutOfBounds(i,j)){
+				if(!isEmptyTile(i,j)){
+					if(board[i][j].includes("b.png")){
+						num = "" + i + j;
+						changeBorderColor(num, "#ff5050");
+						moves.push(num);
+						break;
+					}
+					else{
+						break;
+					}
 				}
 				else{
-					break;
+					num = "" + i + j;
+					changeBorderColor(num, "#33cccc");
+					moves.push(num);
 				}
-			}
-			else{
-				num = "" + i + j;
-				changeBorderColor(num, "#33cccc");
-				moves.push(num);
 			}
 		}
   }
@@ -1086,81 +1094,89 @@ function showPossibleBishopMoves(r, c){
 		/*up left movement */
 		for(i=rw-1, j=cl-1; i>-1 && j>-1; i--, j--){
 			/* window.alert(i + " " + j); */
-			if(!isEmptyTile(i,j)){
-				if(board[i][j].includes("w.png")){
-					num = "" + i + j;
-					changeBorderColor(num, "#ff5050");
-					moves.push(num);
-					break;
+			if(!isOutOfBounds(i,j)){
+				if(!isEmptyTile(i,j)){
+					if(board[i][j].includes("w.png")){
+						num = "" + i + j;
+						changeBorderColor(num, "#ff5050");
+						moves.push(num);
+						break;
+					}
+					else{
+						break;
+					}
 				}
 				else{
-					break;
+					num = "" + i + j;
+					changeBorderColor(num, "#33cccc");
+					moves.push(num);
 				}
-			}
-			else{
-				num = "" + i + j;
-				changeBorderColor(num, "#33cccc");
-				moves.push(num);
 			}
 		}
 		/* up right movement */
 		for(i=rw-1, j=cl+1; i>-1 && j<10; i--, j++){
 			/* window.alert(i + " " + j); */
-			if(!isEmptyTile(i,j)){
-				if(board[i][j].includes("w.png")){
-					num = "" + i + j;
-					changeBorderColor(num, "#ff5050");
-					moves.push(num);
-					break;
+			if(!isOutOfBounds(i,j)){
+				if(!isEmptyTile(i,j)){
+					if(board[i][j].includes("w.png")){
+						num = "" + i + j;
+						changeBorderColor(num, "#ff5050");
+						moves.push(num);
+						break;
+					}
+					else{
+						break;
+					}
 				}
 				else{
-					break;
+					num = "" + i + j;
+					changeBorderColor(num, "#33cccc");
+					moves.push(num);
 				}
-			}
-			else{
-				num = "" + i + j;
-				changeBorderColor(num, "#33cccc");
-				moves.push(num);
 			}
 		}
 		/* down left movement */
 		for(i=rw+1, j=cl-1; i<10 && j>-1; i++, j--){
 			/* window.alert(i + " " + j); */
-			if(!isEmptyTile(i,j)){
-				if(board[i][j].includes("w.png")){
-					num = "" + i + j;
-					changeBorderColor(num, "#ff5050");
-					moves.push(num);
-					break;
+			if(!isOutOfBounds(i,j)){
+				if(!isEmptyTile(i,j)){
+					if(board[i][j].includes("w.png")){
+						num = "" + i + j;
+						changeBorderColor(num, "#ff5050");
+						moves.push(num);
+						break;
+					}
+					else{
+						break;
+					}
 				}
 				else{
-					break;
+					num = "" + i + j;
+					changeBorderColor(num, "#33cccc");
+					moves.push(num);
 				}
-			}
-			else{
-				num = "" + i + j;
-				changeBorderColor(num, "#33cccc");
-				moves.push(num);
 			}
 		}
 		/* down right movement */
 		for(i=rw+1, j=cl+1; i>-1 && j<10; i++, j++){
 			/* window.alert(i + " " + j); */
-			if(!isEmptyTile(i,j)){
-				if(board[i][j].includes("w.png")){
-					num = "" + i + j;
-					changeBorderColor(num, "#ff5050");
-					moves.push(num);
-					break;
+			if(!isOutOfBounds(i,j)){
+				if(!isEmptyTile(i,j)){
+					if(board[i][j].includes("w.png")){
+						num = "" + i + j;
+						changeBorderColor(num, "#ff5050");
+						moves.push(num);
+						break;
+					}
+					else{
+						break;
+					}
 				}
 				else{
-					break;
+					num = "" + i + j;
+					changeBorderColor(num, "#33cccc");
+					moves.push(num);
 				}
-			}
-			else{
-				num = "" + i + j;
-				changeBorderColor(num, "#33cccc");
-				moves.push(num);
 			}
 		}
 	}
@@ -1190,85 +1206,110 @@ for(var i = 0; i < moves.length; i++){
 }
 
 if(board[r][c].includes("gw")){
-	/*going up*/
-	if(r - 1 >= 0 && (board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png"))){
-  		num = "" + (r - 1) + c;
-  		changeBorderColor(num, "#33cccc");
-  		moves[0] = num;
+	if(!isOutOfBounds(r-1,c)){
+		/*going up*/
+		if(r - 1 >= 0 && (board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png"))){
+			  num = "" + (r - 1) + c;
+			  changeBorderColor(num, "#33cccc");
+			  moves[0] = num;
+		}
 	}
-	/*going down*/
-	if(r + 1 <= 9 && (board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png"))){
-		num = "" + (r + 1) + c;
-		changeBorderColor(num, "#33cccc");
-		moves[1] = num;
+	if(!isOutOfBounds(r+1,c)){
+		/*going down*/
+		if(r + 1 <= 9 && (board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png"))){
+			num = "" + (r + 1) + c;
+			changeBorderColor(num, "#33cccc");
+			moves[1] = num;
+		}
 	}
-	/*going left*/
-	if(c - 1 >= 0 && (board[r][c - 1].includes("l.png") || board[r][c - 1].includes("d.png"))){
-		num = "" + r + (c - 1);
-		changeBorderColor(num, "#33cccc");
-		moves[2] = num;
+	if(!isOutOfBounds(r,c-1)){
+		/*going left*/
+		if(c - 1 >= 0 && (board[r][c - 1].includes("l.png") || board[r][c - 1].includes("d.png"))){
+			num = "" + r + (c - 1);
+			changeBorderColor(num, "#33cccc");
+			moves[2] = num;
+		}
 	}
-	/*going down*/
-	if(c + 1 <= 9 && (board[r][c + 1].includes("l.png") || board[r][c + 1].includes("d.png"))){
-		num = "" + r + (c + 1);
-		changeBorderColor(num, "#33cccc");
-		moves[3] = num;
+	if(!isOutOfBounds(r,c+1)){
+		/*going down*/
+		if(c + 1 <= 9 && (board[r][c + 1].includes("l.png") || board[r][c + 1].includes("d.png"))){
+			num = "" + r + (c + 1);
+			changeBorderColor(num, "#33cccc");
+			moves[3] = num;
+		}
 	}
-	/*going up left*/
-	if((r - 1 >=0 && c - 1 >= 0) && (board[r - 1][c - 1].includes("l.png") || board[r - 1][c - 1].includes("d.png"))){
-		num = "" + (r - 1) + (c - 1);
-		changeBorderColor(num, "#33cccc");
-		moves[4] = num;
+	if(!isOutOfBounds(r-1,c-1)){
+		/*going up left*/
+		if((r - 1 >=0 && c - 1 >= 0) && (board[r - 1][c - 1].includes("l.png") || board[r - 1][c - 1].includes("d.png"))){
+			num = "" + (r - 1) + (c - 1);
+			changeBorderColor(num, "#33cccc");
+			moves[4] = num;
+		}
 	}
-	/*going up right*/
-	if((r - 1 >=0 && c + 1 <= 9) && (board[r - 1][c + 1].includes("l.png") || board[r - 1][c + 1].includes("d.png"))){
-		num = "" + (r - 1) + (c + 1);
-		changeBorderColor(num, "#33cccc");
-		moves[5] = num;
+	if(!isOutOfBounds(r-1,c+1)){
+		/*going up right*/
+		if((r - 1 >=0 && c + 1 <= 9) && (board[r - 1][c + 1].includes("l.png") || board[r - 1][c + 1].includes("d.png"))){
+			num = "" + (r - 1) + (c + 1);
+			changeBorderColor(num, "#33cccc");
+			moves[5] = num;
+		}
 	}
-	/*going down left*/
-	if((r + 1 <=9 && c - 1 >= 0) && (board[r + 1][c - 1].includes("l.png") || board[r + 1][c - 1].includes("d.png"))){
-		num = "" + (r + 1) + (c - 1);
-		changeBorderColor(num, "#33cccc");
-		moves[6] = num;
+	if(!isOutOfBounds(r+1,c-1)){
+		/*going down left*/
+		if((r + 1 <=9 && c - 1 >= 0) && (board[r + 1][c - 1].includes("l.png") || board[r + 1][c - 1].includes("d.png"))){
+			num = "" + (r + 1) + (c - 1);
+			changeBorderColor(num, "#33cccc");
+			moves[6] = num;
+		}
 	}
-	/*going down right*/
-	if((r + 1 <=9 && c + 1 >= 0) && (board[r + 1][c + 1].includes("l.png") || board[r + 1][c + 1].includes("d.png"))){
-		num = "" + (r + 1) + (c + 1);
-		changeBorderColor(num, "#33cccc");
-		moves[7] = num;
+	if(!isOutOfBounds(r+1,c+1)){
+		/*going down right*/
+		if((r + 1 <=9 && c + 1 >= 0) && (board[r + 1][c + 1].includes("l.png") || board[r + 1][c + 1].includes("d.png"))){
+			num = "" + (r + 1) + (c + 1);
+			changeBorderColor(num, "#33cccc");
+			moves[7] = num;
+		}
 	}
 
+
 	/*capture up*/
-	if(r - 1 >= 0){
-		num = "" + (r - 1) + c;
-		if(!(board[r - 1][c].includes("l.png")) && !(board[r - 1][c].includes("d.png")) && !(board[r - 1][c].includes("w.png"))){
-			changeBorderColor(num, "#ff5050");
-    		moves[8] = num;
+	if(!isOutOfBounds(r-1, c)){
+		if(r - 1 >= 0){
+			num = "" + (r - 1) + c;
+			if(!(board[r - 1][c].includes("l.png")) && !(board[r - 1][c].includes("d.png")) && !(board[r - 1][c].includes("w.png"))){
+				changeBorderColor(num, "#ff5050");
+				moves[8] = num;
+			}
 		}
 	}
 	/*capture down*/
-	if(r + 1 <= 9){
-		num = "" + (r + 1) + c;
-		if(!(board[r + 1][c].includes("l.png")) && !(board[r + 1][c].includes("d.png")) && !(board[r + 1][c].includes("w.png"))){
-			changeBorderColor(num, "#ff5050");
-    		moves[9] = num;
+	if(!isOutOfBounds(r+1,c)){
+		if(r + 1 <= 9){
+			num = "" + (r + 1) + c;
+			if(!(board[r + 1][c].includes("l.png")) && !(board[r + 1][c].includes("d.png")) && !(board[r + 1][c].includes("w.png"))){
+				changeBorderColor(num, "#ff5050");
+				moves[9] = num;
+			}
 		}
 	}
 	/*capture left*/
-	if(c - 1 >= 0){
-		num = "" + r + (c - 1);
-		if(!(board[r][c - 1].includes("l.png")) && !(board[r][c - 1].includes("d.png")) && !(board[r][c - 1].includes("w.png"))){
-			changeBorderColor(num, "#ff5050");
-    		moves[10] = num;
+	if(isOutOfBounds(r,c-1)){
+		if(c - 1 >= 0){
+			num = "" + r + (c - 1);
+			if(!(board[r][c - 1].includes("l.png")) && !(board[r][c - 1].includes("d.png")) && !(board[r][c - 1].includes("w.png"))){
+				changeBorderColor(num, "#ff5050");
+				moves[10] = num;
+			}
 		}
 	}
 	/*capture right*/
-	if(c + 1 <= 9){
-		num = "" + r + (c + 1);
-		if(!(board[r][c + 1].includes("l.png")) && !(board[r][c + 1].includes("d.png")) && !(board[r][c + 1].includes("w.png"))){
-			changeBorderColor(num, "#ff5050");
-    		moves[11] = num;
+	if(isOutOfBounds(r,c+1)){
+		if(c + 1 <= 9){
+			num = "" + r + (c + 1);
+			if(!(board[r][c + 1].includes("l.png")) && !(board[r][c + 1].includes("d.png")) && !(board[r][c + 1].includes("w.png"))){
+				changeBorderColor(num, "#ff5050");
+				moves[11] = num;
+			}
 		}
 	}
 	/*capture up left*/
@@ -1280,142 +1321,180 @@ if(board[r][c].includes("gw")){
 		}
 	}
 	/*capture down left*/
-	if(r + 1 >= 0 && c - 1 >= 0){
-		num = "" + (r + 1) + (c - 1);
-		if(!(board[r + 1][c - 1].includes("l.png")) && !(board[r + 1][c - 1].includes("d.png")) && !(board[r + 1][c - 1].includes("w.png"))){
-			changeBorderColor(num, "#ff5050");
-    		moves[13] = num;
+	if(!isOutOfBounds(r+1,c-1)){
+		if(r + 1 >= 0 && c - 1 >= 0){
+			num = "" + (r + 1) + (c - 1);
+			if(!(board[r + 1][c - 1].includes("l.png")) && !(board[r + 1][c - 1].includes("d.png")) && !(board[r + 1][c - 1].includes("w.png"))){
+				changeBorderColor(num, "#ff5050");
+				moves[13] = num;
+			}
 		}
 	}
 	/*capture up right*/
-	if(r + 1 <= 9 && c + 1 <= 9){
-		num = "" + (r + 1) + (c + 1);
-		if(!(board[r + 1][c + 1].includes("l.png")) && !(board[r + 1][c + 1].includes("d.png")) && !(board[r + 1][c + 1].includes("w.png"))){
-			changeBorderColor(num, "#ff5050");
-    		moves[14] = num;
+	if(!isOutOfBounds(r+1,c+1)){
+		if(r + 1 <= 9 && c + 1 <= 9){
+			num = "" + (r + 1) + (c + 1);
+			if(!(board[r + 1][c + 1].includes("l.png")) && !(board[r + 1][c + 1].includes("d.png")) && !(board[r + 1][c + 1].includes("w.png"))){
+				changeBorderColor(num, "#ff5050");
+				moves[14] = num;
+			}
 		}
 	}
 	/*capture down right*/
-	if(r - 1 >= 0 && c + 1 <= 9){
-		num = "" + (r - 1) + (c + 1);
-		if(!(board[r - 1][c + 1].includes("l.png")) && !(board[r - 1][c + 1].includes("d.png")) && !(board[r - 1][c + 1].includes("w.png"))){
-			changeBorderColor(num, "#ff5050");
-    		moves[15] = num;
+	if(!isOutOfBounds(r-1,c+1)){
+		if(r - 1 >= 0 && c + 1 <= 9){
+			num = "" + (r - 1) + (c + 1);
+			if(!(board[r - 1][c + 1].includes("l.png")) && !(board[r - 1][c + 1].includes("d.png")) && !(board[r - 1][c + 1].includes("w.png"))){
+				changeBorderColor(num, "#ff5050");
+				moves[15] = num;
+			}
 		}
 	}
 }
 if(board[r][c].includes("gb")){
 	/*going up*/
-	if(r - 1 >= 0 && (board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png"))){
-  		num = "" + (r - 1) + c;
-  		changeBorderColor(num, "#33cccc");
-  		moves[0] = num;
+	if(!isOutOfBounds(r-1,c)){
+		if(r - 1 >= 0 && (board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png"))){
+			  num = "" + (r - 1) + c;
+			  changeBorderColor(num, "#33cccc");
+			  moves[0] = num;
+		}
 	}
 	/*going down*/
-	if(r + 1 <= 9 && (board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png"))){
-		num = "" + (r + 1) + c;
-		changeBorderColor(num, "#33cccc");
-		moves[1] = num;
+	if(!isOutOfBounds(r+1,c)){
+		if(r + 1 <= 9 && (board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png"))){
+			num = "" + (r + 1) + c;
+			changeBorderColor(num, "#33cccc");
+			moves[1] = num;
+		}
 	}
 	/*going left*/
-	if(c - 1 >= 0 && (board[r][c - 1].includes("l.png") || board[r][c - 1].includes("d.png"))){
-		num = "" + r + (c - 1);
-		changeBorderColor(num, "#33cccc");
-		moves[2] = num;
+	if(!isOutOfBounds(r,c-1)){
+		if(c - 1 >= 0 && (board[r][c - 1].includes("l.png") || board[r][c - 1].includes("d.png"))){
+			num = "" + r + (c - 1);
+			changeBorderColor(num, "#33cccc");
+			moves[2] = num;
+		}
 	}
 	/*going down*/
-	if(c + 1 <= 9 && (board[r][c + 1].includes("l.png") || board[r][c + 1].includes("d.png"))){
-		num = "" + r + (c + 1);
-		changeBorderColor(num, "#33cccc");
-		moves[3] = num;
+	if(!isOutOfBounds(r,c+1)){
+		if(c + 1 <= 9 && (board[r][c + 1].includes("l.png") || board[r][c + 1].includes("d.png"))){
+			num = "" + r + (c + 1);
+			changeBorderColor(num, "#33cccc");
+			moves[3] = num;
+		}
 	}
 	/*going up left*/
-	if((r - 1 >=0 && c - 1 >= 0) && (board[r - 1][c - 1].includes("l.png") || board[r - 1][c - 1].includes("d.png"))){
-		num = "" + (r - 1) + (c - 1);
-		changeBorderColor(num, "#33cccc");
-		moves[4] = num;
+	if(!isOutOfBounds(r-1,c-1)){
+		if((r - 1 >=0 && c - 1 >= 0) && (board[r - 1][c - 1].includes("l.png") || board[r - 1][c - 1].includes("d.png"))){
+			num = "" + (r - 1) + (c - 1);
+			changeBorderColor(num, "#33cccc");
+			moves[4] = num;
+		}
 	}
 	/*going up right*/
-	if((r - 1 >=0 && c + 1 <= 9) && (board[r - 1][c + 1].includes("l.png") || board[r - 1][c + 1].includes("d.png"))){
-		num = "" + (r - 1) + (c + 1);
-		changeBorderColor(num, "#33cccc");
-		moves[5] = num;
+	if(!isOutOfBounds(r-1,c+1)){
+		if((r - 1 >=0 && c + 1 <= 9) && (board[r - 1][c + 1].includes("l.png") || board[r - 1][c + 1].includes("d.png"))){
+			num = "" + (r - 1) + (c + 1);
+			changeBorderColor(num, "#33cccc");
+			moves[5] = num;
+		}
 	}
 	/*going down left*/
-	if((r + 1 <=9 && c - 1 >= 0) && (board[r + 1][c - 1].includes("l.png") || board[r + 1][c - 1].includes("d.png"))){
-		num = "" + (r + 1) + (c - 1);
-		changeBorderColor(num, "#33cccc");
-		moves[6] = num;
+	if(!isOutOfBounds(r+1,c-1)){
+		if((r + 1 <=9 && c - 1 >= 0) && (board[r + 1][c - 1].includes("l.png") || board[r + 1][c - 1].includes("d.png"))){
+			num = "" + (r + 1) + (c - 1);
+			changeBorderColor(num, "#33cccc");
+			moves[6] = num;
+		}
 	}
 	/*going down right*/
-	if((r + 1 <=9 && c + 1 >= 0) && (board[r + 1][c + 1].includes("l.png") || board[r + 1][c + 1].includes("d.png"))){
-		num = "" + (r + 1) + (c + 1);
-		changeBorderColor(num, "#33cccc");
-		moves[7] = num;
+	if(!isOutOfBounds(r+1,c+1)){
+		if((r + 1 <=9 && c + 1 >= 0) && (board[r + 1][c + 1].includes("l.png") || board[r + 1][c + 1].includes("d.png"))){
+			num = "" + (r + 1) + (c + 1);
+			changeBorderColor(num, "#33cccc");
+			moves[7] = num;
+		}
 	}
 
 	/*capture up*/
-	if(r - 1 >= 0){
-		num = "" + (r - 1) + c;
-		if(!(board[r - 1][c].includes("l.png")) && !(board[r - 1][c].includes("d.png")) && !(board[r - 1][c].includes("b.png"))){
-			changeBorderColor(num, "#ff5050");
-    		moves[8] = num;
+	if(!isOutOfBounds(r-1,c)){
+		if(r - 1 >= 0){
+			num = "" + (r - 1) + c;
+			if(!(board[r - 1][c].includes("l.png")) && !(board[r - 1][c].includes("d.png")) && !(board[r - 1][c].includes("b.png"))){
+				changeBorderColor(num, "#ff5050");
+				moves[8] = num;
+			}
 		}
 	}
 	/*capture down*/
-	if(r + 1 <= 9){
-		num = "" + (r + 1) + c;
-		if(!(board[r + 1][c].includes("l.png")) && !(board[r + 1][c].includes("d.png")) && !(board[r + 1][c].includes("b.png"))){
-			changeBorderColor(num, "#ff5050");
-    		moves[9] = num;
+	if(!isOutOfBounds(r+1,c)){
+		if(r + 1 <= 9){
+			num = "" + (r + 1) + c;
+			if(!(board[r + 1][c].includes("l.png")) && !(board[r + 1][c].includes("d.png")) && !(board[r + 1][c].includes("b.png"))){
+				changeBorderColor(num, "#ff5050");
+				moves[9] = num;
+			}
 		}
 	}
 	/*capture left*/
-	if(c - 1 >= 0){
-		num = "" + r + (c - 1);
-		if(!(board[r][c - 1].includes("l.png")) && !(board[r][c - 1].includes("d.png")) && !(board[r][c - 1].includes("b.png"))){
-			changeBorderColor(num, "#ff5050");
-    		moves[10] = num;
+	if(!isOutOfBounds(r,c-1)){
+		if(c - 1 >= 0){
+			num = "" + r + (c - 1);
+			if(!(board[r][c - 1].includes("l.png")) && !(board[r][c - 1].includes("d.png")) && !(board[r][c - 1].includes("b.png"))){
+				changeBorderColor(num, "#ff5050");
+				moves[10] = num;
+			}
 		}
 	}
 	/*capture right*/
-	if(c + 1 <= 9){
-		num = "" + r + (c + 1);
-		if(!(board[r][c + 1].includes("l.png")) && !(board[r][c + 1].includes("d.png")) && !(board[r][c + 1].includes("b.png"))){
-			changeBorderColor(num, "#ff5050");
-    		moves[11] = num;
+	if(!isOutOfBounds(r,c+1)){
+		if(c + 1 <= 9){
+			num = "" + r + (c + 1);
+			if(!(board[r][c + 1].includes("l.png")) && !(board[r][c + 1].includes("d.png")) && !(board[r][c + 1].includes("b.png"))){
+				changeBorderColor(num, "#ff5050");
+				moves[11] = num;
+			}
 		}
 	}
 	/*capture up left*/
-	if(r - 1 >= 0 && c - 1 >= 0){
-		num = "" + (r - 1) + (c - 1);
-		if(!(board[r - 1][c - 1].includes("l.png")) && !(board[r - 1][c - 1].includes("d.png")) && !(board[r - 1][c - 1].includes("b.png"))){
-			changeBorderColor(num, "#ff5050");
-    		moves[12] = num;
+	if(!isOutOfBounds(r-1,c-1)){
+		if(r - 1 >= 0 && c - 1 >= 0){
+			num = "" + (r - 1) + (c - 1);
+			if(!(board[r - 1][c - 1].includes("l.png")) && !(board[r - 1][c - 1].includes("d.png")) && !(board[r - 1][c - 1].includes("b.png"))){
+				changeBorderColor(num, "#ff5050");
+				moves[12] = num;
+			}
 		}
 	}
 	/*capture down left*/
-	if(r + 1 >= 0 && c - 1 >= 0){
-		num = "" + (r + 1) + (c - 1);
-		if(!(board[r + 1][c - 1].includes("l.png")) && !(board[r + 1][c - 1].includes("d.png")) && !(board[r + 1][c - 1].includes("b.png"))){
-			changeBorderColor(num, "#ff5050");
-    		moves[13] = num;
+	if(!isOutOfBounds(r+1,c-1)){
+		if(r + 1 >= 0 && c - 1 >= 0){
+			num = "" + (r + 1) + (c - 1);
+			if(!(board[r + 1][c - 1].includes("l.png")) && !(board[r + 1][c - 1].includes("d.png")) && !(board[r + 1][c - 1].includes("b.png"))){
+				changeBorderColor(num, "#ff5050");
+				moves[13] = num;
+			}
 		}
 	}
 	/*capture up right*/
-	if(r + 1 <= 9 && c + 1 <= 9){
-		num = "" + (r + 1) + (c + 1);
-		if(!(board[r + 1][c + 1].includes("l.png")) && !(board[r + 1][c + 1].includes("d.png")) && !(board[r + 1][c + 1].includes("b.png"))){
-			changeBorderColor(num, "#ff5050");
-    		moves[14] = num;
+	if(!isOutOfBounds(r+1,c+1)){
+		if(r + 1 <= 9 && c + 1 <= 9){
+			num = "" + (r + 1) + (c + 1);
+			if(!(board[r + 1][c + 1].includes("l.png")) && !(board[r + 1][c + 1].includes("d.png")) && !(board[r + 1][c + 1].includes("b.png"))){
+				changeBorderColor(num, "#ff5050");
+				moves[14] = num;
+			}
 		}
 	}
 	/*capture down right*/
-	if(r - 1 >= 0 && c + 1 <= 9){
-		num = "" + (r - 1) + (c + 1);
-		if(!(board[r - 1][c + 1].includes("l.png")) && !(board[r - 1][c + 1].includes("d.png")) && !(board[r - 1][c + 1].includes("b.png"))){
-			changeBorderColor(num, "#ff5050");
-    		moves[15] = num;
+	if(!isOutOfBounds(r-1,c+1)){
+		if(r - 1 >= 0 && c + 1 <= 9){
+			num = "" + (r - 1) + (c + 1);
+			if(!(board[r - 1][c + 1].includes("l.png")) && !(board[r - 1][c + 1].includes("d.png")) && !(board[r - 1][c + 1].includes("b.png"))){
+				changeBorderColor(num, "#ff5050");
+				moves[15] = num;
+			}
 		}
 	}
 }
