@@ -11,25 +11,25 @@
 	<script src="CapturedTable.js"></script>	
 	<script src="settings.js"></script>
 	<script>
-		/* placeholders of the time */
+		//placeholders of the time
 		var seconds = 0;
         var minutes = 0;
         var hours = 0;
-        /* showing time in the 00:00:00 format using the placeholders */
+        //showing time in the 00:00:00 format using the placeholders
         var showSeconds = 0;
         var showMinutes = 0;
         var showHours = 0;
         var counter = setInterval(function() {
             seconds += 1;
             if (seconds/60 == 1) {
-                seconds = 0; /* set seconds back to 0 */
+                seconds = 0; //set seconds back to 0
                 minutes += 1;
                 if (minutes/60 == 1) {
-                    minutes = 0; /* set minutes back to 0 */
+                    minutes = 0; //set minutes back to 0
                     hours += 1;
                 }
             }
-            /* Showing the 00:00:00 format */
+            //Showing the 00:00:00 format
             if (seconds < 10) {
                 showSeconds = "0" + seconds.toString();
             }
