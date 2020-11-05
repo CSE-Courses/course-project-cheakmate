@@ -35,8 +35,9 @@ div.startMenu{
 }
 
 /*@Author: Kat*/
+/*@Editor: Alam*/
 button{
-  border: none;
+  border: 2px solid black;
   text-decoration: none;
   padding: 10px 10px 10px 10px;
   background: rgba(0, 0, 26, 0.5);
@@ -44,6 +45,9 @@ button{
 }
 
 /*@Author: Kat*/
+/*@Editor: Alam*/
 button:hover{
   background: rgba(0, 0, 26, 0.75);
+  color: white;
+  border: 2px solid white;
 }
