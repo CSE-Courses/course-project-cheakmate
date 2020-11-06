@@ -124,17 +124,78 @@ function populate(){
   setTurn();
 }
 
+/*@Author: Alex*/
+/*Converts seconds into minutes and format the output of the timer*/
+/*@Param sec is the seconds passed in to the function to convert seconds into integer form instead of double or float*/
+function convertingSeconds(sec) {
+	var mins = Math.floor(sec/60);
+	var secs = Math.floor(sec%60);
+	if (secs < 10) {
+		return mins + ":" + "0" + secs;
+	}
+	if (mins < 10) {
+		return mins  + ":" + secs;
+	}
+	return mins + ":" + secs;
+}
+
+/*@Author: Alex*/
+/*Turn based count down timer for white chess piece player*/
+function whitePlayerTurnTimer () {
+	/* placeholders of the time */
+	var seconds = 30;
+	var counter = setInterval(function() {
+		/*console.log(convertingSeconds(seconds));*/
+		seconds -= 1;
+		if (seconds <= 0) {
+			clearInterval(counter);
+		}
+		if (getCurrentPlayer() == WHITE) {
+			/*console.log("white");*/
+			document.getElementById("whiteTimer").innerHTML = convertingSeconds(seconds);
+		} else {
+			if (getCurrentPlayer() != WHITE) {
+				clearInterval(counter);
+			}
+		}
+	}, 1000);
+}
+
+/*@Author: Alex*/
+/*Turn based count down timer for black chess piece player*/
+function blackPlayerTurnTimer () {
+	/* placeholders of the time */
+	var seconds = 30;
+	var counter = setInterval(function() {
+		seconds -= 1;
+		if (seconds <= 0) {
+			clearInterval(counter);
+		}
+		if (getCurrentPlayer() == BLACK) {
+			/*console.log("black");*/
+			document.getElementById("blackTimer").innerHTML = convertingSeconds(seconds);
+		} else {
+			if (getCurrentPlayer() != BLACK) {
+				clearInterval(counter);
+			}
+		}
+	}, 1000);
+}
+
 /*@Author: Kat*/
+/*@Editor: Alex*/
 /*Sets the current condition of the chess board for each turn
   If current player is white, enable white chess pieces and disable black chess pieces.
   If current player is black, enable black chess pieces and disable white chess pieces.*/
 function setTurn(){
   if(getCurrentPlayer() == WHITE){
     enablePieces(WHITE);
+    whitePlayerTurnTimer();
     disablePieces(BLACK);
   }
   else if (getCurrentPlayer() == BLACK) {
     enablePieces(BLACK);
+    blackPlayerTurnTimer();
     disablePieces(WHITE);
   }
 }
