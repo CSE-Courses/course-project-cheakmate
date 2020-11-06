@@ -11,25 +11,25 @@
 	<script src="game.js"></script>
 	<script src="settings.js"></script>
 	<script>
-		//placeholders of the time
+		/*placeholders of the time*/
 		var seconds = 0;
         var minutes = 0;
         var hours = 0;
-        //showing time in the 00:00:00 format using the placeholders
+        /*showing time in the 00:00:00 format using the placeholders*/
         var showSeconds = 0;
         var showMinutes = 0;
         var showHours = 0;
         var counter = setInterval(function() {
             seconds += 1;
             if (seconds/60 == 1) {
-                seconds = 0; //set seconds back to 0
+                seconds = 0; /*set seconds back to 0*/
                 minutes += 1;
                 if (minutes/60 == 1) {
-                    minutes = 0; //set minutes back to 0
+                    minutes = 0; /*set minutes back to 0*/
                     hours += 1;
                 }
             }
-            //Showing the 00:00:00 format
+            /*Showing the 00:00:00 format*/
             if (seconds < 10) {
                 showSeconds = "0" + seconds.toString();
             }
@@ -228,16 +228,25 @@
 				<td><h1 style = "text-align:right">test</h1></td>
 			</tr>-->
 			<tr>
-				<td><img id = "w1" src="/images/sprites/r.png"></td>
-				<td><img id = "w2" src="/images/sprites/r.png"></td>
-				<td><img id = "w3" src="/images/sprites/r.png"></td>
-				<td><img id = "w4" src="/images/sprites/r.png"></td>
-				<td><img id = "w5" src="/images/sprites/r.png"></td>
-				<td><img id = "w6" src="/images/sprites/r.png"></td>
-				<td><img id = "w7" src="/images/sprites/r.png"></td>
-				<td><img id = "w8" src="/images/sprites/r.png"></td>
-				<td><img id = "w9" src="/images/sprites/r.png"></td>
-				<td><img id = "w10" src="/images/sprites/r.png"></td>
+				<td><img id = "w00" src="images/sprites/r.png"></td>
+				<td><img id = "w01" src="images/sprites/r.png"></td>
+				<td><img id = "w02" src="images/sprites/r.png"></td>
+				<td><img id = "w03" src="images/sprites/r.png"></td>
+				<td><img id = "w04" src="images/sprites/r.png"></td>
+				<td><img id = "w05" src="images/sprites/r.png"></td>
+				<td><img id = "w06" src="images/sprites/r.png"></td>
+				<td><img id = "w07" src="images/sprites/r.png"></td>
+				
+			</tr>
+			<tr>
+				<td><img id = "w10" src="images/sprites/r.png"></td>
+				<td><img id = "w11" src="images/sprites/r.png"></td>
+				<td><img id = "w12" src="images/sprites/r.png"></td>
+				<td><img id = "w13" src="images/sprites/r.png"></td>
+				<td><img id = "w14" src="images/sprites/r.png"></td>
+				<td><img id = "w15" src="images/sprites/r.png"></td>
+				<td><img id = "w16" src="images/sprites/r.png"></td>
+				<td><img id = "w17" src="images/sprites/r.png"></td>
 				
 			</tr>
 		</table>
@@ -247,16 +256,25 @@
 	<div id = blackCapturedPieces>
 		<table style = "float: right">
 						<tr>
-				<td><img id = "b1" src="/images/sprites/r.png"></td>
-				<td><img id = "b2" src="/images/sprites/r.png"></td>
-				<td><img id = "b3" src="/images/sprites/r.png"></td>
-				<td><img id = "b4" src="/images/sprites/r.png"></td>
-				<td><img id = "b5" src="/images/sprites/r.png"></td>
-				<td><img id = "b6" src="/images/sprites/r.png"></td>
-				<td><img id = "b7" src="/images/sprites/r.png"></td>
-				<td><img id = "b8" src="/images/sprites/r.png"></td>
-				<td><img id = "b9" src="/images/sprites/r.png"></td>
-				<td><img id = "b10" src="/images/sprites/r.png"></td>
+				<td><img id = "b00" src="images/sprites/r.png"></td>
+				<td><img id = "b01" src="images/sprites/r.png"></td>
+				<td><img id = "b02" src="images/sprites/r.png"></td>
+				<td><img id = "b03" src="images/sprites/r.png"></td>
+				<td><img id = "b04" src="images/sprites/r.png"></td>
+				<td><img id = "b05" src="images/sprites/r.png"></td>
+				<td><img id = "b06" src="images/sprites/r.png"></td>
+				<td><img id = "b07" src="images/sprites/r.png"></td>
+				
+			</tr>
+			<tr>
+				<td><img id = "b10" src="images/sprites/r.png"></td>
+				<td><img id = "b11" src="images/sprites/r.png"></td>
+				<td><img id = "b12" src="images/sprites/r.png"></td>
+				<td><img id = "b13" src="images/sprites/r.png"></td>
+				<td><img id = "b14" src="images/sprites/r.png"></td>
+				<td><img id = "b15" src="images/sprites/r.png"></td>
+				<td><img id = "b16" src="images/sprites/r.png"></td>
+				<td><img id = "b17" src="images/sprites/r.png"></td>
 				
 			</tr>
 		</table>
