@@ -1848,18 +1848,55 @@ function detectCapture(second){
 	var row = parseInt(second.substring(0,1));
 	var col = parseInt(second.substring(1));
 	
-	src = board[row][col];
+	secondsrc = board[row][col];
+	
+	/*if src has b.png, then white captured it (based on previous code)*/
+	if (secondsrc.includes("b.png")){
 		
-	if (src.includes("b.png")){
-		alert("Captured by White");
+		addWhiteCapturedPieces(secondsrc.substring(16));
+		
+	}
+	/*if src has w.png, then white captured it (based on previous code)*/
+	else if (secondsrc.includes("w.png")){
 
-		alert(src.substring(16) + " was captured");
-	}else if (src.includes("w.png")){
-		alert("Captured by Black");
-		alert(src.substring(16) + " was captured");
+		addBlackCapturedPieces(secondsrc.substring(16));
 		
 	}
 	
-	alert("Row = " + row + " Column = " + col);
 	
 }
+
+function addWhiteCapturedPieces(pieceToAdd){
+	var num;
+	var imageToAdd = "images/sprites/r" + pieceToAdd;
+	
+	breakhere:
+	for (var i = 0; i < capturedByWhite.length; i++){
+		for (var j = 0; j < capturedByWhite[i].length; j++){
+			num = "w" + i + j;
+			if(document.getElementById(num).src.includes("r.png")){
+				document.getElementById(num).src = imageToAdd;
+				break breakhere;
+			}
+			
+		}
+	}
+}
+
+function addBlackCapturedPieces(pieceToAdd){
+	var num;
+	var imageToAdd = "images/sprites/r" + pieceToAdd;
+	
+	breakhere:
+	for (var i = 0; i < capturedByBlack.length; i++){
+		for (var j = 0; j < capturedByBlack[i].length; j++){
+			num = "b" + i + j;
+			if(document.getElementById(num).src.includes("r.png")){
+				document.getElementById(num).src = imageToAdd;
+				break breakhere;
+			}
+			
+		}
+	}
+}
+
