@@ -87,9 +87,9 @@ img{
 /*@Author: Kat*/
 ul{
 	list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
 	background: rgba(0, 0, 26, 0.5);
 }
 
@@ -101,8 +101,9 @@ li{
 }
 
 /*@Author: Kat*/
+/*@Editor: Alam*/
 button{
-	border: none;
+	border: 2px solid black;
 	text-decoration: none;
 	padding: 10px 10px 10px 10px;
 	background: rgba(0, 0, 26, 0.15);
@@ -147,8 +148,9 @@ a:link, a:visited{
 }
 
 /*@Author: Kat*/
+/*@Editor: Alam*/
 .choice {
-	border: none;
+	border: 2px solid black;
 	text-decoration: none;
 	padding: 10px 10px 10px 10px;
 	background: rgba(0, 0, 26, 0.5);
@@ -156,6 +158,16 @@ a:link, a:visited{
 }
 
 /*@Author: Kat*/
-p, button:hover{
+/*@Editor: Alam*/
+p{
 	background: rgba(0, 0, 26, 0.75);
+	color: white;
+} 
+
+/*@Author: Kat*/
+/*@Editor: Alam*/
+button:hover{
+	background: rgba(0, 0, 26, 0.75);
+	color: white;
+    border: 2px solid white;
 }

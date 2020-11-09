@@ -301,11 +301,14 @@ public class ChessWebServer {
 		fileList.put("/index.html", "public/index.html");
 		fileList.put("/", "public/index.html");
 		fileList.put("/game.html", "public/game.html");
+		fileList.put("/end.html", "public/end.html");
 		fileList.put("/settings.html", "public/settings.html");
 		fileList.put("/index.css", "public/index.css");
 		fileList.put("/game.css", "public/game.css");
+		fileList.put("/end.css", "public/end.css");
 		fileList.put("/settings.css", "public/settings.js");
 		fileList.put("Cookies.txt", "public/Cookies.txt");
+		
 		
 		//List of images
 		imageList = new ArrayList<String>();
@@ -313,6 +316,7 @@ public class ChessWebServer {
 		imageList.add("/images/Lake.jpg");
 		imageList.add("/images/Galaxy.jpg");
 		imageList.add("/images/img404.png");
+		imageList.add("/images/poggers.gif");
 		//imageList.add("/images/tile_brown.png");
 		//imageList.add("/images/tile_grey.png");
 		imageList.add("/images/sprites/d.png");
