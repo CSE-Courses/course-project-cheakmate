@@ -6,33 +6,17 @@ const BLACK = "BLACK"; /*Possible Player value BLACK*/
 var board; /*2-D array keeping image sources for board*/
 var moves; /*Keeps track of possible moves for a selected chess piece by keeping track of string containing row and column*/
 
-var capturedByWhite; /*2D array to keep image sources for pieces captured by white*/
-var capturedByBlack; /*2D array to keep image sources for pieces captured by black*/
-
 var firstPiece = ""; /*Keeps track of first img to be moved*/
 var secondPiece = ""; /*Keeps track of second img to be moved*/
 
 /*@Author: Alex*/
 /*@Editor: Kat*/
-/*@Editor: Kevin*/
 /*Initializes the chess board*/
 function initialize(){
   /*initialize turn to White*/
   setPlayer(WHITE);
   displayPlayer();
 
-  /*Create a 8 x 2 board for pieces captured by white*/
-  capturedByWhite = new Array(2);
-  for (var i = 0; i < capturedByWhite.length; i++){
-	  capturedByWhite[i] = new Array(8);
-  }  
-
-  /*Create a 8 x 2 board for pieces captured by black*/
-  capturedByBlack = new Array(2);
-  for (var i = 0; i < capturedByBlack.length; i++){
-	  capturedByBlack[i] = new Array(8);
-  } 
-  
   /*Create a 10 x 10 board*/
   board = new Array(10);
   for(var i = 0; i < board.length; i++){
@@ -140,113 +124,19 @@ function populate(){
   setTurn();
 }
 
-/*@Author: Alam*/
-/*Checks to see if the king was killed, if a king is missing it will trigger the endgame */
-function checkKill(){
-	wking = false;
-	bking = false;
-	for(var i = 0; i < board.length; i++){
-		for(var j = 0; j < board[i].length; j++){
-			if(board[i][j].includes("gw.png")){
-				wking = true;
-			}
-			if(board[i][j].includes("gb.png")){
-				bking = true;
-			}
-		}
-	}
-	if (!wking){
-		callGame("white", "Black");
-	}else if(!bking){
-		callGame("black", "White");
-	}	
-}
-
-/*@Author: Alam*/
-/*Calls the winner of the game and ends the game*/
-function callGame(loser, winner){
-	endstatment = "The king of the " + loser + " team has been killed! " + winner + " team wins!";
-	if (confirm("" + endstatment)) {
-		window.location.href = "end.html";
-	  }
-}
-
-/*@Author: Alex*/
-/*Converts seconds into minutes and format the output of the timer*/
-/*@Param sec is the seconds passed in to the function to convert seconds into integer form instead of double or float*/
-function convertingSeconds(sec) {
-	var mins = Math.floor(sec/60);
-	var secs = Math.floor(sec%60);
-	if (secs < 10) {
-		return mins + ":" + "0" + secs;
-	}
-	if (mins < 10) {
-		return mins  + ":" + secs;
-	}
-	return mins + ":" + secs;
-}
-
-/*@Author: Alex*/
-/*Turn based count down timer for white chess piece player*/
-function whitePlayerTurnTimer () {
-	/* placeholders of the time */
-	var seconds = 30;
-	var counter = setInterval(function() {
-		/*console.log(convertingSeconds(seconds));*/
-		seconds -= 1;
-		if (seconds <= 0) {
-			clearInterval(counter);
-		}
-		if (getCurrentPlayer() == WHITE) {
-			/*console.log("white");*/
-			document.getElementById("whiteTimer").innerHTML = convertingSeconds(seconds);
-		} else {
-			if (getCurrentPlayer() != WHITE) {
-				clearInterval(counter);
-			}
-		}
-	}, 1000);
-}
-
-/*@Author: Alex*/
-/*Turn based count down timer for black chess piece player*/
-function blackPlayerTurnTimer () {
-	/* placeholders of the time */
-	var seconds = 30;
-	var counter = setInterval(function() {
-		seconds -= 1;
-		if (seconds <= 0) {
-			clearInterval(counter);
-		}
-		if (getCurrentPlayer() == BLACK) {
-			/*console.log("black");*/
-			document.getElementById("blackTimer").innerHTML = convertingSeconds(seconds);
-		} else {
-			if (getCurrentPlayer() != BLACK) {
-				clearInterval(counter);
-			}
-		}
-	}, 1000);
-}
-
 /*@Author: Kat*/
-/*@Editor: Alex*/
-/*@Editor: Alam*/
 /*Sets the current condition of the chess board for each turn
   If current player is white, enable white chess pieces and disable black chess pieces.
   If current player is black, enable black chess pieces and disable white chess pieces.*/
 function setTurn(){
-	checkKill();
-  	if(getCurrentPlayer() == WHITE){
-    	enablePieces(WHITE);
-    	whitePlayerTurnTimer();
-    	disablePieces(BLACK);
-  	}
-  	else if (getCurrentPlayer() == BLACK) {
-   		enablePieces(BLACK);
-    	blackPlayerTurnTimer();
-    	disablePieces(WHITE);
-  	}
+  if(getCurrentPlayer() == WHITE){
+    enablePieces(WHITE);
+    disablePieces(BLACK);
+  }
+  else if (getCurrentPlayer() == BLACK) {
+    enablePieces(BLACK);
+    disablePieces(WHITE);
+  }
 }
 
 /*@Author: Kat*/
@@ -471,7 +361,6 @@ function runGame(imageId){
   }
   else if (isInMoves(imageId)){
     secondPiece = imageId;
-    detectCapture(secondPiece);
     moveChessPiece(firstPiece, secondPiece);
     clearMoves();
   }
@@ -1097,7 +986,7 @@ function showPossibleKnightMoves(r, c){
   enableCapturePieces();
 }
 
-/*Author: Richard*/
+/*@Author: Richard*/
 /*Shows possible moves for bishop*/
 /* Conditions for bishop movement
 1. bishops can only move diagonally
@@ -1115,89 +1004,81 @@ function showPossibleBishopMoves(r, c){
 		/*up left movement */
 		for(i=rw-1, j=cl-1; i>-1 && j>-1; i--, j--){
 			/* window.alert(i + " " + j); */
-			if(!isOutOfBounds(i,j)){
-				if(!isEmptyTile(i,j)){
-					if(board[i][j].includes("b.png")){
-						num = "" + i + j;
-						changeBorderColor(num, "#ff5050");
-						moves.push(num);
-						break;
-					}
-					else{
-						break;
-					}
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("b.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
 				}
 				else{
-					num = "" + i + j;
-					changeBorderColor(num, "#33cccc");
-					moves.push(num);
+					break;
 				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
 			}
 		}
 		/* up right movement */
 		for(i=rw-1, j=cl+1; i>-1 && j<10; i--, j++){
 			/* window.alert(i + " " + j); */
-			if(!isOutOfBounds(i,j)){
-				if(!isEmptyTile(i,j)){
-					if(board[i][j].includes("b.png")){
-						num = "" + i + j;
-						changeBorderColor(num, "#ff5050");
-						moves.push(num);
-						break;
-					}
-					else{
-						break;
-					}
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("b.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
 				}
 				else{
-					num = "" + i + j;
-					changeBorderColor(num, "#33cccc");
-					moves.push(num);
+					break;
 				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
 			}
 		}
 		/* down left movement */
 		for(i=rw+1, j=cl-1; i<10 && j>-1; i++, j--){
 			/* window.alert(i + " " + j); */
-			if(!isOutOfBounds(i,j)){
-				if(!isEmptyTile(i,j)){
-					if(board[i][j].includes("b.png")){
-						num = "" + i + j;
-						changeBorderColor(num, "#ff5050");
-						moves.push(num);
-						break;
-					}
-					else{
-						break;
-					}
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("b.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
 				}
 				else{
-					num = "" + i + j;
-					changeBorderColor(num, "#33cccc");
-					moves.push(num);
+					break;
 				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
 			}
 		}
 		/* down right movement */
 		for(i=rw+1, j=cl+1; i>-1 && j<10; i++, j++){
 			/* window.alert(i + " " + j); */
-			if(!isOutOfBounds(i,j)){
-				if(!isEmptyTile(i,j)){
-					if(board[i][j].includes("b.png")){
-						num = "" + i + j;
-						changeBorderColor(num, "#ff5050");
-						moves.push(num);
-						break;
-					}
-					else{
-						break;
-					}
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("b.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
 				}
 				else{
-					num = "" + i + j;
-					changeBorderColor(num, "#33cccc");
-					moves.push(num);
+					break;
 				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
 			}
 		}
   }
@@ -1205,89 +1086,81 @@ function showPossibleBishopMoves(r, c){
 		/*up left movement */
 		for(i=rw-1, j=cl-1; i>-1 && j>-1; i--, j--){
 			/* window.alert(i + " " + j); */
-			if(!isOutOfBounds(i,j)){
-				if(!isEmptyTile(i,j)){
-					if(board[i][j].includes("w.png")){
-						num = "" + i + j;
-						changeBorderColor(num, "#ff5050");
-						moves.push(num);
-						break;
-					}
-					else{
-						break;
-					}
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("w.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
 				}
 				else{
-					num = "" + i + j;
-					changeBorderColor(num, "#33cccc");
-					moves.push(num);
+					break;
 				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
 			}
 		}
 		/* up right movement */
 		for(i=rw-1, j=cl+1; i>-1 && j<10; i--, j++){
 			/* window.alert(i + " " + j); */
-			if(!isOutOfBounds(i,j)){
-				if(!isEmptyTile(i,j)){
-					if(board[i][j].includes("w.png")){
-						num = "" + i + j;
-						changeBorderColor(num, "#ff5050");
-						moves.push(num);
-						break;
-					}
-					else{
-						break;
-					}
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("w.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
 				}
 				else{
-					num = "" + i + j;
-					changeBorderColor(num, "#33cccc");
-					moves.push(num);
+					break;
 				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
 			}
 		}
 		/* down left movement */
 		for(i=rw+1, j=cl-1; i<10 && j>-1; i++, j--){
 			/* window.alert(i + " " + j); */
-			if(!isOutOfBounds(i,j)){
-				if(!isEmptyTile(i,j)){
-					if(board[i][j].includes("w.png")){
-						num = "" + i + j;
-						changeBorderColor(num, "#ff5050");
-						moves.push(num);
-						break;
-					}
-					else{
-						break;
-					}
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("w.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
 				}
 				else{
-					num = "" + i + j;
-					changeBorderColor(num, "#33cccc");
-					moves.push(num);
+					break;
 				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
 			}
 		}
 		/* down right movement */
 		for(i=rw+1, j=cl+1; i>-1 && j<10; i++, j++){
 			/* window.alert(i + " " + j); */
-			if(!isOutOfBounds(i,j)){
-				if(!isEmptyTile(i,j)){
-					if(board[i][j].includes("w.png")){
-						num = "" + i + j;
-						changeBorderColor(num, "#ff5050");
-						moves.push(num);
-						break;
-					}
-					else{
-						break;
-					}
+			if(!isEmptyTile(i,j)){
+				if(board[i][j].includes("w.png")){
+					num = "" + i + j;
+					changeBorderColor(num, "#ff5050");
+					moves.push(num);
+					break;
 				}
 				else{
-					num = "" + i + j;
-					changeBorderColor(num, "#33cccc");
-					moves.push(num);
+					break;
 				}
+			}
+			else{
+				num = "" + i + j;
+				changeBorderColor(num, "#33cccc");
+				moves.push(num);
 			}
 		}
 	}
@@ -1317,110 +1190,85 @@ for(var i = 0; i < moves.length; i++){
 }
 
 if(board[r][c].includes("gw")){
-	if(!isOutOfBounds(r-1,c)){
-		/*going up*/
-		if(r - 1 >= 0 && (board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png"))){
-			  num = "" + (r - 1) + c;
-			  changeBorderColor(num, "#33cccc");
-			  moves[0] = num;
-		}
+	/*going up*/
+	if(r - 1 >= 0 && (board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png"))){
+  		num = "" + (r - 1) + c;
+  		changeBorderColor(num, "#33cccc");
+  		moves[0] = num;
 	}
-	if(!isOutOfBounds(r+1,c)){
-		/*going down*/
-		if(r + 1 <= 9 && (board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png"))){
-			num = "" + (r + 1) + c;
-			changeBorderColor(num, "#33cccc");
-			moves[1] = num;
-		}
+	/*going down*/
+	if(r + 1 <= 9 && (board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png"))){
+		num = "" + (r + 1) + c;
+		changeBorderColor(num, "#33cccc");
+		moves[1] = num;
 	}
-	if(!isOutOfBounds(r,c-1)){
-		/*going left*/
-		if(c - 1 >= 0 && (board[r][c - 1].includes("l.png") || board[r][c - 1].includes("d.png"))){
-			num = "" + r + (c - 1);
-			changeBorderColor(num, "#33cccc");
-			moves[2] = num;
-		}
+	/*going left*/
+	if(c - 1 >= 0 && (board[r][c - 1].includes("l.png") || board[r][c - 1].includes("d.png"))){
+		num = "" + r + (c - 1);
+		changeBorderColor(num, "#33cccc");
+		moves[2] = num;
 	}
-	if(!isOutOfBounds(r,c+1)){
-		/*going down*/
-		if(c + 1 <= 9 && (board[r][c + 1].includes("l.png") || board[r][c + 1].includes("d.png"))){
-			num = "" + r + (c + 1);
-			changeBorderColor(num, "#33cccc");
-			moves[3] = num;
-		}
+	/*going down*/
+	if(c + 1 <= 9 && (board[r][c + 1].includes("l.png") || board[r][c + 1].includes("d.png"))){
+		num = "" + r + (c + 1);
+		changeBorderColor(num, "#33cccc");
+		moves[3] = num;
 	}
-	if(!isOutOfBounds(r-1,c-1)){
-		/*going up left*/
-		if((r - 1 >=0 && c - 1 >= 0) && (board[r - 1][c - 1].includes("l.png") || board[r - 1][c - 1].includes("d.png"))){
-			num = "" + (r - 1) + (c - 1);
-			changeBorderColor(num, "#33cccc");
-			moves[4] = num;
-		}
+	/*going up left*/
+	if((r - 1 >=0 && c - 1 >= 0) && (board[r - 1][c - 1].includes("l.png") || board[r - 1][c - 1].includes("d.png"))){
+		num = "" + (r - 1) + (c - 1);
+		changeBorderColor(num, "#33cccc");
+		moves[4] = num;
 	}
-	if(!isOutOfBounds(r-1,c+1)){
-		/*going up right*/
-		if((r - 1 >=0 && c + 1 <= 9) && (board[r - 1][c + 1].includes("l.png") || board[r - 1][c + 1].includes("d.png"))){
-			num = "" + (r - 1) + (c + 1);
-			changeBorderColor(num, "#33cccc");
-			moves[5] = num;
-		}
+	/*going up right*/
+	if((r - 1 >=0 && c + 1 <= 9) && (board[r - 1][c + 1].includes("l.png") || board[r - 1][c + 1].includes("d.png"))){
+		num = "" + (r - 1) + (c + 1);
+		changeBorderColor(num, "#33cccc");
+		moves[5] = num;
 	}
-	if(!isOutOfBounds(r+1,c-1)){
-		/*going down left*/
-		if((r + 1 <=9 && c - 1 >= 0) && (board[r + 1][c - 1].includes("l.png") || board[r + 1][c - 1].includes("d.png"))){
-			num = "" + (r + 1) + (c - 1);
-			changeBorderColor(num, "#33cccc");
-			moves[6] = num;
-		}
+	/*going down left*/
+	if((r + 1 <=9 && c - 1 >= 0) && (board[r + 1][c - 1].includes("l.png") || board[r + 1][c - 1].includes("d.png"))){
+		num = "" + (r + 1) + (c - 1);
+		changeBorderColor(num, "#33cccc");
+		moves[6] = num;
 	}
-	if(!isOutOfBounds(r+1,c+1)){
-		/*going down right*/
-		if((r + 1 <=9 && c + 1 >= 0) && (board[r + 1][c + 1].includes("l.png") || board[r + 1][c + 1].includes("d.png"))){
-			num = "" + (r + 1) + (c + 1);
-			changeBorderColor(num, "#33cccc");
-			moves[7] = num;
-		}
+	/*going down right*/
+	if((r + 1 <=9 && c + 1 >= 0) && (board[r + 1][c + 1].includes("l.png") || board[r + 1][c + 1].includes("d.png"))){
+		num = "" + (r + 1) + (c + 1);
+		changeBorderColor(num, "#33cccc");
+		moves[7] = num;
 	}
-
 
 	/*capture up*/
-	if(!isOutOfBounds(r-1, c)){
-		if(r - 1 >= 0){
-			num = "" + (r - 1) + c;
-			if(!(board[r - 1][c].includes("l.png")) && !(board[r - 1][c].includes("d.png")) && !(board[r - 1][c].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-				moves[8] = num;
-			}
+	if(r - 1 >= 0){
+		num = "" + (r - 1) + c;
+		if(!(board[r - 1][c].includes("l.png")) && !(board[r - 1][c].includes("d.png")) && !(board[r - 1][c].includes("w.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[8] = num;
 		}
 	}
 	/*capture down*/
-	if(!isOutOfBounds(r+1,c)){
-		if(r + 1 <= 9){
-			num = "" + (r + 1) + c;
-			if(!(board[r + 1][c].includes("l.png")) && !(board[r + 1][c].includes("d.png")) && !(board[r + 1][c].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-				moves[9] = num;
-			}
+	if(r + 1 <= 9){
+		num = "" + (r + 1) + c;
+		if(!(board[r + 1][c].includes("l.png")) && !(board[r + 1][c].includes("d.png")) && !(board[r + 1][c].includes("w.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[9] = num;
 		}
 	}
 	/*capture left*/
-	if(isOutOfBounds(r,c-1)){
-		if(c - 1 >= 0){
-			num = "" + r + (c - 1);
-			if(!(board[r][c - 1].includes("l.png")) && !(board[r][c - 1].includes("d.png")) && !(board[r][c - 1].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-				moves[10] = num;
-			}
+	if(c - 1 >= 0){
+		num = "" + r + (c - 1);
+		if(!(board[r][c - 1].includes("l.png")) && !(board[r][c - 1].includes("d.png")) && !(board[r][c - 1].includes("w.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[10] = num;
 		}
 	}
 	/*capture right*/
-	if(isOutOfBounds(r,c+1)){
-		if(c + 1 <= 9){
-			num = "" + r + (c + 1);
-			if(!(board[r][c + 1].includes("l.png")) && !(board[r][c + 1].includes("d.png")) && !(board[r][c + 1].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-				moves[11] = num;
-			}
+	if(c + 1 <= 9){
+		num = "" + r + (c + 1);
+		if(!(board[r][c + 1].includes("l.png")) && !(board[r][c + 1].includes("d.png")) && !(board[r][c + 1].includes("w.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[11] = num;
 		}
 	}
 	/*capture up left*/
@@ -1432,180 +1280,142 @@ if(board[r][c].includes("gw")){
 		}
 	}
 	/*capture down left*/
-	if(!isOutOfBounds(r+1,c-1)){
-		if(r + 1 >= 0 && c - 1 >= 0){
-			num = "" + (r + 1) + (c - 1);
-			if(!(board[r + 1][c - 1].includes("l.png")) && !(board[r + 1][c - 1].includes("d.png")) && !(board[r + 1][c - 1].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-				moves[13] = num;
-			}
+	if(r + 1 >= 0 && c - 1 >= 0){
+		num = "" + (r + 1) + (c - 1);
+		if(!(board[r + 1][c - 1].includes("l.png")) && !(board[r + 1][c - 1].includes("d.png")) && !(board[r + 1][c - 1].includes("w.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[13] = num;
 		}
 	}
 	/*capture up right*/
-	if(!isOutOfBounds(r+1,c+1)){
-		if(r + 1 <= 9 && c + 1 <= 9){
-			num = "" + (r + 1) + (c + 1);
-			if(!(board[r + 1][c + 1].includes("l.png")) && !(board[r + 1][c + 1].includes("d.png")) && !(board[r + 1][c + 1].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-				moves[14] = num;
-			}
+	if(r + 1 <= 9 && c + 1 <= 9){
+		num = "" + (r + 1) + (c + 1);
+		if(!(board[r + 1][c + 1].includes("l.png")) && !(board[r + 1][c + 1].includes("d.png")) && !(board[r + 1][c + 1].includes("w.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[14] = num;
 		}
 	}
 	/*capture down right*/
-	if(!isOutOfBounds(r-1,c+1)){
-		if(r - 1 >= 0 && c + 1 <= 9){
-			num = "" + (r - 1) + (c + 1);
-			if(!(board[r - 1][c + 1].includes("l.png")) && !(board[r - 1][c + 1].includes("d.png")) && !(board[r - 1][c + 1].includes("w.png"))){
-				changeBorderColor(num, "#ff5050");
-				moves[15] = num;
-			}
+	if(r - 1 >= 0 && c + 1 <= 9){
+		num = "" + (r - 1) + (c + 1);
+		if(!(board[r - 1][c + 1].includes("l.png")) && !(board[r - 1][c + 1].includes("d.png")) && !(board[r - 1][c + 1].includes("w.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[15] = num;
 		}
 	}
 }
 if(board[r][c].includes("gb")){
 	/*going up*/
-	if(!isOutOfBounds(r-1,c)){
-		if(r - 1 >= 0 && (board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png"))){
-			  num = "" + (r - 1) + c;
-			  changeBorderColor(num, "#33cccc");
-			  moves[0] = num;
-		}
+	if(r - 1 >= 0 && (board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png"))){
+  		num = "" + (r - 1) + c;
+  		changeBorderColor(num, "#33cccc");
+  		moves[0] = num;
 	}
 	/*going down*/
-	if(!isOutOfBounds(r+1,c)){
-		if(r + 1 <= 9 && (board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png"))){
-			num = "" + (r + 1) + c;
-			changeBorderColor(num, "#33cccc");
-			moves[1] = num;
-		}
+	if(r + 1 <= 9 && (board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png"))){
+		num = "" + (r + 1) + c;
+		changeBorderColor(num, "#33cccc");
+		moves[1] = num;
 	}
 	/*going left*/
-	if(!isOutOfBounds(r,c-1)){
-		if(c - 1 >= 0 && (board[r][c - 1].includes("l.png") || board[r][c - 1].includes("d.png"))){
-			num = "" + r + (c - 1);
-			changeBorderColor(num, "#33cccc");
-			moves[2] = num;
-		}
+	if(c - 1 >= 0 && (board[r][c - 1].includes("l.png") || board[r][c - 1].includes("d.png"))){
+		num = "" + r + (c - 1);
+		changeBorderColor(num, "#33cccc");
+		moves[2] = num;
 	}
 	/*going down*/
-	if(!isOutOfBounds(r,c+1)){
-		if(c + 1 <= 9 && (board[r][c + 1].includes("l.png") || board[r][c + 1].includes("d.png"))){
-			num = "" + r + (c + 1);
-			changeBorderColor(num, "#33cccc");
-			moves[3] = num;
-		}
+	if(c + 1 <= 9 && (board[r][c + 1].includes("l.png") || board[r][c + 1].includes("d.png"))){
+		num = "" + r + (c + 1);
+		changeBorderColor(num, "#33cccc");
+		moves[3] = num;
 	}
 	/*going up left*/
-	if(!isOutOfBounds(r-1,c-1)){
-		if((r - 1 >=0 && c - 1 >= 0) && (board[r - 1][c - 1].includes("l.png") || board[r - 1][c - 1].includes("d.png"))){
-			num = "" + (r - 1) + (c - 1);
-			changeBorderColor(num, "#33cccc");
-			moves[4] = num;
-		}
+	if((r - 1 >=0 && c - 1 >= 0) && (board[r - 1][c - 1].includes("l.png") || board[r - 1][c - 1].includes("d.png"))){
+		num = "" + (r - 1) + (c - 1);
+		changeBorderColor(num, "#33cccc");
+		moves[4] = num;
 	}
 	/*going up right*/
-	if(!isOutOfBounds(r-1,c+1)){
-		if((r - 1 >=0 && c + 1 <= 9) && (board[r - 1][c + 1].includes("l.png") || board[r - 1][c + 1].includes("d.png"))){
-			num = "" + (r - 1) + (c + 1);
-			changeBorderColor(num, "#33cccc");
-			moves[5] = num;
-		}
+	if((r - 1 >=0 && c + 1 <= 9) && (board[r - 1][c + 1].includes("l.png") || board[r - 1][c + 1].includes("d.png"))){
+		num = "" + (r - 1) + (c + 1);
+		changeBorderColor(num, "#33cccc");
+		moves[5] = num;
 	}
 	/*going down left*/
-	if(!isOutOfBounds(r+1,c-1)){
-		if((r + 1 <=9 && c - 1 >= 0) && (board[r + 1][c - 1].includes("l.png") || board[r + 1][c - 1].includes("d.png"))){
-			num = "" + (r + 1) + (c - 1);
-			changeBorderColor(num, "#33cccc");
-			moves[6] = num;
-		}
+	if((r + 1 <=9 && c - 1 >= 0) && (board[r + 1][c - 1].includes("l.png") || board[r + 1][c - 1].includes("d.png"))){
+		num = "" + (r + 1) + (c - 1);
+		changeBorderColor(num, "#33cccc");
+		moves[6] = num;
 	}
 	/*going down right*/
-	if(!isOutOfBounds(r+1,c+1)){
-		if((r + 1 <=9 && c + 1 >= 0) && (board[r + 1][c + 1].includes("l.png") || board[r + 1][c + 1].includes("d.png"))){
-			num = "" + (r + 1) + (c + 1);
-			changeBorderColor(num, "#33cccc");
-			moves[7] = num;
-		}
+	if((r + 1 <=9 && c + 1 >= 0) && (board[r + 1][c + 1].includes("l.png") || board[r + 1][c + 1].includes("d.png"))){
+		num = "" + (r + 1) + (c + 1);
+		changeBorderColor(num, "#33cccc");
+		moves[7] = num;
 	}
 
 	/*capture up*/
-	if(!isOutOfBounds(r-1,c)){
-		if(r - 1 >= 0){
-			num = "" + (r - 1) + c;
-			if(!(board[r - 1][c].includes("l.png")) && !(board[r - 1][c].includes("d.png")) && !(board[r - 1][c].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-				moves[8] = num;
-			}
+	if(r - 1 >= 0){
+		num = "" + (r - 1) + c;
+		if(!(board[r - 1][c].includes("l.png")) && !(board[r - 1][c].includes("d.png")) && !(board[r - 1][c].includes("b.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[8] = num;
 		}
 	}
 	/*capture down*/
-	if(!isOutOfBounds(r+1,c)){
-		if(r + 1 <= 9){
-			num = "" + (r + 1) + c;
-			if(!(board[r + 1][c].includes("l.png")) && !(board[r + 1][c].includes("d.png")) && !(board[r + 1][c].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-				moves[9] = num;
-			}
+	if(r + 1 <= 9){
+		num = "" + (r + 1) + c;
+		if(!(board[r + 1][c].includes("l.png")) && !(board[r + 1][c].includes("d.png")) && !(board[r + 1][c].includes("b.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[9] = num;
 		}
 	}
 	/*capture left*/
-	if(!isOutOfBounds(r,c-1)){
-		if(c - 1 >= 0){
-			num = "" + r + (c - 1);
-			if(!(board[r][c - 1].includes("l.png")) && !(board[r][c - 1].includes("d.png")) && !(board[r][c - 1].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-				moves[10] = num;
-			}
+	if(c - 1 >= 0){
+		num = "" + r + (c - 1);
+		if(!(board[r][c - 1].includes("l.png")) && !(board[r][c - 1].includes("d.png")) && !(board[r][c - 1].includes("b.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[10] = num;
 		}
 	}
 	/*capture right*/
-	if(!isOutOfBounds(r,c+1)){
-		if(c + 1 <= 9){
-			num = "" + r + (c + 1);
-			if(!(board[r][c + 1].includes("l.png")) && !(board[r][c + 1].includes("d.png")) && !(board[r][c + 1].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-				moves[11] = num;
-			}
+	if(c + 1 <= 9){
+		num = "" + r + (c + 1);
+		if(!(board[r][c + 1].includes("l.png")) && !(board[r][c + 1].includes("d.png")) && !(board[r][c + 1].includes("b.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[11] = num;
 		}
 	}
 	/*capture up left*/
-	if(!isOutOfBounds(r-1,c-1)){
-		if(r - 1 >= 0 && c - 1 >= 0){
-			num = "" + (r - 1) + (c - 1);
-			if(!(board[r - 1][c - 1].includes("l.png")) && !(board[r - 1][c - 1].includes("d.png")) && !(board[r - 1][c - 1].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-				moves[12] = num;
-			}
+	if(r - 1 >= 0 && c - 1 >= 0){
+		num = "" + (r - 1) + (c - 1);
+		if(!(board[r - 1][c - 1].includes("l.png")) && !(board[r - 1][c - 1].includes("d.png")) && !(board[r - 1][c - 1].includes("b.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[12] = num;
 		}
 	}
 	/*capture down left*/
-	if(!isOutOfBounds(r+1,c-1)){
-		if(r + 1 >= 0 && c - 1 >= 0){
-			num = "" + (r + 1) + (c - 1);
-			if(!(board[r + 1][c - 1].includes("l.png")) && !(board[r + 1][c - 1].includes("d.png")) && !(board[r + 1][c - 1].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-				moves[13] = num;
-			}
+	if(r + 1 >= 0 && c - 1 >= 0){
+		num = "" + (r + 1) + (c - 1);
+		if(!(board[r + 1][c - 1].includes("l.png")) && !(board[r + 1][c - 1].includes("d.png")) && !(board[r + 1][c - 1].includes("b.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[13] = num;
 		}
 	}
 	/*capture up right*/
-	if(!isOutOfBounds(r+1,c+1)){
-		if(r + 1 <= 9 && c + 1 <= 9){
-			num = "" + (r + 1) + (c + 1);
-			if(!(board[r + 1][c + 1].includes("l.png")) && !(board[r + 1][c + 1].includes("d.png")) && !(board[r + 1][c + 1].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-				moves[14] = num;
-			}
+	if(r + 1 <= 9 && c + 1 <= 9){
+		num = "" + (r + 1) + (c + 1);
+		if(!(board[r + 1][c + 1].includes("l.png")) && !(board[r + 1][c + 1].includes("d.png")) && !(board[r + 1][c + 1].includes("b.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[14] = num;
 		}
 	}
 	/*capture down right*/
-	if(!isOutOfBounds(r-1,c+1)){
-		if(r - 1 >= 0 && c + 1 <= 9){
-			num = "" + (r - 1) + (c + 1);
-			if(!(board[r - 1][c + 1].includes("l.png")) && !(board[r - 1][c + 1].includes("d.png")) && !(board[r - 1][c + 1].includes("b.png"))){
-				changeBorderColor(num, "#ff5050");
-				moves[15] = num;
-			}
+	if(r - 1 >= 0 && c + 1 <= 9){
+		num = "" + (r - 1) + (c + 1);
+		if(!(board[r - 1][c + 1].includes("l.png")) && !(board[r - 1][c + 1].includes("d.png")) && !(board[r - 1][c + 1].includes("b.png"))){
+			changeBorderColor(num, "#ff5050");
+    		moves[15] = num;
 		}
 	}
 }
@@ -2007,68 +1817,4 @@ function exit(){
   if (confirm("Are you sure you want to leave the game?")) {
     window.location.href = "index.html";
   }
-}
-
-/*@Author: Kevin*/
-/*When the second selected piece is in possible moves
- * Should check if the second choice is an enemy piece (contains w/b.png)
- * Was already checked to be isInMoves
- * Call another method to check? If there is a piece, add an alert that says it was captured
- * */
-function detectCapture(second){
-	var row = parseInt(second.substring(0,1));
-	var col = parseInt(second.substring(1));
-	
-	secondsrc = board[row][col];
-	
-	/*if src has b.png, then white captured it (based on previous code)*/
-	if (secondsrc.includes("b.png")){
-		
-		addWhiteCapturedPieces(secondsrc.substring(16));
-		
-	}
-	/*if src has w.png, then white captured it (based on previous code)*/
-	else if (secondsrc.includes("w.png")){
-
-		addBlackCapturedPieces(secondsrc.substring(16));
-		
-	}
-	
-	
-}
-/*@Author: Kevin
- * Adds pieces that white captured to his captured table (on the bottom left)*/
-function addWhiteCapturedPieces(pieceToAdd){
-	var num;
-	var imageToAdd = "images/sprites/r" + pieceToAdd;
-	
-	breakhere:
-	for (var i = 0; i < capturedByWhite.length; i++){
-		for (var j = 0; j < capturedByWhite[i].length; j++){
-			num = "w" + i + j;
-			if(document.getElementById(num).src.includes("r.png")){
-				document.getElementById(num).src = imageToAdd;
-				break breakhere;
-			}
-			
-		}
-	}
-}
-/*@Author: Kevin
- * Adds pieces that black captured to his captured table (On the bottom right)*/
-function addBlackCapturedPieces(pieceToAdd){
-	var num;
-	var imageToAdd = "images/sprites/r" + pieceToAdd;
-	
-	breakhere:
-	for (var i = 0; i < capturedByBlack.length; i++){
-		for (var j = 0; j < capturedByBlack[i].length; j++){
-			num = "b" + i + j;
-			if(document.getElementById(num).src.includes("r.png")){
-				document.getElementById(num).src = imageToAdd;
-				break breakhere;
-			}
-			
-		}
-	}
 }
