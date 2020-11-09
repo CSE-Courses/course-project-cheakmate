@@ -36,11 +36,18 @@ table, tr, td {
 	margin: auto;
 }
 
+/* @Author: Alex */
+#whiteTimer, #blackTimer {
+	font-family: Impact, Charcoal, sans-serif;
+	font-size: 30px;
+	color: whitesmoke;
+}
+
 /*@Author: Alex*/
 /*@Editor: Kat*/
 #turn {
 	text-align: center;
-		font-family: Impact, Charcoal, sans-serif;
+	font-family: Impact, Charcoal, sans-serif;
 	border-style: solid;
 	border-color: black;
 	padding: 10px 10px 10px 10px;

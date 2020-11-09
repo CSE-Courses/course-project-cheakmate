@@ -1,5 +1,6 @@
 <!--@Author: Alam-->
 <!--@Editor: Kat-->
+<!--@Editor: Alex-->
 <!DOCTYPE html>
 <html lang = "en">
 
@@ -11,25 +12,25 @@
 	<script src="win.js"></script>
 	<script src="settings.js"></script>
 	<script>
-		/* placeholders of the time */
+		/*placeholders of the time*/
 		var seconds = 0;
         var minutes = 0;
         var hours = 0;
-        /* showing time in the 00:00:00 format using the placeholders */
+        /*showing time in the 00:00:00 format using the placeholders*/
         var showSeconds = 0;
         var showMinutes = 0;
         var showHours = 0;
         var counter = setInterval(function() {
             seconds += 1;
             if (seconds/60 == 1) {
-                seconds = 0; /* set seconds back to 0 */
+                seconds = 0; /*set seconds back to 0*/
                 minutes += 1;
                 if (minutes/60 == 1) {
-                    minutes = 0; /* set minutes back to 0 */
+                    minutes = 0; /*set minutes back to 0*/
                     hours += 1;
                 }
             }
-            /* Showing the 00:00:00 format */
+            /*Showing the 00:00:00 format*/
             if (seconds < 10) {
                 showSeconds = "0" + seconds.toString();
             }
@@ -213,6 +214,69 @@
 				<td><img id = "97" src="//:0" alt="null" onclick="runGame('97')"></td>
 				<td><img id = "98" src="//:0" alt="null" onclick="runGame('98')"></td>
 				<td><img id = "99" src="//:0" alt="null" onclick="runGame('99')"></td>
+			</tr>
+		</table>
+	</div>
+</body>
+
+
+<body onload = "CapturedTable()">
+	<!-- added white chess piece player count down timer -->
+	<div id = whiteTimer>0:30</div>
+	<div id = whiteCapturedPieces>
+		<table style = "float: left">
+			<!--<tr>
+				<td><h1 style = "text-align:right">test</h1></td>
+			</tr>-->
+			<tr>
+				<td><img id = "w00" src="images/sprites/r.png"></td>
+				<td><img id = "w01" src="images/sprites/r.png"></td>
+				<td><img id = "w02" src="images/sprites/r.png"></td>
+				<td><img id = "w03" src="images/sprites/r.png"></td>
+				<td><img id = "w04" src="images/sprites/r.png"></td>
+				<td><img id = "w05" src="images/sprites/r.png"></td>
+				<td><img id = "w06" src="images/sprites/r.png"></td>
+				<td><img id = "w07" src="images/sprites/r.png"></td>
+				
+			</tr>
+			<tr>
+				<td><img id = "w10" src="images/sprites/r.png"></td>
+				<td><img id = "w11" src="images/sprites/r.png"></td>
+				<td><img id = "w12" src="images/sprites/r.png"></td>
+				<td><img id = "w13" src="images/sprites/r.png"></td>
+				<td><img id = "w14" src="images/sprites/r.png"></td>
+				<td><img id = "w15" src="images/sprites/r.png"></td>
+				<td><img id = "w16" src="images/sprites/r.png"></td>
+				<td><img id = "w17" src="images/sprites/r.png"></td>
+				
+			</tr>
+		</table>
+	</div>
+	<!-- added black chess piece player count down timer -->
+	<div id = blackTimer>0:30</div>
+	<div id = blackCapturedPieces>
+		<table style = "float: right">
+						<tr>
+				<td><img id = "b00" src="images/sprites/r.png"></td>
+				<td><img id = "b01" src="images/sprites/r.png"></td>
+				<td><img id = "b02" src="images/sprites/r.png"></td>
+				<td><img id = "b03" src="images/sprites/r.png"></td>
+				<td><img id = "b04" src="images/sprites/r.png"></td>
+				<td><img id = "b05" src="images/sprites/r.png"></td>
+				<td><img id = "b06" src="images/sprites/r.png"></td>
+				<td><img id = "b07" src="images/sprites/r.png"></td>
+				
+			</tr>
+			<tr>
+				<td><img id = "b10" src="images/sprites/r.png"></td>
+				<td><img id = "b11" src="images/sprites/r.png"></td>
+				<td><img id = "b12" src="images/sprites/r.png"></td>
+				<td><img id = "b13" src="images/sprites/r.png"></td>
+				<td><img id = "b14" src="images/sprites/r.png"></td>
+				<td><img id = "b15" src="images/sprites/r.png"></td>
+				<td><img id = "b16" src="images/sprites/r.png"></td>
+				<td><img id = "b17" src="images/sprites/r.png"></td>
+				
 			</tr>
 		</table>
 	</div>
