@@ -124,19 +124,52 @@ function populate(){
   setTurn();
 }
 
+/*@Author: Alam*/
+/*Checks to see if the king was killed, if a king is missing it will trigger the endgame */
+function checkKill(){
+	wking = false;
+	bking = false;
+	for(var i = 0; i < board.length; i++){
+		for(var j = 0; j < board[i].length; j++){
+			if(board[i][j].includes("gw.png")){
+				wking = true;
+			}
+			if(board[i][j].includes("gb.png")){
+				bking = true;
+			}
+		}
+	}
+	if (!wking){
+		callGame("white", "Black");
+	}else if(!bking){
+		callGame("black", "White");
+	}	
+}
+
+/*@Author: Alam*/
+/*Calls the winner of the game and ends the game*/
+function callGame(loser, winner){
+	endstatment = "The king of the " + loser + " team has been killed! " + winner + " team wins!"
+	if (confirm(endstatment)) {
+		window.location.href = "end.html";
+	  }
+}
+
+
 /*@Author: Kat*/
 /*Sets the current condition of the chess board for each turn
   If current player is white, enable white chess pieces and disable black chess pieces.
   If current player is black, enable black chess pieces and disable white chess pieces.*/
 function setTurn(){
-  if(getCurrentPlayer() == WHITE){
-    enablePieces(WHITE);
-    disablePieces(BLACK);
-  }
-  else if (getCurrentPlayer() == BLACK) {
-    enablePieces(BLACK);
-    disablePieces(WHITE);
-  }
+	checkKill();
+  	if(getCurrentPlayer() == WHITE){
+    	enablePieces(WHITE);
+    	disablePieces(BLACK);
+  	}
+  	else if (getCurrentPlayer() == BLACK) {
+    	enablePieces(BLACK);
+    	disablePieces(WHITE);
+  	}
 }
 
 /*@Author: Kat*/
