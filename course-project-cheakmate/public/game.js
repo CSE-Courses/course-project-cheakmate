@@ -195,6 +195,7 @@ function whitePlayerTurnTimer () {
 		/*console.log(convertingSeconds(seconds));*/
 		seconds -= 1;
 		if (seconds <= 0) {
+			window.location.href = "lose.html"; /* Bring player to lose page when timer becomes 0:00 */
 			clearInterval(counter);
 		}
 		if (getCurrentPlayer() == WHITE) {
@@ -216,6 +217,7 @@ function blackPlayerTurnTimer () {
 	var counter = setInterval(function() {
 		seconds -= 1;
 		if (seconds <= 0) {
+			window.location.href = "lose.html"; /* Bring player to lose page when timer becomes 0:00 */
 			clearInterval(counter);
 		}
 		if (getCurrentPlayer() == BLACK) {
