@@ -122,6 +122,8 @@ function initialize(){
     }
   }
 
+  board[6][0] = "images/sprites/lx1.png";
+
   /*Display board*/
   populate();
 }
@@ -640,6 +642,10 @@ function activatePowerUp(r, c){
       enablePieces(WHITE);
       disablePieces(BLACK);
     }
+    else {
+      moveChessPiece(firstPiece, secondPiece);
+      clearMoves();
+    }
   }
   else if (board[r][c].includes("x2")) {
     /*TODO: Duplicate Turn*/
@@ -752,7 +758,7 @@ function showPossibleRookMoves(r, c){
 			if(up-1 >= 0){
 				if(board[up-1][c].includes("w.png")){
 					break;
-				}else if(board[up-1][c].includes("b.png")){
+				}else if(board[up-1][c].includes("b.png") || board[up - 1][c].includes("lx") || board[up - 1][c].includes("dx")){
 					num = "" + (up-1) + c;
 					changeBorderColor(num, "#ff5050");
 
@@ -774,7 +780,7 @@ function showPossibleRookMoves(r, c){
 			if(up-1 >= 0){
 				if(board[up-1][c].includes("b.png")){
 					break;
-				}else if(board[up-1][c].includes("w.png")){
+				}else if(board[up-1][c].includes("w.png") || board[up - 1][c].includes("lx") || board[up - 1][c].includes("dx")){
 					num = "" + (up-1) + c;
 					changeBorderColor(num, "#ff5050");
 
@@ -800,7 +806,7 @@ function showPossibleRookMoves(r, c){
 			if(down+1 <= 9){
 				if(board[down+1][c].includes("w.png")){
 					break;
-				}else if(board[down+1][c].includes("b.png")){
+				}else if(board[down+1][c].includes("b.png") || board[down + 1][c].includes("lx") || board[down + 1][c].includes("dx")){
 					num = "" + (down+1) + c;
 					changeBorderColor(num, "#ff5050");
 
@@ -822,7 +828,7 @@ function showPossibleRookMoves(r, c){
 			if(down+1 <= 9){
 				if(board[down+1][c].includes("b.png")){
 					break;
-				}else if(board[down+1][c].includes("w.png")){
+				}else if(board[down+1][c].includes("w.png") || board[down + 1][c].includes("lx") || board[down + 1][c].includes("dx")){
 					num = "" + (down+1) + c;
 					changeBorderColor(num, "#ff5050");
 
@@ -847,7 +853,7 @@ function showPossibleRookMoves(r, c){
 			if(left-1 >= 0){
 				if(board[r][left -1].includes("w.png")){
 					break;
-				}else if(board[r][left-1].includes("b.png")){
+				}else if(board[r][left-1].includes("b.png") || board[r][left - 1].includes("lx") || board[r][left - 1].includes("dx")){
 					num = "" + r + (left-1);
 					changeBorderColor(num, "#ff5050");
 
@@ -869,7 +875,7 @@ function showPossibleRookMoves(r, c){
 			if(left-1 >= 0){
 				if(board[r][left -1].includes("b.png")){
 					break;
-				}else if(board[r][left-1].includes("w.png")){
+				}else if(board[r][left-1].includes("w.png") || board[r][left - 1].includes("lx") || board[r][left - 1].includes("dx")){
 					num = "" + r + (left-1);
 					changeBorderColor(num, "#ff5050");
 
@@ -895,7 +901,7 @@ function showPossibleRookMoves(r, c){
 			if (right+1 <= 9){
 				if(board[r][right+1].includes("w.png")){
 					break;
-				}else if(board[r][right+1].includes("b.png")){
+				}else if(board[r][right+1].includes("b.png") || board[r][right + 1].includes("lx") || board[r][right + 1].includes("dx")){
 					num = "" + r + (right+1);
 					changeBorderColor(num, "#ff5050");
 
@@ -917,7 +923,7 @@ function showPossibleRookMoves(r, c){
 			if (right+1 <= 9){
 				if(board[r][right+1].includes("b.png")){
 					break;
-				}else if(board[r][right+1].includes("w.png")){
+				}else if(board[r][right+1].includes("w.png") || board[r][right + 1].includes("lx") || board[r][right + 1].includes("dx")){
 					num = "" + r + (right+1);
 					changeBorderColor(num, "#ff5050");
 
@@ -962,7 +968,7 @@ function showPossibleKnightMoves(r, c){
         changeBorderColor(num, "#33cccc");
         moves[0] = num;
       }
-      else if (board[r - 2][c - 1].includes("b.png")){
+      else if (board[r - 2][c - 1].includes("b.png") || board[r - 2][c - 1].includes("lx") || board[r - 2][c - 1].includes("dx")){
         changeBorderColor(num, "#ff5050");
         moves[0] = num;
       }
@@ -973,7 +979,7 @@ function showPossibleKnightMoves(r, c){
         changeBorderColor(num, "#33cccc");
         moves[1] = num;
       }
-      else if (board[r - 2][c + 1].includes("b.png")){
+      else if (board[r - 2][c + 1].includes("b.png") || board[r - 2][c + 1].includes("lx") || board[r - 2][c + 1].includes("dx")){
         changeBorderColor(num, "#ff5050");
         moves[1] = num;
       }
@@ -984,7 +990,7 @@ function showPossibleKnightMoves(r, c){
         changeBorderColor(num, "#33cccc");
         moves[2] = num;
       }
-      else if (board[r - 1][c + 2].includes("b.png")){
+      else if (board[r - 1][c + 2].includes("b.png") || board[r - 1][c + 2].includes("lx") || board[r - 1][c + 2].includes("dx")){
         changeBorderColor(num, "#ff5050");
         moves[2] = num;
       }
@@ -995,7 +1001,7 @@ function showPossibleKnightMoves(r, c){
         changeBorderColor(num, "#33cccc");
         moves[3] = num;
       }
-      else if (board[r + 1][c + 2].includes("b.png")){
+      else if (board[r + 1][c + 2].includes("b.png") || board[r + 1][c + 2].includes("lx") || board[r + 1][c + 2].includes("dx")){
         changeBorderColor(num, "#ff5050");
         moves[3] = num;
       }
@@ -1006,7 +1012,7 @@ function showPossibleKnightMoves(r, c){
         changeBorderColor(num, "#33cccc");
         moves[4] = num;
       }
-      else if (board[r + 2][c + 1].includes("b.png")){
+      else if (board[r + 2][c + 1].includes("b.png") || board[r + 2][c + 1].includes("lx") || board[r + 2][c + 1].includes("dx")){
         changeBorderColor(num, "#ff5050");
         moves[4] = num;
       }
@@ -1017,7 +1023,7 @@ function showPossibleKnightMoves(r, c){
         changeBorderColor(num, "#33cccc");
         moves[5] = num;
       }
-      else if (board[r + 2][c - 1].includes("b.png")){
+      else if (board[r + 2][c - 1].includes("b.png") || board[r + 2][c - 1].includes("lx") || board[r + 2][c - 1].includes("dx")){
         changeBorderColor(num, "#ff5050");
         moves[5] = num;
       }
@@ -1028,7 +1034,7 @@ function showPossibleKnightMoves(r, c){
         changeBorderColor(num, "#33cccc");
         moves[6] = num;
       }
-      else if (board[r + 1][c - 2].includes("b.png")){
+      else if (board[r + 1][c - 2].includes("b.png") || board[r + 1][c - 2].includes("lx") || board[r + 1][c - 2].includes("dx")){
         changeBorderColor(num, "#ff5050");
         moves[6] = num;
       }
@@ -1039,7 +1045,7 @@ function showPossibleKnightMoves(r, c){
         changeBorderColor(num, "#33cccc");
         moves[7] = num;
       }
-      else if (board[r - 1][c - 2].includes("b.png")){
+      else if (board[r - 1][c - 2].includes("b.png") || board[r - 1][c - 2].includes("lx") || board[r - 1][c - 2].includes("dx")){
         changeBorderColor(num, "#ff5050");
         moves[7] = num;
       }
@@ -1053,7 +1059,7 @@ function showPossibleKnightMoves(r, c){
         changeBorderColor(num, "#33cccc");
         moves[0] = num;
       }
-      else if (board[r - 2][c - 1].includes("w.png")){
+      else if (board[r - 2][c - 1].includes("w.png") || board[r - 2][c - 1].includes("lx") || board[r - 2][c - 1].includes("dx")){
         changeBorderColor(num, "#ff5050");
         moves[0] = num;
       }
@@ -1064,7 +1070,7 @@ function showPossibleKnightMoves(r, c){
         changeBorderColor(num, "#33cccc");
         moves[1] = num;
       }
-      else if (board[r - 2][c + 1].includes("w.png")){
+      else if (board[r - 2][c + 1].includes("w.png") || board[r - 2][c + 1].includes("lx") || board[r - 2][c + 1].includes("dx")){
         changeBorderColor(num, "#ff5050");
         moves[1] = num;
       }
@@ -1075,7 +1081,7 @@ function showPossibleKnightMoves(r, c){
         changeBorderColor(num, "#33cccc");
         moves[2] = num;
       }
-      else if (board[r - 1][c + 2].includes("w.png")){
+      else if (board[r - 1][c + 2].includes("w.png") || board[r - 1][c + 2].includes("lx") || board[r - 1][c + 2].includes("dx")){
         changeBorderColor(num, "#ff5050");
         moves[2] = num;
       }
@@ -1086,7 +1092,7 @@ function showPossibleKnightMoves(r, c){
         changeBorderColor(num, "#33cccc");
         moves[3] = num;
       }
-      else if (board[r + 1][c + 2].includes("w.png")){
+      else if (board[r + 1][c + 2].includes("w.png") || board[r + 1][c + 2].includes("lx") || board[r + 1][c + 2].includes("dx")){
         changeBorderColor(num, "#ff5050");
         moves[3] = num;
       }
@@ -1097,7 +1103,7 @@ function showPossibleKnightMoves(r, c){
         changeBorderColor(num, "#33cccc");
         moves[4] = num;
       }
-      else if (board[r + 2][c + 1].includes("w.png")){
+      else if (board[r + 2][c + 1].includes("w.png") || board[r + 2][c + 1].includes("lx") || board[r + 2][c + 1].includes("dx")){
         changeBorderColor(num, "#ff5050");
         moves[4] = num;
       }
@@ -1108,7 +1114,7 @@ function showPossibleKnightMoves(r, c){
         changeBorderColor(num, "#33cccc");
         moves[5] = num;
       }
-      else if (board[r + 2][c - 1].includes("w.png")){
+      else if (board[r + 2][c - 1].includes("w.png") || board[r + 2][c - 1].includes("lx") || board[r + 2][c - 1].includes("dx")){
         changeBorderColor(num, "#ff5050");
         moves[5] = num;
       }
@@ -1119,7 +1125,7 @@ function showPossibleKnightMoves(r, c){
         changeBorderColor(num, "#33cccc");
         moves[6] = num;
       }
-      else if (board[r + 1][c - 2].includes("w.png")){
+      else if (board[r + 1][c - 2].includes("w.png") || board[r + 1][c - 2].includes("lx") || board[r + 1][c - 2].includes("dx")){
         changeBorderColor(num, "#ff5050");
         moves[6] = num;
       }
@@ -1130,7 +1136,7 @@ function showPossibleKnightMoves(r, c){
         changeBorderColor(num, "#33cccc");
         moves[7] = num;
       }
-      else if (board[r - 1][c - 2].includes("w.png")){
+      else if (board[r - 1][c - 2].includes("w.png") || board[r - 1][c - 2].includes("lx") || board[r - 1][c - 2].includes("dx")){
         changeBorderColor(num, "#ff5050");
         moves[7] = num;
       }
@@ -1160,7 +1166,7 @@ function showPossibleBishopMoves(r, c){
 			/* window.alert(i + " " + j); */
 			if(!isOutOfBounds(i,j)){
 				if(!isEmptyTile(i,j)){
-					if(board[i][j].includes("b.png")){
+					if(board[i][j].includes("b.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 						num = "" + i + j;
 						changeBorderColor(num, "#ff5050");
 						moves.push(num);
@@ -1182,7 +1188,7 @@ function showPossibleBishopMoves(r, c){
 			/* window.alert(i + " " + j); */
 			if(!isOutOfBounds(i,j)){
 				if(!isEmptyTile(i,j)){
-					if(board[i][j].includes("b.png")){
+					if(board[i][j].includes("b.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 						num = "" + i + j;
 						changeBorderColor(num, "#ff5050");
 						moves.push(num);
@@ -1204,7 +1210,7 @@ function showPossibleBishopMoves(r, c){
 			/* window.alert(i + " " + j); */
 			if(!isOutOfBounds(i,j)){
 				if(!isEmptyTile(i,j)){
-					if(board[i][j].includes("b.png")){
+					if(board[i][j].includes("b.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 						num = "" + i + j;
 						changeBorderColor(num, "#ff5050");
 						moves.push(num);
@@ -1226,7 +1232,7 @@ function showPossibleBishopMoves(r, c){
 			/* window.alert(i + " " + j); */
 			if(!isOutOfBounds(i,j)){
 				if(!isEmptyTile(i,j)){
-					if(board[i][j].includes("b.png")){
+					if(board[i][j].includes("b.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 						num = "" + i + j;
 						changeBorderColor(num, "#ff5050");
 						moves.push(num);
@@ -1250,7 +1256,7 @@ function showPossibleBishopMoves(r, c){
 			/* window.alert(i + " " + j); */
 			if(!isOutOfBounds(i,j)){
 				if(!isEmptyTile(i,j)){
-					if(board[i][j].includes("w.png")){
+					if(board[i][j].includes("w.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 						num = "" + i + j;
 						changeBorderColor(num, "#ff5050");
 						moves.push(num);
@@ -1272,7 +1278,7 @@ function showPossibleBishopMoves(r, c){
 			/* window.alert(i + " " + j); */
 			if(!isOutOfBounds(i,j)){
 				if(!isEmptyTile(i,j)){
-					if(board[i][j].includes("w.png")){
+					if(board[i][j].includes("w.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 						num = "" + i + j;
 						changeBorderColor(num, "#ff5050");
 						moves.push(num);
@@ -1294,7 +1300,7 @@ function showPossibleBishopMoves(r, c){
 			/* window.alert(i + " " + j); */
 			if(!isOutOfBounds(i,j)){
 				if(!isEmptyTile(i,j)){
-					if(board[i][j].includes("w.png")){
+					if(board[i][j].includes("w.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 						num = "" + i + j;
 						changeBorderColor(num, "#ff5050");
 						moves.push(num);
@@ -1316,7 +1322,7 @@ function showPossibleBishopMoves(r, c){
 			/* window.alert(i + " " + j); */
 			if(!isOutOfBounds(i,j)){
 				if(!isEmptyTile(i,j)){
-					if(board[i][j].includes("w.png")){
+					if(board[i][j].includes("w.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 						num = "" + i + j;
 						changeBorderColor(num, "#ff5050");
 						moves.push(num);
@@ -1676,7 +1682,7 @@ function showPossibleQueenMoves(r,c){
 		for(i=rw-1, j=cl-1; i>-1 && j>-1; i--, j--){
 			/* window.alert(i + " " + j); */
 			if(!isEmptyTile(i,j) && !isOutOfBounds(i,j)){
-				if(board[i][j].includes("b.png")){
+				if(board[i][j].includes("b.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 					num = "" + i + j;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -1696,7 +1702,7 @@ function showPossibleQueenMoves(r,c){
 		for(i=rw-1, j=cl+1; i>-1 && j<10; i--, j++){
 			/* window.alert(i + " " + j); */
 			if(!isEmptyTile(i,j) && !isOutOfBounds(i,j)){
-				if(board[i][j].includes("b.png")){
+				if(board[i][j].includes("b.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 					num = "" + i + j;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -1716,7 +1722,7 @@ function showPossibleQueenMoves(r,c){
 		for(i=rw+1, j=cl-1; i<10 && j>-1; i++, j--){
 			/* window.alert(i + " " + j); */
 			if(!isEmptyTile(i,j) && !isOutOfBounds(i,j)){
-				if(board[i][j].includes("b.png")){
+				if(board[i][j].includes("b.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 					num = "" + i + j;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -1736,7 +1742,7 @@ function showPossibleQueenMoves(r,c){
 		for(i=rw+1, j=cl+1; i<10 && j<10; i++, j++){
 			/* window.alert(i + " " + j); */
 			if(!isEmptyTile(i,j) && !isOutOfBounds(i,j)){
-				if(board[i][j].includes("b.png")){
+				if(board[i][j].includes("b.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 					num = "" + i + j;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -1756,7 +1762,7 @@ function showPossibleQueenMoves(r,c){
 		/* up movement */
 		for(i=rw-1; i>-1; i--){
 			if(!isEmptyTile(i,c)){
-				if(board[i][c].includes("b.png")){
+				if(board[i][c].includes("b.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 					num = "" + i + c;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -1776,7 +1782,7 @@ function showPossibleQueenMoves(r,c){
 		for(i=rw+1; i<10; i++){
 			/*window.alert(i); */
 			if(!isEmptyTile(i,c)){
-				if(board[i][c].includes("b.png")){
+				if(board[i][c].includes("b.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 					num = "" + i + c;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -1796,7 +1802,7 @@ function showPossibleQueenMoves(r,c){
 		for(i=cl+1; i<10; i++){
 			/* window.alert(i) */
 			if(!isEmptyTile(r,i)){
-				if(board[r][i].includes("b.png")){
+				if(board[r][i].includes("b.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 					num = "" + r + i;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -1816,7 +1822,7 @@ function showPossibleQueenMoves(r,c){
 		for(i=cl-1; i>-1; i--){
 			/* window.alert(i) */
 			if(!isEmptyTile(r,i)){
-				if(board[r][i].includes("b.png")){
+				if(board[r][i].includes("b.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 					num = "" + r + i;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -1838,7 +1844,7 @@ function showPossibleQueenMoves(r,c){
 		for(i=rw-1, j=cl-1; i>-1 && j>-1; i--, j--){
 			/* window.alert(i + " " + j); */
 			if(!isEmptyTile(i,j) && !isOutOfBounds(i,j)){
-				if(board[i][j].includes("w.png")){
+				if(board[i][j].includes("w.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 					num = "" + i + j;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -1858,7 +1864,7 @@ function showPossibleQueenMoves(r,c){
 		for(i=rw-1, j=cl+1; i>-1 && j<10; i--, j++){
 			/* window.alert(i + " " + j); */
 			if(!isEmptyTile(i,j) && !isOutOfBounds(i,j)){
-				if(board[i][j].includes("w.png")){
+				if(board[i][j].includes("w.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 					num = "" + i + j;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -1878,7 +1884,7 @@ function showPossibleQueenMoves(r,c){
 		for(i=rw+1, j=cl-1; i<10 && j>-1; i++, j--){
 			/* window.alert(i + " " + j); */
 			if(!isEmptyTile(i,j) && !isOutOfBounds(i,j)){
-				if(board[i][j].includes("w.png")){
+				if(board[i][j].includes("w.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 					num = "" + i + j;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -1898,7 +1904,7 @@ function showPossibleQueenMoves(r,c){
 		for(i=rw+1, j=cl+1; i<10 && j<10; i++, j++){
 			/* window.alert(i + " " + j); */
 			if(!isEmptyTile(i,j) && !isOutOfBounds(i,j)){
-				if(board[i][j].includes("w.png")){
+				if(board[i][j].includes("w.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 					num = "" + i + j;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -1919,7 +1925,7 @@ function showPossibleQueenMoves(r,c){
 		for(i=rw+1; i<10; i++){
 			/* window.alert(i) */
 			if(!isEmptyTile(i,c)){
-				if(board[i][c].includes("w.png")){
+				if(board[i][c].includes("w.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 					num = "" + i + c;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -1939,7 +1945,7 @@ function showPossibleQueenMoves(r,c){
 		for(i=rw-1; i>-1; i--){
 			/* window.alert(i) */
 			if(!isEmptyTile(i,c)){
-				if(board[i][c].includes("w.png")){
+				if(board[i][c].includes("w.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 					num = "" + i + c;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -1959,7 +1965,7 @@ function showPossibleQueenMoves(r,c){
 		for(i=cl+1; i<10; i++){
 			/* window.alert(i) */
 			if(!isEmptyTile(r,i)){
-				if(board[r][i].includes("w.png")){
+				if(board[r][i].includes("w.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 					num = "" + r + i;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -1979,7 +1985,7 @@ function showPossibleQueenMoves(r,c){
 		for(i=cl-1; i>-1; i--){
 			/* window.alert(i) */
 			if(!isEmptyTile(r,i)){
-				if(board[r][i].includes("w.png")){
+				if(board[r][i].includes("w.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
 					num = "" + r + i;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
