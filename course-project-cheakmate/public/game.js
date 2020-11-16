@@ -12,6 +12,9 @@ var capturedByBlack; /*2D array to keep image sources for pieces captured by bla
 var firstPiece = ""; /*Keeps track of first img to be moved*/
 var secondPiece = ""; /*Keeps track of second img to be moved*/
 
+var needSwapPiece = false; /*Keeps track of whether or not a third img is needed*/
+var swapForPiece = ""; /*Keeps track of img to be swapped for*/
+
 /*@Author: Alex*/
 /*@Editor: Kat*/
 /*@Editor: Kevin*/
@@ -25,14 +28,14 @@ function initialize(){
   capturedByWhite = new Array(2);
   for (var i = 0; i < capturedByWhite.length; i++){
 	  capturedByWhite[i] = new Array(8);
-  }  
+  }
 
   /*Create a 8 x 2 board for pieces captured by black*/
   capturedByBlack = new Array(2);
   for (var i = 0; i < capturedByBlack.length; i++){
 	  capturedByBlack[i] = new Array(8);
-  } 
-  
+  }
+
   /*Create a 10 x 10 board*/
   board = new Array(10);
   for(var i = 0; i < board.length; i++){
@@ -159,7 +162,7 @@ function checkKill(){
 		callGame("white", "Black");
 	}else if(!bking){
 		callGame("black", "White");
-	}	
+	}
 }
 
 /*@Author: Alam*/
@@ -431,41 +434,26 @@ function runGame(imageId){
       showPossiblePawnMoves(r, c);
     }
 
-    /* TODO:
-    //Checks if it is a Rook here
-      //If it is, show possible moves*/
     if(isRook(r, c)){
     	firstPiece = imageId;
 	    showPossibleRookMoves(r, c);
     }
 
-    /* TODO:
-    //Checks if it is a Knights here
-    //If it is, show possible moves*/
     if(isKnight(r, c)){
       firstPiece = imageId;
       showPossibleKnightMoves(r, c);
     }
 
-    /* TODO:
-    //Checks if it is a Bishops here
-      //If it is, show possible moves*/
     if(isBishop(r, c)){
 		  firstPiece = imageId;
 		  showPossibleBishopMoves(r,c);
     }
 
-    /* TODO:
-    //Checks if it is a King here
-      //If it is, show possible moves*/
     if(isKing(r, c)){
 		  firstPiece = imageId;
 		  showPossibleKingMoves(r,c);
 	  }
 
-    /* TODO:
-    //Checks if it is a Queen here
-      //If it is, show possible moves*/
 		if(isQueen(r,c)){
 			firstPiece = imageId;
 			showPossibleQueenMoves(r,c);
@@ -473,7 +461,18 @@ function runGame(imageId){
   }
   else if (isInMoves(imageId)){
     secondPiece = imageId;
-    detectCapture(secondPiece);
+    if(isPowerUp(r, c)){
+      activatePowerUp(r, c);
+    }
+    else{
+      detectCapture(secondPiece);
+      moveChessPiece(firstPiece, secondPiece);
+      clearMoves();
+    }
+  }
+  else if (needSwapPiece) {
+    swapForPiece = imageId;
+    swapForOpponentPiece(firstPiece, swapForPiece);
     moveChessPiece(firstPiece, secondPiece);
     clearMoves();
   }
@@ -601,11 +600,53 @@ function isInMoves(imageId){
 }
 
 /*@Author: Kat*/
-/*Resets image selection and moves array*/
+/*Resets each turn (e.g. image selection and moves array)*/
 function clearMoves(){
   firstPiece = "";
   secondPiece = "";
+  swapForPiece ="";
+  needSwapPiece = false;
   moves = new Array();
+}
+
+/*@Author: Kat*/
+/*Checks if a tile is a Power Up*/
+/*@Param int r is the number value for row*/
+/*@Param int c is the number value for column*/
+function isPowerUp(r, c){
+  if(board[r][c].includes("lx") || board[r][c].includes("dx")){
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+/*@Author: Kat*/
+/*Activates respective Power Up accroding to its number (e.g. 0 would be Blocked Tile, 1 would be Swap Tile, etc)*/
+/*@Param int r is the number value for row*/
+/*@Param int c is the number value for column*/
+function activatePowerUp(r, c){
+  if(board[r][c].includes("x0")){
+    /*TODO: Block Tile*/
+  }
+  else if (board[r][c].includes("x1.png")) {
+    needSwapPiece = confirm("Click 'Ok' to select and swap with your opponent's chess piece. Click 'Cancel' to skip this power up.");
+    if(needSwapPiece && player == WHITE){
+      enablePieces(BLACK);
+      disablePieces(WHITE);
+    }
+    else if (needSwapPiece && player == BLACK) {
+      enablePieces(WHITE);
+      disablePieces(BLACK);
+    }
+  }
+  else if (board[r][c].includes("x2")) {
+    /*TODO: Duplicate Turn*/
+  }
+  else if (board[r][c].includes("x3")) {
+    /*TODO: Transform Turn*/
+  }
 }
 
 /*@Author: Kat*/
@@ -626,14 +667,14 @@ function showPossiblePawnMoves(r, c){
   }
 
   if(board[r][c].includes("pw")){
-    if(r - 1 >= 0 && (board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png"))){
+    if(r - 1 >= 0 && (board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png") || board[r - 1][c].includes("lx") || board[r - 1][c].includes("dx"))){
       num = "" + (r - 1) + c;
       changeBorderColor(num, "#33cccc");
       moves[0] = num;
     }
     if(r == 8 && (c >= 1 || c <= 8) ){
       if((board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png"))){
-        if(r - 2 >= 0 && (board[r - 2][c].includes("l.png") || board[r - 2][c].includes("d.png"))){
+        if(r - 2 >= 0 && (board[r - 2][c].includes("l.png") || board[r - 2][c].includes("d.png") || board[r - 2][c].includes("lx") || board[r - 2][c].includes("dx"))){
           num = "" + (r - 2) + c;
           changeBorderColor(num, "#33cccc");
           moves[1] = num;
@@ -657,14 +698,14 @@ function showPossiblePawnMoves(r, c){
   }
 
   if(board[r][c].includes("pb")){
-    if(r + 1 <= 9 && (board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png"))){
+    if(r + 1 <= 9 && (board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png") || board[r + 1][c].includes("lx") || board[r + 1][c].includes("dx"))){
       num = "" + (r + 1) + c;
       changeBorderColor(num, "#33cccc");
       moves[0] = num;
     }
     if(r == 1 && (c >= 1 || c <= 8) ){
       if((board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png"))){
-        if(r + 2 <= 9 && (board[r + 2][c].includes("l.png") || board[r + 2][c].includes("d.png"))){
+        if(r + 2 <= 9 && (board[r + 2][c].includes("l.png") || board[r + 2][c].includes("d.png") || board[r - 2][c].includes("lx") || board[r - 2][c].includes("dx"))){
           num = "" + (r + 2) + c;
           changeBorderColor(num, "#33cccc");
           moves[1] = num;
@@ -1960,6 +2001,25 @@ function showPossibleQueenMoves(r,c){
 }
 
 /*@Author: Kat*/
+/*Swap player's chess piece with opponent's chess piece.*/
+/*(e.g Player's pawn lands on power up. Player swaps his/her pawn with opponent's rook.
+  Player's pawn becomes a rook. Opponent's rook becomes a pawn.)*/
+/*@Param string first is the source of the first selected tile*/
+/*@Param string swap is the source of the swap selected tile*/
+function swapForOpponentPiece(first, swap){
+  var r1 = parseInt(first.substring(0,1));
+  var c1 = parseInt(first.substring(1));
+  src1 = board[r1][c1];
+
+  var r3 = parseInt(swap.substring(0,1));
+  var c3 = parseInt(swap.substring(1));
+  src3 = board[r3][c3];
+
+  board[r1][c1] = src1.substring(0, 16) + src3.substring(16, 17) + src1.substring(17);
+  board[r3][c3] = src3.substring(0, 16) + src1.substring(16, 17) + src3.substring(17);
+}
+
+/*@Author: Kat*/
 /*Moves selected chess piece to selected location*/
 /*@Param string first is the source of the first selected tile*/
 /*@Param string second is the source of the second selected tile*/
@@ -2020,30 +2080,30 @@ function exit(){
 function detectCapture(second){
 	var row = parseInt(second.substring(0,1));
 	var col = parseInt(second.substring(1));
-	
+
 	secondsrc = board[row][col];
-	
+
 	/*if src has b.png, then white captured it (based on previous code)*/
 	if (secondsrc.includes("b.png")){
-		
+
 		addWhiteCapturedPieces(secondsrc.substring(16));
-		
+
 	}
 	/*if src has w.png, then white captured it (based on previous code)*/
 	else if (secondsrc.includes("w.png")){
 
 		addBlackCapturedPieces(secondsrc.substring(16));
-		
+
 	}
-	
-	
+
+
 }
 /*@Author: Kevin
  * Adds pieces that white captured to his captured table (on the bottom left)*/
 function addWhiteCapturedPieces(pieceToAdd){
 	var num;
 	var imageToAdd = "images/sprites/r" + pieceToAdd;
-	
+
 	breakhere:
 	for (var i = 0; i < capturedByWhite.length; i++){
 		for (var j = 0; j < capturedByWhite[i].length; j++){
@@ -2052,7 +2112,7 @@ function addWhiteCapturedPieces(pieceToAdd){
 				document.getElementById(num).src = imageToAdd;
 				break breakhere;
 			}
-			
+
 		}
 	}
 }
@@ -2061,7 +2121,7 @@ function addWhiteCapturedPieces(pieceToAdd){
 function addBlackCapturedPieces(pieceToAdd){
 	var num;
 	var imageToAdd = "images/sprites/r" + pieceToAdd;
-	
+
 	breakhere:
 	for (var i = 0; i < capturedByBlack.length; i++){
 		for (var j = 0; j < capturedByBlack[i].length; j++){
@@ -2070,7 +2130,6 @@ function addBlackCapturedPieces(pieceToAdd){
 				document.getElementById(num).src = imageToAdd;
 				break breakhere;
 			}
-			
 		}
 	}
 }
