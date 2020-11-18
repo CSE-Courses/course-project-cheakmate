@@ -15,6 +15,8 @@ var secondPiece = ""; /*Keeps track of second img to be moved*/
 var needSwapPiece = false; /*Keeps track of whether or not a third img is needed*/
 var swapForPiece = ""; /*Keeps track of img to be swapped for*/
 
+var counterSpawn = 0; /*counter for special event spawn*/
+
 /*@Author: Alex*/
 /*@Editor: Kat*/
 /*@Editor: Kevin*/
@@ -278,9 +280,12 @@ function changePlayer(){
   }
   else if (getCurrentPlayer() == BLACK) {
     setPlayer(WHITE);
-    spawnSpecialEvent("power1");
-    spawnSpecialEvent("power3");
-    spawnSpecialEvent("power4");
+    if(counterSpawn == 0){
+    	spawnSpecialEvent("power1");
+    	spawnSpecialEvent("power3");
+    	spawnSpecialEvent("power4");
+    	counterSpawn++;
+    }
   }
 
   displayPlayer(player);
