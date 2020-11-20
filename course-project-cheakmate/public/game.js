@@ -270,7 +270,7 @@ function setPlayer(p){
 function getCurrentPlayer(){
   return player;
 }
-
+ 
 /*@Author: Kat*/
 /*@Editor: Richard*/
 /*Changes the current player*/
