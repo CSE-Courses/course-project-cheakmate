@@ -281,9 +281,9 @@ function changePlayer(){
   else if (getCurrentPlayer() == BLACK) {
     setPlayer(WHITE);
     if(counterSpawn == 0){
-    	spawnSpecialEvent("power1");
-    	spawnSpecialEvent("power3");
-    	spawnSpecialEvent("power4");
+    	spawnSpecialEvent("x1");
+    	spawnSpecialEvent("x2");
+    	spawnSpecialEvent("x3");
     	counterSpawn++;
     }
   }
@@ -2152,10 +2152,17 @@ function addBlackCapturedPieces(pieceToAdd){
  *  Spawns a special event on the board randomly
  */
 function spawnSpecialEvent(event){
-	var power = "images/sprites/" + event + ".png";
+	var tileColor = "";
 	var r = Math.floor(Math.random() * 10);
 	var c = Math.floor(Math.random() * 10);
+	if(board[r][c].includes("l.png")){
+		tileColor = "l";
+	}
+	else if(board[r][c].includes("d.png")){
+		tileColor = "d"
+	}
 	
+	var power = "images/sprites/" + tileColor +event + ".png";
 	/*A random tile is selected. If it is empty then put a powerup, else do nothing*/
 	/* Testing 
 	if(isEmptyTile(r,c)){
@@ -2165,6 +2172,7 @@ function spawnSpecialEvent(event){
 	*/
 	if(isEmptyTile(r,c)){
 		board[r][c] = power;
+		
 		/* alert("power is spawned at " + r + ", " + c); */
 	}else{
 		spawnSpecialEvent(event);
