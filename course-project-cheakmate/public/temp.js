@@ -12,8 +12,8 @@ var capturedByBlack; /*2D array to keep image sources for pieces captured by bla
 var firstPiece = ""; /*Keeps track of first img to be moved*/
 var secondPiece = ""; /*Keeps track of second img to be moved*/
 
-var needSwapPiece = false; /*Keeps track of whether or not a third img is needed*/
-var swapForPiece = ""; /*Keeps track of img to be swapped for*/
+var needExchangePiece = false; /*Keeps track of whether or not a third img is needed*/
+var exchangeForPiece = ""; /*Keeps track of img to be swapped for*/
 
 /*@Author: Alex*/
 /*@Editor: Kat*/
@@ -472,9 +472,9 @@ function runGame(imageId){
       clearMoves();
     }
   }
-  else if (needSwapPiece) {
-    swapForPiece = imageId;
-    swapForOpponentPiece(firstPiece, swapForPiece);
+  else if (needExchangePiece) {
+    exchangeForPiece = imageId;
+    exchangeForOpponentPiece(firstPiece, exchangeForPiece);
     moveChessPiece(firstPiece, secondPiece);
     clearMoves();
   }
@@ -606,8 +606,8 @@ function isInMoves(imageId){
 function clearMoves(){
   firstPiece = "";
   secondPiece = "";
-  swapForPiece ="";
-  needSwapPiece = false;
+  exchangeForPiece ="";
+  needExchangePiece = false;
   moves = new Array();
 }
 
@@ -633,12 +633,12 @@ function activatePowerUp(r, c){
     /*TODO: Block Tile*/
   }
   else if (board[r][c].includes("x1.png")) {
-    needSwapPiece = confirm("Click 'Ok' to select and swap with your opponent's chess piece. Click 'Cancel' to skip this power up.");
-    if(needSwapPiece && player == WHITE){
+    needExchangePiece = confirm("Click 'Ok' to select and swap with your opponent's chess piece. Click 'Cancel' to skip this power up.");
+    if(needExchangePiece && player == WHITE){
       enablePieces(BLACK);
       disablePieces(WHITE);
     }
-    else if (needSwapPiece && player == BLACK) {
+    else if (needExchangePiece && player == BLACK) {
       enablePieces(WHITE);
       disablePieces(BLACK);
     }
@@ -2012,7 +2012,7 @@ function showPossibleQueenMoves(r,c){
   Player's pawn becomes a rook. Opponent's rook becomes a pawn.)*/
 /*@Param string first is the source of the first selected tile*/
 /*@Param string swap is the source of the swap selected tile*/
-function swapForOpponentPiece(first, swap){
+function exchangeForOpponentPiece(first, swap){
   var r1 = parseInt(first.substring(0,1));
   var c1 = parseInt(first.substring(1));
   src1 = board[r1][c1];

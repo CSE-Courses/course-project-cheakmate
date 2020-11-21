@@ -1,8 +1,8 @@
 /*@Author: Alex*/
 /*@Editor: Kat*/
 #board {
-	width: 1033px;
-	height: 1100px;
+	width: 1050px;
+	height: 1350px;
 	border-style: solid;
 	border-color: black;
 	padding: 10px 10px 10px 10px;
@@ -14,13 +14,12 @@
 /*@Author: Alex*/
 /*@Editor: Kat*/
 table, tr, td {
-	width: 750px;
+	width: 75px;
 	height: 75px;
 	border: 3px solid black;
 	border-collapse: collapse;
 	font-family: Impact, Charcoal, sans-serif;
 	font-size: 15px;
-	color: beige;
 	display: center;
 	margin-left: auto;
 	margin-right: auto;
@@ -85,7 +84,6 @@ img{
 	display: block;
 }
 
-
 /*Temperory solution to changing settings through Navigation bar*/
 /*@Author: Kat*/
 ul{
@@ -96,14 +94,12 @@ ul{
 	background: rgba(0, 0, 26, 0.5);
 }
 
-/*@Author: Kat*/
 li{
 	display: block;
 	float: left;
 	border-right: 1px solid white;
 }
 
-/*@Author: Kat*/
 /*@Editor: Alam*/
 button{
 	border: 2px solid black;
@@ -113,7 +109,6 @@ button{
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
-/*@Author: Kat*/
 .navbar:hover{
 	background: rgba(105, 105, 105, 0.5);
 }
@@ -127,18 +122,27 @@ body{
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
-/*@Author: Kat*/
 hd1, p, #pref{
 	text-align: center;
 }
 
-/*@Author: Kat*/
 a:link, a:visited{
 	color: black;
 	text-decoration: none;
 }
 
-/*@Author: Kat*/
+#special-events{
+	display: none;
+}
+
+#special-events-row{
+	background: rgba(105, 105, 105, 0.5);
+}
+
+.pUp, .pUpDesc{
+	background: rgba(0, 0, 26, 0.5);
+}
+
 #pref{
 	display: none;
 	border-style: solid;
@@ -150,7 +154,6 @@ a:link, a:visited{
 	margin: auto;
 }
 
-/*@Author: Kat*/
 /*@Editor: Alam*/
 .choice {
 	border: 2px solid black;
@@ -160,14 +163,12 @@ a:link, a:visited{
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
-/*@Author: Kat*/
 /*@Editor: Alam*/
 p{
 	background: rgba(0, 0, 26, 0.75);
 	color: white;
-} 
+}
 
-/*@Author: Kat*/
 /*@Editor: Alam*/
 button:hover{
 	background: rgba(0, 0, 26, 0.75);
