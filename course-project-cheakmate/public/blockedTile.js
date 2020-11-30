@@ -17,6 +17,8 @@ var exchangeForPiece = ""; /*Keeps track of img to be swapped for*/
 
 var counterSpawn = 0; /*counter for special event spawn*/
 
+var blockedTileCounter = 0; /*counter to spawn a blocked tile*/
+
 /*@Author: Alex*/
 /*@Editor: Kat*/
 /*@Editor: Kevin*/
@@ -273,6 +275,7 @@ function getCurrentPlayer(){
 
 /*@Author: Kat*/
 /*@Editor: Richard*/
+/*@Editor: Kevin*/
 /*Changes the current player*/
 function changePlayer(){
   if(getCurrentPlayer() == WHITE){
@@ -280,12 +283,18 @@ function changePlayer(){
   }
   else if (getCurrentPlayer() == BLACK) {
     setPlayer(WHITE);
-    if(counterSpawn == 0){
+    counterSpawn++;
+    if(counterSpawn == 1){
     	spawnSpecialEvent("x1");
     	spawnSpecialEvent("x2");
     	spawnSpecialEvent("x3");
-    	counterSpawn++;
     }
+  }
+  /*Every time a player takes their turn blocked the counter goes up*/
+  blockedTileCounter++;
+  if (blockedTileCounter == 4){
+  	spawnSpecialEvent("x0");
+  	blockedTileCounter = 0; /*resets it to 0 so in 4 turns another spawns*/
   }
 
   displayPlayer(player);
