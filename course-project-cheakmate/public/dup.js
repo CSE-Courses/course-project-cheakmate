@@ -659,7 +659,15 @@ function activatePowerUp(r, c){
   }
   else if (board[r][c].includes("x2")) {
     alert("Duplicate Turns go again!");
-    setTurn();
+    moveChessPiece(firstPiece, secondPiece);
+    if (player == WHITE){
+        setPlayer(WHITE);
+    }else{
+        setPlayer(BLACK);
+    }
+    
+    clearMoves();
+    
     /*TODO: Duplicate Turn*/
   }
   else if (board[r][c].includes("x3")) {
