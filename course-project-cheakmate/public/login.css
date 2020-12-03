@@ -1,6 +1,6 @@
 /* @Author: Alex */
 
- body {
+ /*body {
     background-image: url('images/Default.jpg');
     object-fit: cover;
     background-attachment: fixed;
@@ -48,8 +48,8 @@
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   }
   
-  button:hover{
+ button:hover{
     background: rgba(0, 0, 26, 0.75);
     color: white;
     border: 2px solid white;
-  }
+  } */
