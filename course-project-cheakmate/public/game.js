@@ -224,7 +224,7 @@ function convertingSeconds(sec) {
 /*Turn based count down timer for white chess piece player*/
 function whitePlayerTurnTimer () {
 	/* placeholders of the time */
-	var seconds = 90;
+	var seconds = 120;
 	var counter = setInterval(function() {
 		/*console.log(convertingSeconds(seconds));*/
 		seconds -= 1;
@@ -247,7 +247,7 @@ function whitePlayerTurnTimer () {
 /*Turn based count down timer for black chess piece player*/
 function blackPlayerTurnTimer () {
 	/* placeholders of the time */
-	var seconds = 90;
+	var seconds = 120;
 	var counter = setInterval(function() {
 		seconds -= 1;
 		if (seconds <= 0) {
