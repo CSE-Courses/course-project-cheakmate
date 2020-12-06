@@ -317,7 +317,6 @@ function changePlayer(){
 		  blockedTileTurnCounter = 0; /*resets it to 0 so after another "blockedTileEveryNumTurns" turns another spawns*/
 	  }
   }
-  alert(blockedTiles);
 
   displayPlayer(player);
 }
@@ -709,10 +708,7 @@ function isPowerUp(r, c){
 /*@Param int r is the number value for row*/
 /*@Param int c is the number value for column*/
 function activatePowerUp(r, c){
-  if(board[r][c].includes("x0")){
-    /*TODO: Block Tile*/
-  }
-  else if (board[r][c].includes("x1.png")) {
+  if (board[r][c].includes("x1.png")) {
     needExchangePiece = confirm("You have gained an EXCHANGE powerup. Click 'Ok' to select and exchange with your opponent's chess piece. Click 'Cancel' to skip this power up.");
     if(needExchangePiece && player == WHITE){
       enablePieces(BLACK);
@@ -2087,7 +2083,16 @@ function showPossibleQueenMoves(r,c){
 }
 
 /*@Author: Kat*/
-/*Swap player's chess piece with opponent's chess piece.*/
+/*Exchange player's chess piece with captured chess piece.*/
+function exchangeForCapturedPiece(r1, c1){
+  if(player == WHITE){
+    enablePieces(BLACK);
+    disablePieces(WHITE);
+  }
+}
+
+/*@Author: Kat*/
+/*Exchange player's chess piece with opponent's chess piece.*/
 /*(e.g Player's pawn lands on power up. Player swaps his/her pawn with opponent's rook.
   Player's pawn becomes a rook. Opponent's rook becomes a pawn.)*/
 /*@Param string first is the source of the first selected tile*/
@@ -2120,6 +2125,8 @@ function moveChessPiece(first, second){
 
   board[r1][c1] = src1.substring(0, 16) + ".png";
   board[r2][c2] = src2.substring(0, 16) + src1.substring(16);
+
+  checkForPawnCondition(r1, c1, r2, c2);
 
   changePlayer(player);
   populate();
@@ -2184,6 +2191,7 @@ function detectCapture(second){
 
 
 }
+
 /*@Author: Kevin
  * Adds pieces that white captured to his captured table (on the bottom left)*/
 function addWhiteCapturedPieces(pieceToAdd){
@@ -2202,6 +2210,7 @@ function addWhiteCapturedPieces(pieceToAdd){
 		}
 	}
 }
+
 /*@Author: Kevin
  * Adds pieces that black captured to his captured table (On the bottom right)*/
 function addBlackCapturedPieces(pieceToAdd){
@@ -2219,6 +2228,17 @@ function addBlackCapturedPieces(pieceToAdd){
 		}
 	}
 }
+
+/*@Author: Kat
+ *  Checks to see if Pawn reaches the end of the other board
+ */
+function checkForPawnCondition(r1, c1, r2, c2){
+  if(isPawn(r1, c1) && r2 == 0){
+    alert("Your pawn has reached the other end of the board. You may select one of your captured chess pieces to replace your pawn.");
+    exchangeForCapturePiece(r1, c1);
+  }
+}
+
 /*@Author: Richard
  *  Spawns a special event on the board randomly
  */
