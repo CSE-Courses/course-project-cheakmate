@@ -301,12 +301,17 @@ public class ChessWebServer {
 		fileList.put("/index.html", "public/index.html");
 		fileList.put("/", "public/index.html");
 		fileList.put("/game.html", "public/game.html");
+		fileList.put("/game.js", "public/game.js");
+		fileList.put("/settings.js", "public/settings.js");
 		fileList.put("/end.html", "public/end.html");
-		fileList.put("/settings.html", "public/settings.html");
+		fileList.put("/lose.html", "public/lose.html");
+		fileList.put("/instruct.html", "public/instruct.html");
+		
 		fileList.put("/index.css", "public/index.css");
 		fileList.put("/game.css", "public/game.css");
 		fileList.put("/end.css", "public/end.css");
-		fileList.put("/settings.css", "public/settings.js");
+		fileList.put("/lose.css", "public/lose.css");
+		fileList.put("/instruct.css", "public/instruct.css");
 		fileList.put("Cookies.txt", "public/Cookies.txt");
 		
 		
@@ -317,8 +322,6 @@ public class ChessWebServer {
 		imageList.add("/images/Galaxy.jpg");
 		imageList.add("/images/img404.png");
 		imageList.add("/images/poggers.gif");
-		//imageList.add("/images/tile_brown.png");
-		//imageList.add("/images/tile_grey.png");
 		imageList.add("/images/sprites/d.png");
 		imageList.add("/images/sprites/l.png");
 		imageList.add("/images/sprites/de.png");
@@ -364,5 +367,21 @@ public class ChessWebServer {
 		imageList.add("/images/sprites/rpw.png");
 		imageList.add("/images/sprites/rqb.png");
 		imageList.add("/images/sprites/rqw.png");
+		imageList.add("/images/sprites/lx0.png");
+		imageList.add("/images/sprites/lx1.png");
+		imageList.add("/images/sprites/lx2.png");
+		imageList.add("/images/sprites/lx3.png");
+		imageList.add("/images/sprites/lx4.png");
+		imageList.add("/images/sprites/lx5.png");
+		imageList.add("/images/sprites/lx6.png");
+		imageList.add("/images/sprites/lx7.png");
+		imageList.add("/images/sprites/dx0.png");
+		imageList.add("/images/sprites/dx1.png");
+		imageList.add("/images/sprites/dx2.png");
+		imageList.add("/images/sprites/dx3.png");
+		imageList.add("/images/sprites/dx4.png");
+		imageList.add("/images/sprites/dx5.png");
+		imageList.add("/images/sprites/dx6.png");
+		imageList.add("/images/sprites/dx7.png");
 	}
 }
