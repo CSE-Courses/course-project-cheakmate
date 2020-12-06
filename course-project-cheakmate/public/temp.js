@@ -41,10 +41,22 @@ function initialize(){
 	  capturedByWhite[i] = new Array(8);
   }
 
+	for (var i = 0; i < capturedByWhite.length; i++){
+		for (var j = 0; j < capturedByWhite[i].length; j++){
+			capturedByWhite[i][j] = "images/sprites/r.png";
+		}
+	}
+
   /*Create a 8 x 2 board for pieces captured by black*/
   capturedByBlack = new Array(2);
   for (var i = 0; i < capturedByBlack.length; i++){
 	  capturedByBlack[i] = new Array(8);
+  }
+
+  for (var i = 0; i < capturedByBlack.length; i++){
+    for (var j = 0; j < capturedByBlack[i].length; j++){
+      capturedByBlack[i][j] = "images/sprites/r.png";
+    }
   }
 
   /*Create array, first val = r second = c third = block lifespan*/
@@ -212,7 +224,7 @@ function convertingSeconds(sec) {
 /*Turn based count down timer for white chess piece player*/
 function whitePlayerTurnTimer () {
 	/* placeholders of the time */
-	var seconds = 30;
+	var seconds = 90;
 	var counter = setInterval(function() {
 		/*console.log(convertingSeconds(seconds));*/
 		seconds -= 1;
@@ -235,7 +247,7 @@ function whitePlayerTurnTimer () {
 /*Turn based count down timer for black chess piece player*/
 function blackPlayerTurnTimer () {
 	/* placeholders of the time */
-	var seconds = 30;
+	var seconds = 90;
 	var counter = setInterval(function() {
 		seconds -= 1;
 		if (seconds <= 0) {
@@ -262,15 +274,16 @@ function blackPlayerTurnTimer () {
 function setTurn(){
 	checkKill();
   	if(getCurrentPlayer() == WHITE){
-    	enablePieces(WHITE);
-    	whitePlayerTurnTimer();
+      whitePlayerTurnTimer();
+      enablePieces(WHITE);
     	disablePieces(BLACK);
   	}
   	else if (getCurrentPlayer() == BLACK) {
-   		enablePieces(BLACK);
-    	blackPlayerTurnTimer();
+      blackPlayerTurnTimer();
+      enablePieces(BLACK);
     	disablePieces(WHITE);
   	}
+  disableCapturedPieces();
 }
 
 /*@Author: Kat*/
@@ -298,9 +311,9 @@ function changePlayer(){
     setPlayer(WHITE);
     counterSpawn++;
     if(counterSpawn == 1){
-    	/*spawnSpecialEvent("x1");
+    	spawnSpecialEvent("x1");
     	spawnSpecialEvent("x2");
-    	spawnSpecialEvent("x3");*/
+    	spawnSpecialEvent("x3");
     }
   }
   decreaseBlockedTileLife();
@@ -397,7 +410,7 @@ function enablePieces(p){
   If current player is white, enable capturable black chess pieces.
   If current player is black, enable capturable white chess pieces.*/
 /*@Param string p is the player's color for chess pieces that needs to be enabled*/
-function enableCapturePieces(){
+function enableCapturablePieces(){
   if(player == WHITE && moves != null){
     for(var k = 0; k < moves.length; k++){
       if(moves[k] != ""){
@@ -417,6 +430,32 @@ function enableCapturePieces(){
         var c = parseInt(moves[k].substring(1));
         if(board[r][c].includes("w.png")){
           document.getElementById(moves[k]).style.pointerEvents = "auto";
+        }
+      }
+    }
+  }
+}
+
+/*@Author: Kat*/
+/*Enables functionality of chess pieces in captured table*/
+function enableCapturedPieces(p){
+  if(p == WHITE && capturedByBlack != null){
+    for(var i = 0; i < capturedByBlack.length; i++){
+      for(var j = 0; j < capturedByBlack[i].length; j++){
+        if(capturedByBlack[i][j].includes("w.png")){
+          var cp = "b" + i + j;
+          document.getElementById(cp).style.pointerEvents = "auto";
+        }
+      }
+    }
+  }
+
+  if(p == BLACK && capturedByWhite != null){
+    for(var i = 0; i < capturedByWhite.length; i++){
+      for(var j = 0; j < capturedByWhite[i].length; j++){
+        if(capturedByWhite[i][j].includes("b.png")){
+          var cp = "w" + i + j;
+          document.getElementById(cp).style.pointerEvents = "auto";
         }
       }
     }
@@ -456,10 +495,10 @@ function disablePieces(p){
 
 /*@Author: Kat*/
 /*Disables functionality of chess pieces that were capturable depending on the player
-  If current player is white, and selects another white piece, disable black chess pieces that were capturable for previous select.
-  If current player is black, and selects another black piece, disable white chess pieces that were capturable for previous select.*/
+If current player is white, disable capturable black chess pieces.
+If current player is black, disable capturable white chess pieces.*/
 /*@Param string p is the player's color for chess pieces that needs to be enabled*/
-function disableCapturePieces(){
+function disableCapturablePieces(){
   if(player == WHITE && moves != null){
     for(var k = 0; k < moves.length; k++){
       if(moves[k] != ""){
@@ -486,6 +525,24 @@ function disableCapturePieces(){
 }
 
 /*@Author: Kat*/
+/*Disables functionality of chess pieces in captured table*/
+function disableCapturedPieces(p){
+  for(var i = 0; i < capturedByBlack.length; i++){
+    for(var j = 0; j < capturedByBlack[i].length; j++){
+      var cp = "b" + i + j;
+      document.getElementById(cp).style.pointerEvents = "none";
+    }
+  }
+
+  for(var i = 0; i < capturedByWhite.length; i++){
+    for(var j = 0; j < capturedByWhite[i].length; j++){
+      var cp = "w" + i + j;
+      document.getElementById(cp).style.pointerEvents = "none";
+    }
+  }
+}
+
+/*@Author: Kat*/
 /*@Editor: Kevin*/
 /*@Editor: Richard*/
 /*Each image onclick calls for the function to run game
@@ -499,7 +556,7 @@ function runGame(imageId){
   var r = parseInt(imageId.substring(0,1));
   var c = parseInt(imageId.substring(1));
 
-  if(!isEmptyTile(r, c)){
+  if(!isEmptyTile(r, c) && !isPowerUp(r, c)){
     changeBorderColor(imageId, "#33cccc");
   }
 
@@ -542,7 +599,6 @@ function runGame(imageId){
     else{
       detectCapture(secondPiece);
       moveChessPiece(firstPiece, secondPiece);
-      clearMoves();
     }
   }
   else if (needExchangePiece) {
@@ -550,7 +606,6 @@ function runGame(imageId){
       exchangeForPiece = imageId;
       exchangeForOpponentPiece(firstPiece, exchangeForPiece);
       moveChessPiece(firstPiece, secondPiece);
-      clearMoves();
     }
     else {
       alert("EXCHANGE does not allow you to swap for your opponent's King or Queen. Please select another chess piece.");
@@ -559,8 +614,39 @@ function runGame(imageId){
   }
   else {
     firstPiece = "";
-    disableCapturePieces();
+    disableCapturablePieces();
     runGame(imageId);
+  }
+}
+
+/*Author: Kat*/
+/*Takes out a chess piece from the captured table and replaces pawn on the board this same piece*/
+function promote(imageId){
+  var r = parseInt(imageId.substring(1,2));
+  var c = parseInt(imageId.substring(2));
+
+  if(getCurrentPlayer() == WHITE){
+    if(!capturedByBlack[r][c].includes("pw.png")){
+      var capImg = board[parseInt(secondPiece.substring(0, 1))][parseInt(secondPiece.substring(1))].substring(0, 16) + capturedByBlack[r][c].substring(16);
+      board[parseInt(secondPiece.substring(0, 1))][parseInt(secondPiece.substring(1))] = capImg;
+      capturedByBlack[r][c] = "images/sprites/r.png";
+      updateCapturedTableDisplay(WHITE);
+    }
+    else{
+      alert("You need to choose a chess piece that is not a pawn.");
+    }
+  }
+
+  if(getCurrentPlayer() == BLACK){
+    if(!capturedByWhite[r][c].includes("pb.png")){
+      var capImg = board[parseInt(secondPiece.substring(0, 1))][parseInt(secondPiece.substring(1))].substring(0, 16) + capturedByWhite[r][c].substring(16);
+      board[parseInt(secondPiece.substring(0, 1))][parseInt(secondPiece.substring(1))] = capImg;
+      capturedByWhite[r][c] = "images/sprites/r.png";
+      updateCapturedTableDisplay(BLACK);
+    }
+    else{
+      alert("You need to choose a chess piece that is not a pawn.");
+    }
   }
 }
 
@@ -724,7 +810,16 @@ function activatePowerUp(r, c){
     }
   }
   else if (board[r][c].includes("x2")) {
-    /*TODO: Duplicate Turn*/
+    alert("Duplicate Turns go again!");
+    moveChessPiece(firstPiece, secondPiece);
+	changePlayer();
+	if (getCurrentPlayer() == WHITE){
+		enablePieces(WHITE);
+      	disablePieces(BLACK);
+	}else{
+		enablePieces(BLACK);
+		disablePieces(WHITE);
+	}
   }
   else if (board[r][c].includes("x3")) {
     /*TODO: Transform Turn*/
@@ -750,16 +845,20 @@ function showPossiblePawnMoves(r, c){
 
   if(board[r][c].includes("pw")){
     if(r - 1 >= 0 && (board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png") || board[r - 1][c].includes("lx") || board[r - 1][c].includes("dx"))){
-      num = "" + (r - 1) + c;
-      changeBorderColor(num, "#33cccc");
-      moves[0] = num;
+      if(!board[r - 1][c].includes("x0.png")){
+        num = "" + (r - 1) + c;
+        changeBorderColor(num, "#33cccc");
+        moves[0] = num;
+      }
     }
     if(r == 8 && (c >= 1 || c <= 8) ){
       if((board[r - 1][c].includes("l.png") || board[r - 1][c].includes("d.png"))){
         if(r - 2 >= 0 && (board[r - 2][c].includes("l.png") || board[r - 2][c].includes("d.png") || board[r - 2][c].includes("lx") || board[r - 2][c].includes("dx"))){
-          num = "" + (r - 2) + c;
-          changeBorderColor(num, "#33cccc");
-          moves[1] = num;
+          if(!board[r - 2][c].includes("x0.png")){
+            num = "" + (r - 2) + c;
+            changeBorderColor(num, "#33cccc");
+            moves[1] = num;
+          }
         }
       }
     }
@@ -781,16 +880,20 @@ function showPossiblePawnMoves(r, c){
 
   if(board[r][c].includes("pb")){
     if(r + 1 <= 9 && (board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png") || board[r + 1][c].includes("lx") || board[r + 1][c].includes("dx"))){
-      num = "" + (r + 1) + c;
-      changeBorderColor(num, "#33cccc");
-      moves[0] = num;
+      if(!board[r + 1][c].includes("x0.png")){
+        num = "" + (r + 1) + c;
+        changeBorderColor(num, "#33cccc");
+        moves[0] = num;
+      }
     }
     if(r == 1 && (c >= 1 || c <= 8) ){
       if((board[r + 1][c].includes("l.png") || board[r + 1][c].includes("d.png"))){
-        if(r + 2 <= 9 && (board[r + 2][c].includes("l.png") || board[r + 2][c].includes("d.png") || board[r - 2][c].includes("lx") || board[r - 2][c].includes("dx"))){
-          num = "" + (r + 2) + c;
-          changeBorderColor(num, "#33cccc");
-          moves[1] = num;
+        if(r + 2 <= 9 && (board[r + 2][c].includes("l.png") || board[r + 2][c].includes("d.png") || board[r + 2][c].includes("lx") || board[r + 2][c].includes("dx"))){
+          if(!board[r + 2][c].includes("x0.png")){
+            num = "" + (r + 2) + c;
+            changeBorderColor(num, "#33cccc");
+            moves[1] = num;
+          }
         }
       }
     }
@@ -810,7 +913,7 @@ function showPossiblePawnMoves(r, c){
     }
   }
 
-  enableCapturePieces();
+  enableCapturablePieces();
 }
 
 /*@Author: Kevin*/
@@ -1017,7 +1120,7 @@ function showPossibleRookMoves(r, c){
 		}
 	}
 
-  enableCapturePieces();
+  enableCapturablePieces();
 }
 
 
@@ -1219,7 +1322,7 @@ function showPossibleKnightMoves(r, c){
     }
   }
 
-  enableCapturePieces();
+  enableCapturablePieces();
 }
 
 /*Author: Richard*/
@@ -1417,7 +1520,7 @@ function showPossibleBishopMoves(r, c){
 		}
 	}
 
-  enableCapturePieces();
+  enableCapturablePieces();
 }
 
 /*@Author: Richard*/
@@ -1735,7 +1838,7 @@ if(board[r][c].includes("gb")){
 	}
 }
 
-enableCapturePieces();
+enableCapturablePieces();
 }
 
 /*@Author: Richard*/
@@ -2079,20 +2182,11 @@ function showPossibleQueenMoves(r,c){
 		}
 	}
 
-  enableCapturePieces();
+  enableCapturablePieces();
 }
 
 /*@Author: Kat*/
-/*Exchange player's chess piece with captured chess piece.*/
-function exchangeForCapturedPiece(r1, c1){
-  if(player == WHITE){
-    enablePieces(BLACK);
-    disablePieces(WHITE);
-  }
-}
-
-/*@Author: Kat*/
-/*Exchange player's chess piece with opponent's chess piece.*/
+/*Swap player's chess piece with opponent's chess piece.*/
 /*(e.g Player's pawn lands on power up. Player swaps his/her pawn with opponent's rook.
   Player's pawn becomes a rook. Opponent's rook becomes a pawn.)*/
 /*@Param string first is the source of the first selected tile*/
@@ -2126,10 +2220,17 @@ function moveChessPiece(first, second){
   board[r1][c1] = src1.substring(0, 16) + ".png";
   board[r2][c2] = src2.substring(0, 16) + src1.substring(16);
 
-  checkForPawnCondition(r1, c1, r2, c2);
-
-  changePlayer(player);
-  populate();
+  if(promotePawn(r2, c2, getCurrentPlayer())){
+    alert("Your pawn has reached the end of the board. You may now replace your pawn with a chess piece from the opponent's captured table.");
+    disablePieces(WHITE);
+    disablePieces(BLACK);
+    enableCapturedPieces(getCurrentPlayer());
+  }
+  else {
+    changePlayer(player);
+    populate();
+    clearMoves();
+  }
 }
 
 /*@Author: Kat*/
@@ -2193,50 +2294,132 @@ function detectCapture(second){
 }
 
 /*@Author: Kevin
+ *@Editor: Kat
  * Adds pieces that white captured to his captured table (on the bottom left)*/
 function addWhiteCapturedPieces(pieceToAdd){
-	var num;
-	var imageToAdd = "images/sprites/r" + pieceToAdd;
+  var num;
+  var imageToAdd = "images/sprites/r" + pieceToAdd;
 
-	breakhere:
-	for (var i = 0; i < capturedByWhite.length; i++){
-		for (var j = 0; j < capturedByWhite[i].length; j++){
-			num = "w" + i + j;
-			if(document.getElementById(num).src.includes("r.png")){
-				document.getElementById(num).src = imageToAdd;
-				break breakhere;
-			}
+  breakhere:
+  for (var i = 0; i < capturedByWhite.length; i++){
+    for (var j = 0; j < capturedByWhite[i].length; j++){
+      num = "w" + i + j;
+      if(document.getElementById(num).src.includes("r.png")){
+        document.getElementById(num).src = imageToAdd;
+        break breakhere;
+      }
+    }
+  }
 
-		}
-	}
+  //I need this for back end -KAT
+  exithere:
+  for (var i = 0; i < capturedByWhite.length; i++){
+    for (var j = 0; j < capturedByWhite[i].length; j++){
+      if(capturedByWhite[i][j].includes("r.png")){
+        capturedByWhite[i][j] = imageToAdd;
+        break exithere;
+      }
+    }
+  }
 }
 
 /*@Author: Kevin
+ *@Editor: Kat
  * Adds pieces that black captured to his captured table (On the bottom right)*/
 function addBlackCapturedPieces(pieceToAdd){
-	var num;
-	var imageToAdd = "images/sprites/r" + pieceToAdd;
+  var num;
+  var imageToAdd = "images/sprites/r" + pieceToAdd;
 
-	breakhere:
-	for (var i = 0; i < capturedByBlack.length; i++){
-		for (var j = 0; j < capturedByBlack[i].length; j++){
-			num = "b" + i + j;
-			if(document.getElementById(num).src.includes("r.png")){
-				document.getElementById(num).src = imageToAdd;
-				break breakhere;
-			}
-		}
-	}
+  breakhere:
+  for (var i = 0; i < capturedByBlack.length; i++){
+    for (var j = 0; j < capturedByBlack[i].length; j++){
+      num = "b" + i + j;
+      if(document.getElementById(num).src.includes("r.png")){
+        document.getElementById(num).src = imageToAdd;
+        break breakhere;
+      }
+    }
+  }
+
+  //I need this for back end -Kat
+  exithere:
+  for (var i = 0; i < capturedByBlack.length; i++){
+    for (var j = 0; j < capturedByBlack[i].length; j++){
+      if(capturedByBlack[i][j].includes("r.png")){
+        capturedByBlack[i][j] = imageToAdd;
+        break exithere;
+      }
+    }
+  }
 }
 
-/*@Author: Kat
- *  Checks to see if Pawn reaches the end of the other board
- */
-function checkForPawnCondition(r1, c1, r2, c2){
-  if(isPawn(r1, c1) && r2 == 0){
-    alert("Your pawn has reached the other end of the board. You may select one of your captured chess pieces to replace your pawn.");
-    exchangeForCapturePiece(r1, c1);
+/*@Author: Kat*/
+/*Updates display for captured table that was altered*/
+function updateCapturedTableDisplay(p){
+  var temp = new Array(16);
+  var tempIdx = 0;
+  for(var i = 0; i < temp.length; i++){
+    temp[i] = "images/sprites/r.png";
   }
+
+  if(p == WHITE){
+    for(var i = 0; i < capturedByBlack.length; i++){
+      for(var j = 0; j < capturedByBlack[i].length; j++){
+        if(!capturedByBlack[i][j].includes("r.png")){
+          temp[tempIdx] = capturedByBlack[i][j];
+          tempIdx++;
+        }
+      }
+    }
+
+    tempIdx = 0;
+
+    for(var i = 0; i < capturedByBlack.length; i++){
+      for(var j = 0; j < capturedByBlack[i].length; j++){
+        capturedByBlack[i][j] = temp[tempIdx];
+        var id = "b" + i + j;
+        document.getElementById(id).src = temp[tempIdx];
+        tempIdx++;
+      }
+    }
+  }
+
+  if(p == BLACK){
+    for(var i = 0; i < capturedByWhite.length; i++){
+      for(var j = 0; j < capturedByWhite[i].length; j++){
+        if(!capturedByWhite[i][j].includes("r.png")){
+          temp[tempIdx] = capturedByWhite[i][j];
+          tempIdx++;
+        }
+      }
+    }
+
+    tempIdx = 0;
+
+    for(var i = 0; i < capturedByWhite.length; i++){
+      for(var j = 0; j < capturedByWhite[i].length; j++){
+        if(!capturedByWhite[i][j].includes("r.png")){
+          capturedByWhite[i][j] = temp[tempIdx];
+          var id = "w" + i + j;
+          document.getElementById(id).src = temp[tempIdx];
+          tempIdx++;
+        }
+      }
+    }
+  }
+
+  changePlayer(player);
+  populate();
+  clearMoves();
+}
+
+/*@Author: Kat*/
+/*Checks to see if Pawn has reached the end of the board (on the opponent's side)*/
+function promotePawn(r2, c2, p){
+  if(isPawn(r2, c2) && r2 == 0){
+    return true;
+  }
+  return false;
 }
 
 /*@Author: Richard
