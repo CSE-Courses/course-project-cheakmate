@@ -722,7 +722,16 @@ function activatePowerUp(r, c){
     }
   }
   else if (board[r][c].includes("x2")) {
-    /*TODO: Duplicate Turn*/
+    alert("Duplicate Turns go again!");
+    moveChessPiece(firstPiece, secondPiece);
+	changePlayer();
+	if (getCurrentPlayer() == WHITE){
+		enablePieces(WHITE);
+      	disablePieces(BLACK);
+	}else{
+		enablePieces(BLACK);
+		disablePieces(WHITE);
+	} 
   }
   else if (board[r][c].includes("x3")) {
     /*TODO: Transform Turn*/
