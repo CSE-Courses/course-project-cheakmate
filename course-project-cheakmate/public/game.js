@@ -46,13 +46,13 @@ function initialize(){
   for (var i = 0; i < capturedByBlack.length; i++){
 	  capturedByBlack[i] = new Array(8);
   }
-  
+
   /*Create array, first val = r second = c third = block lifespan*/
   blockedTiles = new Array(maxNumOfBlocked);
   for(var i = 0; i < blockedTiles.length; i++){
 	  blockedTiles[i] = "empty";
   }
-  
+
   /*Create a 10 x 10 board*/
   board = new Array(10);
   for(var i = 0; i < board.length; i++){
@@ -304,21 +304,21 @@ function changePlayer(){
     }
   }
   decreaseBlockedTileLife();
-  
+
   /*checks number of blocked tiles there are, increment numOfBlockedTiles when a new one spawns*/
   if (numOfBlockedTiles < maxNumOfBlocked){
 	  /*Every time a player takes their turn, the counter for block tiles goes up (in here since it should only increment when it can spawn one)*/
 	  blockedTileTurnCounter++;
-	  
+
 	  if (blockedTileTurnCounter == blockedTileEveryNumTurns){
 		  spawnSpecialEvent("x0");
 		  numOfBlockedTiles++; /*Increments number of blocked tiles on board*/
-		  
+
 		  blockedTileTurnCounter = 0; /*resets it to 0 so after another "blockedTileEveryNumTurns" turns another spawns*/
 	  }
   }
   alert(blockedTiles);
-  
+
   displayPlayer(player);
 }
 /*Author: Kevin
@@ -547,10 +547,16 @@ function runGame(imageId){
     }
   }
   else if (needExchangePiece) {
-    exchangeForPiece = imageId;
-    exchangeForOpponentPiece(firstPiece, exchangeForPiece);
-    moveChessPiece(firstPiece, secondPiece);
-    clearMoves();
+    if(!isKing(r,c) && !isQueen(r, c)){
+      exchangeForPiece = imageId;
+      exchangeForOpponentPiece(firstPiece, exchangeForPiece);
+      moveChessPiece(firstPiece, secondPiece);
+      clearMoves();
+    }
+    else {
+      alert("EXCHANGE does not allow you to swap for your opponent's King or Queen. Please select another chess piece.");
+      resetBorderColor();
+    }
   }
   else {
     firstPiece = "";
@@ -2237,8 +2243,8 @@ function spawnSpecialEvent(event){
 	*/
 	if(isEmptyTile(r,c)){
 		board[r][c] = power;
-		
-		
+
+
 		if(event == "x0"){
 			for(var i = 0; i < blockedTiles.length; i++){
 				if(blockedTiles[i] == "empty"){

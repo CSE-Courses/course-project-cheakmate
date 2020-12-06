@@ -15,6 +15,17 @@ var secondPiece = ""; /*Keeps track of second img to be moved*/
 var needExchangePiece = false; /*Keeps track of whether or not a third img is needed*/
 var exchangeForPiece = ""; /*Keeps track of img to be swapped for*/
 
+var counterSpawn = 0; /*counter for special event spawn*/
+
+var blockedTiles; /*2D array to keep coords of blocked tiles*/
+var blockedTileTurnCounter = 0; /*counter to track when to spawn a blocked tile (with const blockedTileEveryNumTurns)*/
+var numOfBlockedTiles = 0; /*Number of blocked tiles on the board*/
+
+const blockedTileEveryNumTurns = 3; /*Together with blockedTileTurnCounter, this const is the number of turns before a blocked tile spawns*/
+const maxNumOfBlocked = 7; /*how many blocked tiles should be on the board at once*/
+const blockLifespan = 15;/*Life span of a blocked tile*/
+
+
 /*@Author: Alex*/
 /*@Editor: Kat*/
 /*@Editor: Kevin*/
@@ -34,6 +45,12 @@ function initialize(){
   capturedByBlack = new Array(2);
   for (var i = 0; i < capturedByBlack.length; i++){
 	  capturedByBlack[i] = new Array(8);
+  }
+
+  /*Create array, first val = r second = c third = block lifespan*/
+  blockedTiles = new Array(maxNumOfBlocked);
+  for(var i = 0; i < blockedTiles.length; i++){
+	  blockedTiles[i] = "empty";
   }
 
   /*Create a 10 x 10 board*/
@@ -270,6 +287,8 @@ function getCurrentPlayer(){
 }
 
 /*@Author: Kat*/
+/*@Editor: Richard*/
+/*@Editor: Kevin*/
 /*Changes the current player*/
 function changePlayer(){
   if(getCurrentPlayer() == WHITE){
@@ -277,9 +296,64 @@ function changePlayer(){
   }
   else if (getCurrentPlayer() == BLACK) {
     setPlayer(WHITE);
+    counterSpawn++;
+    if(counterSpawn == 1){
+    	/*spawnSpecialEvent("x1");
+    	spawnSpecialEvent("x2");
+    	spawnSpecialEvent("x3");*/
+    }
   }
+  decreaseBlockedTileLife();
+
+  /*checks number of blocked tiles there are, increment numOfBlockedTiles when a new one spawns*/
+  if (numOfBlockedTiles < maxNumOfBlocked){
+	  /*Every time a player takes their turn, the counter for block tiles goes up (in here since it should only increment when it can spawn one)*/
+	  blockedTileTurnCounter++;
+
+	  if (blockedTileTurnCounter == blockedTileEveryNumTurns){
+		  spawnSpecialEvent("x0");
+		  numOfBlockedTiles++; /*Increments number of blocked tiles on board*/
+
+		  blockedTileTurnCounter = 0; /*resets it to 0 so after another "blockedTileEveryNumTurns" turns another spawns*/
+	  }
+  }
+  alert(blockedTiles);
 
   displayPlayer(player);
+}
+/*Author: Kevin
+ * Method is called after each player's turn.
+ * This decreases the "lifespan" of all blocking tile sprites on the board.
+ * When the life of any of them is 1, they get call removeBlockedTile to get normal tiles back*/
+function decreaseBlockedTileLife(){
+	  for(var i = 0; i < blockedTiles.length; i++){
+		  if(blockedTiles[i] != "empty"){
+			  var splitCoords = blockedTiles[i].split(",");
+			  var r = splitCoords[0];
+			  var c = splitCoords[1];
+			  var blockLife = splitCoords[2];/* Where the lifespan of blocked tile is*/
+
+			  if (blockLife == 1){/*Should decrease to 0 this time so remove it*/
+				  blockedTiles[i] = "empty";
+				  removeBlockedTile(r, c);
+			  }else{
+				  blockedTiles[i] = "" + r + "," + c + "," + (blockLife - 1);
+			  }
+		  }
+	  }
+}
+
+/*@Author: Kevin
+ * Removes a blocked tile after their lifespan is 1 (which is 0 since it would decrement on that call to 0)*/
+function removeBlockedTile(r, c){
+	var expiredBlockedTile = board[r][c];
+	if(expiredBlockedTile.includes("lx0")){
+		board[r][c] = "images/sprites/l.png";
+		numOfBlockedTiles--;
+	}else{
+		board[r][c] = "images/sprites/d.png";
+		numOfBlockedTiles--;
+	}
 }
 
 /*@Author: Kat*/
@@ -473,10 +547,16 @@ function runGame(imageId){
     }
   }
   else if (needExchangePiece) {
-    exchangeForPiece = imageId;
-    exchangeForOpponentPiece(firstPiece, exchangeForPiece);
-    moveChessPiece(firstPiece, secondPiece);
-    clearMoves();
+    if(!isKing(r,c) && !isQueen(r, c)){
+      exchangeForPiece = imageId;
+      exchangeForOpponentPiece(firstPiece, exchangeForPiece);
+      moveChessPiece(firstPiece, secondPiece);
+      clearMoves();
+    }
+    else {
+      alert("EXCHANGE does not allow you to swap for your opponent's King or Queen. Please select another chess piece.");
+      resetBorderColor();
+    }
   }
   else {
     firstPiece = "";
@@ -633,7 +713,7 @@ function activatePowerUp(r, c){
     /*TODO: Block Tile*/
   }
   else if (board[r][c].includes("x1.png")) {
-    needExchangePiece = confirm("Click 'Ok' to select and swap with your opponent's chess piece. Click 'Cancel' to skip this power up.");
+    needExchangePiece = confirm("You have gained an EXCHANGE powerup. Click 'Ok' to select and exchange with your opponent's chess piece. Click 'Cancel' to skip this power up.");
     if(needExchangePiece && player == WHITE){
       enablePieces(BLACK);
       disablePieces(WHITE);
@@ -2137,5 +2217,45 @@ function addBlackCapturedPieces(pieceToAdd){
 				break breakhere;
 			}
 		}
+	}
+}
+/*@Author: Richard
+ *  Spawns a special event on the board randomly
+ */
+function spawnSpecialEvent(event){
+	var tileColor = "";
+	var r = Math.floor(Math.random() * 10);
+	var c = Math.floor(Math.random() * 10);
+	if(board[r][c].includes("l.png")){
+		tileColor = "l";
+	}
+	else if(board[r][c].includes("d.png")){
+		tileColor = "d"
+	}
+
+	var power = "images/sprites/" + tileColor +event + ".png";
+	/*A random tile is selected. If it is empty then put a powerup, else do nothing*/
+	/* Testing
+	if(isEmptyTile(r,c)){
+		board[r][c] = power;
+		alert("power is spawned at " + r + ", " + c);
+	}
+	*/
+	if(isEmptyTile(r,c)){
+		board[r][c] = power;
+
+
+		if(event == "x0"){
+			for(var i = 0; i < blockedTiles.length; i++){
+				if(blockedTiles[i] == "empty"){
+					blockedTiles[i] = "" + r + "," + c + "," + blockLifespan;
+					break;
+				}
+			}
+		}
+
+		/* alert("power is spawned at " + r + ", " + c); */
+	}else{
+		spawnSpecialEvent(event);
 	}
 }
