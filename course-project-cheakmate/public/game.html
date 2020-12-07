@@ -9,6 +9,7 @@
 	<title> Game | Unconventional Chess </title>
 	<link rel = "stylesheet" href = "game.css">
 	<script src="game.js"></script>
+	<!--<script src="temp.js"></script>-->
 	<script src="settings.js"></script>
 	<script>
 		/*placeholders of the time*/
@@ -55,7 +56,8 @@
 
 <body onload = "initialize()">
 		<ul>
-			<li><button type="button" name="button" onclick="settingsVisibility()" class = "navbar" >Settings</button></li>
+			<li><button type="button" name="button" onclick="visibility('special-events')" class="navbar">Power Guide</button></li>
+			<li><button type="button" name="button" onclick="visibility('pref')" class = "navbar" >Settings</button></li>
 			<li><button type="button" name="button" onclick="exit()" class = "navbar" >Exit Game</button></li>
 		</ul>
 		<br>
@@ -79,10 +81,7 @@
 	<button type="button" name="button" onclick="toGalaxyBg()" class="choice"> Galaxy BG </button>
 
 	<hr><br>
-
-	<a href="index.html"><button type="button" name="button" class="choice"> Main Menu </button></a>
 	</div>
-	<!--End of Temporary solution to changing settings-->
 
 	<br>
 	<div id = "turn">
@@ -90,6 +89,25 @@
 		<hr>
 		<p id = "time">00:00:00</p>
 	</div>
+	<br>
+
+	<div id = "special-events">
+		<table>
+			<tr id="special-events-row">
+				<td><img class="pUp" id = "sp00" src = "images/sprites/sp1.png"></td>
+				<td><img class="pUp" id = "sp01" src = "images/sprites/sp2.png"></td>
+				<td><img class="pUp" id = "sp02" src = "images/sprites/sp3.png"></td>
+				<td><img class="pUp" id = "sp02" src = "images/sprites/sp4.png"></td>
+			</tr>
+			<tr id="special-events-row">
+				<td class="pUpDesc">This special event exchanges my chess piece with my opponent's chess piece.</td>
+				<td class="pUpDesc">This special event allows the player to play another turn.</td>
+				<td class="pUpDesc">This special event transforms the chess piece into a random chess piece.</td>
+				<td class="pUpDesc">This special event blocks out a tile so a chess piece can't move there.</td>
+			</tr>
+		</table>
+	</div>
+
 	<br>
 
 	<div id = "board">
@@ -215,69 +233,66 @@
 				<td><img id = "99" src="//:0" alt="null" onclick="runGame('99')"></td>
 			</tr>
 		</table>
-	</div>
-</body>
 
+		<br>
 
-<body onload = "CapturedTable()">
-	<!-- added white chess piece player count down timer -->
-	<div id = whiteTimer>0:30</div>
-	<div id = whiteCapturedPieces>
-		<table style = "float: left">
-			<!--<tr>
-				<td><h1 style = "text-align:right">test</h1></td>
-			</tr>-->
-			<tr>
-				<td><img id = "w00" src="images/sprites/r.png"></td>
-				<td><img id = "w01" src="images/sprites/r.png"></td>
-				<td><img id = "w02" src="images/sprites/r.png"></td>
-				<td><img id = "w03" src="images/sprites/r.png"></td>
-				<td><img id = "w04" src="images/sprites/r.png"></td>
-				<td><img id = "w05" src="images/sprites/r.png"></td>
-				<td><img id = "w06" src="images/sprites/r.png"></td>
-				<td><img id = "w07" src="images/sprites/r.png"></td>
-				
-			</tr>
-			<tr>
-				<td><img id = "w10" src="images/sprites/r.png"></td>
-				<td><img id = "w11" src="images/sprites/r.png"></td>
-				<td><img id = "w12" src="images/sprites/r.png"></td>
-				<td><img id = "w13" src="images/sprites/r.png"></td>
-				<td><img id = "w14" src="images/sprites/r.png"></td>
-				<td><img id = "w15" src="images/sprites/r.png"></td>
-				<td><img id = "w16" src="images/sprites/r.png"></td>
-				<td><img id = "w17" src="images/sprites/r.png"></td>
-				
-			</tr>
-		</table>
-	</div>
-	<!-- added black chess piece player count down timer -->
-	<div id = blackTimer>0:30</div>
-	<div id = blackCapturedPieces>
-		<table style = "float: right">
-						<tr>
-				<td><img id = "b00" src="images/sprites/r.png"></td>
-				<td><img id = "b01" src="images/sprites/r.png"></td>
-				<td><img id = "b02" src="images/sprites/r.png"></td>
-				<td><img id = "b03" src="images/sprites/r.png"></td>
-				<td><img id = "b04" src="images/sprites/r.png"></td>
-				<td><img id = "b05" src="images/sprites/r.png"></td>
-				<td><img id = "b06" src="images/sprites/r.png"></td>
-				<td><img id = "b07" src="images/sprites/r.png"></td>
-				
-			</tr>
-			<tr>
-				<td><img id = "b10" src="images/sprites/r.png"></td>
-				<td><img id = "b11" src="images/sprites/r.png"></td>
-				<td><img id = "b12" src="images/sprites/r.png"></td>
-				<td><img id = "b13" src="images/sprites/r.png"></td>
-				<td><img id = "b14" src="images/sprites/r.png"></td>
-				<td><img id = "b15" src="images/sprites/r.png"></td>
-				<td><img id = "b16" src="images/sprites/r.png"></td>
-				<td><img id = "b17" src="images/sprites/r.png"></td>
-				
-			</tr>
-		</table>
+		<!-- added white chess piece player count down timer -->
+		<div id = whiteCapturedPieces>
+			<div id = playerTime>White Chess Piece Player Timer: </div>
+			<div id = whiteTimer>2:00</div>
+			<table>
+				<tr>
+					<td><img id = "w00" src="images/sprites/r.png" onclick="promote('w00')"></td>
+					<td><img id = "w01" src="images/sprites/r.png" onclick="promote('w01')"></td>
+					<td><img id = "w02" src="images/sprites/r.png" onclick="promote('w02')"></td>
+					<td><img id = "w03" src="images/sprites/r.png" onclick="promote('w03')"></td>
+					<td><img id = "w04" src="images/sprites/r.png" onclick="promote('w04')"></td>
+					<td><img id = "w05" src="images/sprites/r.png" onclick="promote('w05')"></td>
+					<td><img id = "w06" src="images/sprites/r.png" onclick="promote('w06')"></td>
+					<td><img id = "w07" src="images/sprites/r.png" onclick="promote('w07')"></td>
+				</tr>
+
+				<tr>
+					<td><img id = "w10" src="images/sprites/r.png" onclick="promote('w10')"></td>
+					<td><img id = "w11" src="images/sprites/r.png" onclick="promote('w11')"></td>
+					<td><img id = "w12" src="images/sprites/r.png" onclick="promote('w12')"></td>
+					<td><img id = "w13" src="images/sprites/r.png" onclick="promote('w13')"></td>
+					<td><img id = "w14" src="images/sprites/r.png" onclick="promote('w14')"></td>
+					<td><img id = "w15" src="images/sprites/r.png" onclick="promote('w15')"></td>
+					<td><img id = "w16" src="images/sprites/r.png" onclick="promote('w16')"></td>
+					<td><img id = "w17" src="images/sprites/r.png" onclick="promote('w17')"></td>
+				</tr>
+			</table>
+		</div>
+
+		<!-- added black chess piece player count down timer -->
+		<div id = blackCapturedPieces>
+			<div id = playerTime>Black Chess Piece Player Timer: </div>
+			<div id = blackTimer>2:00</div>
+			<table>
+				<tr>
+					<td><img id = "b00" src="images/sprites/r.png" onclick="promote('b00')"></td>
+					<td><img id = "b01" src="images/sprites/r.png" onclick="promote('b01')"></td>
+					<td><img id = "b02" src="images/sprites/r.png" onclick="promote('b02')"></td>
+					<td><img id = "b03" src="images/sprites/r.png" onclick="promote('b03')"></td>
+					<td><img id = "b04" src="images/sprites/r.png" onclick="promote('b04')"></td>
+					<td><img id = "b05" src="images/sprites/r.png" onclick="promote('b05')"></td>
+					<td><img id = "b06" src="images/sprites/r.png" onclick="promote('b06')"></td>
+					<td><img id = "b07" src="images/sprites/r.png" onclick="promote('b07')"></td>
+				</tr>
+
+				<tr>
+					<td><img id = "b10" src="images/sprites/r.png" onclick="promote('b10')"></td>
+					<td><img id = "b11" src="images/sprites/r.png" onclick="promote('b11')"></td>
+					<td><img id = "b12" src="images/sprites/r.png" onclick="promote('b12')"></td>
+					<td><img id = "b13" src="images/sprites/r.png" onclick="promote('b13')"></td>
+					<td><img id = "b14" src="images/sprites/r.png" onclick="promote('b14')"></td>
+					<td><img id = "b15" src="images/sprites/r.png" onclick="promote('b15')"></td>
+					<td><img id = "b16" src="images/sprites/r.png" onclick="promote('b16')"></td>
+					<td><img id = "b17" src="images/sprites/r.png" onclick="promote('b17')"></td>
+				</tr>
+			</table>
+		</div>
 	</div>
 </body>
 

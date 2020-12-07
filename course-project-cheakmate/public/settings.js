@@ -1,14 +1,22 @@
 /*@Author: Kat*/
 var click = 0;
+var prevButn = "";
 
-function settingsVisibility(){
+function visibility(id){
   if(click == 0){
-    document.getElementById('pref').style.display = "block";
+    document.getElementById(id).style.display = "block";
     click = 1;
+    prevButn = id;
   }
-  else if (click == 1) {
-    document.getElementById('pref').style.display = "none";
+  else if (click == 1 && id == prevButn) {
+    document.getElementById(id).style.display = "none";
     click = 0;
+    prevButn = "";
+  }
+  else if (click == 1 && id != prevButn) {
+    document.getElementById(prevButn).style.display = "none";
+    document.getElementById(id).style.display = "block";
+    prevButn = id;
   }
   else {
     alert("This button is not working.");
