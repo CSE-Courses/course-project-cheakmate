@@ -156,7 +156,7 @@ function initialize(){
     }
   }
 
-  board[6][0] = "images/sprites/lx1.png";
+  /*board[6][0] = "images/sprites/lx1.png";*/
 
   /*Display board*/
   populate();
@@ -315,11 +315,15 @@ function changePlayer(){
   else if (getCurrentPlayer() == BLACK) {
     setPlayer(WHITE);
     counterSpawn++;
-    if(counterSpawn == 1){
-    	spawnSpecialEvent("x1");
+    if(counterSpawn % 3 == 1){
     	spawnSpecialEvent("x2");
-    	spawnSpecialEvent("x3");
-    }
+	}
+	if(counterSpawn % 4 == 1){
+		spawnSpecialEvent("x1");
+	}
+	if(counterSpawn % 5 == 1){
+		spawnSpecialEvent("x3");
+	}
   }
   decreaseBlockedTileLife();
 
