@@ -1775,7 +1775,7 @@ if(board[r][c].includes("gw")){
 		}
 	}
 	/*capture left*/
-	if(isOutOfBounds(r,c-1)){
+	if(!isOutOfBounds(r,c-1)){
 		if(c - 1 >= 0){
 			num = "" + r + (c - 1);
 			if(board[r][c - 1].includes("x0.png")){
@@ -1788,7 +1788,7 @@ if(board[r][c].includes("gw")){
 		}
 	}
 	/*capture right*/
-	if(isOutOfBounds(r,c+1)){
+	if(!isOutOfBounds(r,c+1)){
 		if(c + 1 <= 9){
 			num = "" + r + (c + 1);
 			if(board[r][c + 1].includes("x0.png")){
@@ -1944,7 +1944,7 @@ if(board[r][c].includes("gb")){
 		}
 	}
 	/*capture left*/
-	if(isOutOfBounds(r,c-1)){
+	if(!isOutOfBounds(r,c-1)){
 		if(c - 1 >= 0){
 			num = "" + r + (c - 1);
 			if(board[r][c - 1].includes("x0.png")){
@@ -1957,7 +1957,7 @@ if(board[r][c].includes("gb")){
 		}
 	}
 	/*capture right*/
-	if(isOutOfBounds(r,c+1)){
+	if(!isOutOfBounds(r,c+1)){
 		if(c + 1 <= 9){
 			num = "" + r + (c + 1);
 			if(board[r][c + 1].includes("x0.png")){
@@ -2136,10 +2136,10 @@ function showPossibleQueenMoves(r,c){
 		/* up movement */
 		for(i=rw-1; i>-1; i--){
 			if(!isEmptyTile(i,c)){
-				if(board[i][j].includes("x0.png")){
+				if(board[i][c].includes("x0.png")){
 					break;
 			    	/*nothing should happen*/
-			    }else if(board[i][c].includes("b.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
+			    }else if(board[i][c].includes("b.png") || board[i][c].includes("lx") || board[i][c].includes("dx")){
 					num = "" + i + c;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -2159,10 +2159,10 @@ function showPossibleQueenMoves(r,c){
 		for(i=rw+1; i<10; i++){
 			/*window.alert(i); */
 			if(!isEmptyTile(i,c)){
-				if(board[i][j].includes("x0.png")){
+				if(board[i][c].includes("x0.png")){
 					break;
 			    	/*nothing should happen*/
-			    }else if(board[i][c].includes("b.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
+			    }else if(board[i][c].includes("b.png") || board[i][c].includes("lx") || board[i][c].includes("dx")){
 					num = "" + i + c;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -2182,10 +2182,10 @@ function showPossibleQueenMoves(r,c){
 		for(i=cl+1; i<10; i++){
 			/* window.alert(i) */
 			if(!isEmptyTile(r,i)){
-				if(board[i][j].includes("x0.png")){
+				if(board[r][i].includes("x0.png")){
 					break;
 			    	/*nothing should happen*/
-			    }else if(board[r][i].includes("b.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
+			    }else if(board[r][i].includes("b.png") || board[r][i].includes("lx") || board[r][i].includes("dx")){
 					num = "" + r + i;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -2205,10 +2205,10 @@ function showPossibleQueenMoves(r,c){
 		for(i=cl-1; i>-1; i--){
 			/* window.alert(i) */
 			if(!isEmptyTile(r,i)){
-				if(board[i][j].includes("x0.png")){
+				if(board[r][i].includes("x0.png")){
 					break;
 			    	/*nothing should happen*/
-			    }else if(board[r][i].includes("b.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
+			    }else if(board[r][i].includes("b.png") || board[r][i].includes("lx") || board[r][i].includes("dx")){
 					num = "" + r + i;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -2323,10 +2323,10 @@ function showPossibleQueenMoves(r,c){
 		for(i=rw+1; i<10; i++){
 			/* window.alert(i) */
 			if(!isEmptyTile(i,c)){
-				if(board[i][j].includes("x0.png")){
+				if(board[i][c].includes("x0.png")){
 					break;
 			    	/*nothing should happen*/
-			    }else if(board[i][c].includes("w.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
+			    }else if(board[i][c].includes("w.png") || board[i][c].includes("lx") || board[i][c].includes("dx")){
 					num = "" + i + c;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -2346,10 +2346,10 @@ function showPossibleQueenMoves(r,c){
 		for(i=rw-1; i>-1; i--){
 			/* window.alert(i) */
 			if(!isEmptyTile(i,c)){
-				if(board[i][j].includes("x0.png")){
+				if(board[i][c].includes("x0.png")){
 					break;
 			    	/*nothing should happen*/
-			    }else if(board[i][c].includes("w.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
+			    }else if(board[i][c].includes("w.png") || board[i][c].includes("lx") || board[i][c].includes("dx")){
 					num = "" + i + c;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -2369,10 +2369,10 @@ function showPossibleQueenMoves(r,c){
 		for(i=cl+1; i<10; i++){
 			/* window.alert(i) */
 			if(!isEmptyTile(r,i)){
-				if(board[i][j].includes("x0.png")){
+				if(board[r][i].includes("x0.png")){
 					break;
 			    	/*nothing should happen*/
-			    }else if(board[r][i].includes("w.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
+			    }else if(board[r][i].includes("w.png") || board[r][i].includes("lx") || board[r][i].includes("dx")){
 					num = "" + r + i;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
@@ -2392,10 +2392,10 @@ function showPossibleQueenMoves(r,c){
 		for(i=cl-1; i>-1; i--){
 			/* window.alert(i) */
 			if(!isEmptyTile(r,i)){
-				if(board[i][j].includes("x0.png")){
+				if(board[r][i].includes("x0.png")){
 					break;
 			    	/*nothing should happen*/
-			    }else if(board[r][i].includes("w.png") || board[i][j].includes("lx") || board[i][j].includes("dx")){
+			    }else if(board[r][i].includes("w.png") || board[r][i].includes("lx") || board[r][i].includes("dx")){
 					num = "" + r + i;
 					changeBorderColor(num, "#ff5050");
 					moves.push(num);
