@@ -831,6 +831,7 @@ function activatePowerUp(r, c){
   else if (board[r][c].includes("x3")) {
     /*TODO: Transform Turn*/
 	  var currentPlayerTurn = "";
+	  var pieceThing = "";
 	  var tileColor = "";
 	  randomGen = Math.floor(Math.random() * 4); 
 	  if(board[r][c].includes("l")){
@@ -852,6 +853,24 @@ function activatePowerUp(r, c){
 		  board[firstPieceR][firstPieceC] = "images/sprites/d.png";
 	  }
 	  var newPiece = "images/sprites/" + tileColor + pieceList[randomGen] + currentPlayerTurn + ".png"; 
+	  if(pieceList[randomGen] == "p"){
+		  pieceThing = "Pawn";
+	  }
+	  else if(pieceList[randomGen] == "h"){
+		  pieceThing = "Bishop";
+	  }
+	  else if(pieceList[randomGen] == "q"){
+		  pieceThing = "Queen";
+	  }
+	  else if(pieceList[randomGen] == "k"){
+		  pieceThing = "Knight";
+	  }
+	  else if(pieceList[randomGen] == "o"){
+		  pieceThing = "Rook";
+	  }
+	  
+	  
+	  alert("Congratulations! Your piece changed into a " + pieceThing + "!");
 	  board[r][c] = newPiece;
 	  if (getCurrentPlayer() == WHITE){
 		  enablePieces(BLACK);
@@ -860,6 +879,7 @@ function activatePowerUp(r, c){
 		  enablePieces(WHITE);
 		  disablePieces(BLACK);
 		}
+	  changePlayer();
   }
 }
 
