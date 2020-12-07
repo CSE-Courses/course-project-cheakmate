@@ -12,6 +12,9 @@ var capturedByBlack; /*2D array to keep image sources for pieces captured by bla
 var firstPiece = ""; /*Keeps track of first img to be moved*/
 var secondPiece = ""; /*Keeps track of second img to be moved*/
 
+var firstPieceR = "";
+var firstPieceC = "";
+
 var needExchangePiece = false; /*Keeps track of whether or not a third img is needed*/
 var exchangeForPiece = ""; /*Keeps track of img to be swapped for*/
 
@@ -20,6 +23,8 @@ var counterSpawn = 0; /*counter for special event spawn*/
 var blockedTiles; /*2D array to keep coords of blocked tiles*/
 var blockedTileTurnCounter = 0; /*counter to track when to spawn a blocked tile (with const blockedTileEveryNumTurns)*/
 var numOfBlockedTiles = 0; /*Number of blocked tiles on the board*/
+
+const pieceList = ["p", 'k', "q", "o", "h"]; /*List of pieces not king*/
 
 const blockedTileEveryNumTurns = 3; /*Together with blockedTileTurnCounter, this const is the number of turns before a blocked tile spawns*/
 const maxNumOfBlocked = 7; /*how many blocked tiles should be on the board at once*/
@@ -586,10 +591,12 @@ function runGame(imageId){
 		  showPossibleKingMoves(r,c);
 	  }
 
-		if(isQueen(r,c)){
-			firstPiece = imageId;
-			showPossibleQueenMoves(r,c);
-		}
+	if(isQueen(r,c)){
+		firstPiece = imageId;
+		showPossibleQueenMoves(r,c);
+	}
+	firstPieceR = r;
+	firstPieceC = c;
   }
   else if (isInMoves(imageId)){
     secondPiece = imageId;
@@ -823,6 +830,36 @@ function activatePowerUp(r, c){
   }
   else if (board[r][c].includes("x3")) {
     /*TODO: Transform Turn*/
+	  var currentPlayerTurn = "";
+	  var tileColor = "";
+	  randomGen = Math.floor(Math.random() * 4); 
+	  if(board[r][c].includes("l")){
+		tileColor = "l";
+	  }
+	  else if(board[r][c].includes("d")){
+		tileColor = "d"
+	  }
+  	  if (getCurrentPlayer() == WHITE) {	
+  		currentPlayerTurn = "w";
+  	  }
+  	  else if(getCurrentPlayer() == BLACK) {	
+  		currentPlayerTurn = "b";
+  	  }
+  	  if(board[firstPieceR][firstPieceC].includes("l")){
+  		board[firstPieceR][firstPieceC] = "images/sprites/l.png";
+	  }
+	  else if(board[r][c].includes("d")){
+		  board[firstPieceR][firstPieceC] = "images/sprites/d.png";
+	  }
+	  var newPiece = "images/sprites/" + tileColor + pieceList[randomGen] + currentPlayerTurn + ".png"; 
+	  board[r][c] = newPiece;
+	  if (getCurrentPlayer() == WHITE){
+		  enablePieces(BLACK);
+	  	  disablePieces(WHITE);
+		}else{
+		  enablePieces(WHITE);
+		  disablePieces(BLACK);
+		}
   }
 }
 
@@ -2460,5 +2497,13 @@ function spawnSpecialEvent(event){
 		/* alert("power is spawned at " + r + ", " + c); */
 	}else{
 		spawnSpecialEvent(event);
+	}
+}
+function endTurn(){
+	if (getCurrentPlayer() == WHITE){
+		setPlayer(BLACK);
+	}
+	else if (getCurrentPlayer() == BLACK){
+		setPlayer(WHITE);
 	}
 }
