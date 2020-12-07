@@ -43,6 +43,17 @@ table, tr, td {
 	font-family: Impact, Charcoal, sans-serif;
 	font-size: 30px;
 	color: whitesmoke;
+	float: left;
+	margin: 0 10px 10px 0;
+}
+
+/* @Author: Alex */
+#playerTime {
+	font-family: Impact, Charcoal, sans-serif;
+	font-size: 30px;
+	color: whitesmoke;
+	float: left;
+	margin: 0 10px 10px 0;
 }
 
 /*@Author: Alex*/
