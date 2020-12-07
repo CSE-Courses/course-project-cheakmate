@@ -383,5 +383,9 @@ public class ChessWebServer {
 		imageList.add("/images/sprites/dx5.png");
 		imageList.add("/images/sprites/dx6.png");
 		imageList.add("/images/sprites/dx7.png");
+		imageList.add("/images/sprites/sp1.png");
+		imageList.add("/images/sprites/sp2.png");
+		imageList.add("/images/sprites/sp3.png");
+		imageList.add("/images/sprites/sp4.png");
 	}
 }
