@@ -880,6 +880,7 @@ function activatePowerUp(r, c){
 		  disablePieces(BLACK);
 		}
 	  changePlayer();
+	  populate();
   }
 }
 
