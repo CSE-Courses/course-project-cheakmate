@@ -307,6 +307,7 @@ function getCurrentPlayer(){
 /*@Author: Kat*/
 /*@Editor: Richard*/
 /*@Editor: Kevin*/
+/*@Editor: Alam*/
 /*Changes the current player*/
 function changePlayer(){
   if(getCurrentPlayer() == WHITE){
@@ -801,6 +802,7 @@ function isPowerUp(r, c){
 }
 
 /*@Author: Kat*/
+/*@Editor: Alam*/
 /*Activates respective Power Up accroding to its number (e.g. 0 would be Blocked Tile, 1 would be Swap Tile, etc)*/
 /*@Param int r is the number value for row*/
 /*@Param int c is the number value for column*/
